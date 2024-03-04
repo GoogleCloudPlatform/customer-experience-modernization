@@ -1,0 +1,91 @@
+<!--
+ Copyright 2024 Google LLC
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+
+<mat-card style="border:1px solid #D5D5D5; ; box-shadow: none; margin-top:15px;margin-bottom:15px">
+	<!-- <div style="border-radius: 16px; border: 1px solid #D5D5D5;"> -->
+		<mat-card-header>
+			<img mat-card-avatar [src]="userPhotoURL">
+			<mat-card-title>{{userName}}</mat-card-title>
+			<mat-card-subtitle>{{userEmail}}</mat-card-subtitle>
+			<span class="flex-expand"></span>
+			<button *ngIf="!showTranslationForm" mat-icon-button (click)="showTranslationForm=true"
+				class="translate-icon">
+				<mat-icon>
+					translate
+				</mat-icon>
+			</button>
+
+		</mat-card-header>
+		<div>
+
+			<form *ngIf="showTranslationForm">
+				<mat-form-field class="col-10" style="margin:10px 10px 0px 10px">
+					<mat-label>Language</mat-label>
+					<input id="translationLanguage" type="text" matInput [formControl]="languageControl"
+						[matAutocomplete]="auto">
+					<mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+						@for (option of filteredOptions | async; track option) {
+						<mat-option [value]="option">{{option.name}}</mat-option>
+						}
+					</mat-autocomplete>
+				</mat-form-field>
+				<button class="mb-2" style="margin:0px 10px 0px 10px" mat-raised-button type="submit" (click)="changeLanguage()" color="primary">Change
+					Language</button>
+
+				<mat-divider></mat-divider>
+			</form>
+
+			<div class="list-group list-group-flush" style="margin-bottom:10px">
+				<div class="list-group-item list-group-item-action
+				case-summary-header" *ngIf="cases.length>0">
+					<div class="col-12 d-flex align-items-center justify-content-between">
+						<span class="col-6">Case Summary</span>
+						<span class="col-3 text-center">Date & time</span>
+						<button class="me-2 googleMeetBtn col-3" (click)="archiveAll()">Archive All</button>
+					</div>
+					
+				</div>
+				<button *ngFor="let case of slicedCaseHistory()" class="list-group-item list-group-item-action case-summary"
+					aria-current="true" (click)="selectCase(case)">
+					<div class="d-flex w-100 justify-content-between">
+						<div class="col-10 d-flex align-items-center justify-content-center">
+							<!-- <p class="mb-1 me-2">{{case.title || "Open case"}}
+							<small style="float: right;">{{case.timestamp.toDate().toLocaleString()}}</small></p> -->
+							<span class="col-8">{{(case.title || "Open case") | truncate: 40}}</span>
+							<span class="col-4">{{case.timestamp.toDate().toLocaleString()}}</span>
+						</div>
+						<div class="col-2 d-flex justify-content-center align-items-center">
+							<span class="badge bg-primary rounded-pill"
+								[ngClass]="case.title ? 'bg-secondary' : 'bg-primary'">{{case.title
+								?
+								"closed" :
+								"open"}}</span>
+						</div>
+					</div>
+				</button>
+			</div>
+			<mat-paginator #paginator (page)="handlePageEvent($event)" [length]="caseHistory.length" *ngIf="caseHistory.length"
+				[pageSize]="pageSize" [pageIndex]="pageIndex" hidePageSize aria-label="Select page" style="margin:0px 0px 12px 0px">
+			</mat-paginator>
+		</div>
+	<!-- </div> -->
+</mat-card>
+<mat-card style="border:none ; box-shadow: none;" *ngIf="messages.length>0">
+	<div style="border-radius: 16px; border: 1px solid #D5D5D5;padding:5px;">
+		<customer-service-agent-agent-messages *ngIf="messages" [messages]="messages"
+			[summary]="summary"></customer-service-agent-agent-messages>
+	</div>
+</mat-card>

@@ -1,0 +1,332 @@
+<!--
+ Copyright 2024 Google LLC
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+
+<div class="grid-container">
+	<mat-toolbar class="toolbar-top" style="background: #FFF;
+	box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.15); align-items: center;">
+		<img src="assets/images/cymbal-customer-service-logo.svg" alt="Cymbal Customer Service Logo">
+		<img src="assets/images/cymbal-text-logo.svg" alt="Cymbal Text Logo" class="ms-2">
+		<content-creator-header class="ms-2"></content-creator-header>
+		<span class="flex-expand"></span>
+		<app-user-photo></app-user-photo>
+	</mat-toolbar>
+	<div class="content col-10 mx-auto">
+		<mat-tab-group mat-stretch-tabs="false">
+			<mat-tab label="Products">
+				<mat-divider></mat-divider>
+				<div class="main" style="margin: 20px 0.5rem;">
+					<div class="d-flex mt-4">
+						<div class="col-6" style="padding-right: 20px;">
+							<mat-stepper orientation="vertical" linear #stepper>
+								<mat-step [stepControl]="firstFormGroup">
+									<form [formGroup]="firstFormGroup">
+										<ng-template matStepLabel mb-2>Product information input</ng-template>
+										<mat-label class="title">Product title</mat-label>
+										<mat-form-field appearance="outline">
+											<input matInput placeholder="LUXURIOUS HOTEL-QUALITY BED SHEETS"
+												formControlName="firstCtrl" required>
+										</mat-form-field>
+										<div>
+											<button mat-button matStepperNext class="nextBtn">Next</button>
+										</div>
+									</form>
+								</mat-step>
+								<mat-step [stepControl]="secondFormGroup">
+									<form [formGroup]="secondFormGroup">
+										<ng-template matStepLabel mb-2>Upload an Image</ng-template>
+										<mat-label class="title">Upload product assets</mat-label>
+
+										<div>
+											<div class="dropzone" appFileDragDrop
+												(filesChangeEmiter)="selectFiles($event)" nv-file-drop="">
+												<div class="text-wrapper">
+													<div class="centered" *ngIf="(selectedFiles.length)<=0">
+														<input type="file" id="file" name="file" accept="image/*"
+															multiple (change)="selectFiles($event)">
+														<label for="file" class="dropLabel"> Drop files or
+															<span class="textLink">Select file</span>
+														</label>
+													</div>
+													<div *ngIf="selectedFileNames.length>0">
+														<div>
+															<div class=" fileItem"
+																*ngFor="let f of selectedFiles; let ind = index">
+																<div class="col-sm-12 fileItemText d-flex">
+																	<div class="d-flex flex-column">
+																		<span><b>{{f.name}} </b></span>
+																		<p class="fileSize">
+																			{{getReadableFileSizeString(f.size)}}
+																			.Uploaded
+																		</p>
+																	</div>
+																	<div class="d-flex" style="margin-left:5px">
+																		<mat-icon (click)="deleteFromArray(ind)"
+																			class="deleteBtn">
+																			<!-- <svg xmlns="http://www.w3.org/2000/svg"
+																				width="21" height="24"
+																				viewBox="0 0 21 24" fill="none">
+																				<path
+																					d="M3.22639 23.5C2.69398 23.5 2.24144 23.3137 1.86875 22.941C1.49606 22.5683 1.30972 22.1157 1.30972 21.5833V3.375H0V1.45833H6.00555V0.5H14.4389V1.45833H20.4444V3.375H19.1347V21.5833C19.1347 22.0944 18.9431 22.5417 18.5597 22.925C18.1764 23.3083 17.7292 23.5 17.2181 23.5H3.22639ZM17.2181 3.375H3.22639V21.5833H17.2181V3.375ZM6.6125 18.8361H8.52917V6.09028H6.6125V18.8361ZM11.9153 18.8361H13.8319V6.09028H11.9153V18.8361Z"
+																					fill="#041E49" />
+																			</svg> -->
+																			delete
+																		</mat-icon>
+																	</div>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div>
+											<button mat-button matStepperPrevious class="nextBtn">Back</button>
+											<button mat-button matStepperNext class="nextBtn">Next</button>
+										</div>
+									</form>
+								</mat-step>
+								<mat-step [completed]="isGenerated">
+									<ng-template matStepLabel>Generate labels, features and categories</ng-template>
+									<div class="d-flex flex-column ">
+										<div class="mt-3"> <button mat-button matStepperPrevious
+												class="nextBtn">Back</button>
+											<button (click)="generate()" class="generateBtn">
+												<img src="assets/images/button_magic.svg" alt="magic symbol">
+												Generate</button>
+										</div>
+										<div class="d-flex mt-2">
+											<mat-spinner *ngIf="loading" [diameter]="40"></mat-spinner>
+										</div>
+									</div>
+								</mat-step>
+
+								<mat-step>
+									<ng-template matStepLabel>Review generated labels, features and
+										categories</ng-template>
+									<div class="mb-2">
+										<img *ngFor="let preview of previews" [src]="preview" class="preview" />
+									</div>
+									<mat-label class="title">Labels</mat-label>
+									<mat-form-field class="example-chip-list" appearance="outline">
+										<mat-chip-grid #chipGridLabels aria-label="Enter labels">
+											@for (label of labels; track label) {
+											<mat-chip-row (removed)="remove(label, ItemTypesEnum.Labels)"
+												[editable]="true" (edited)="edit(label, $event, ItemTypesEnum.Labels)"
+												[aria-description]="'press enter to edit ' + label">
+												{{label}}
+												<button matChipRemove [attr.aria-label]="'remove ' + label">
+													<mat-icon>cancel</mat-icon>
+												</button>
+											</mat-chip-row>
+											}
+											<input placeholder="New label..." [matChipInputFor]="chipGridLabels"
+												[matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+												[matChipInputAddOnBlur]="addOnBlur"
+												(matChipInputTokenEnd)="add($event,ItemTypesEnum.Labels)" />
+										</mat-chip-grid>
+									</mat-form-field>
+									<mat-label class="title">Features</mat-label>
+									<mat-form-field class="example-chip-list" appearance="outline">
+										<mat-chip-grid #chipGridFeatures aria-label="Enter features">
+											@for (feature of features; track feature) {
+											<mat-chip-row (removed)="remove(feature, ItemTypesEnum.Features)"
+												[editable]="true"
+												(edited)="edit(feature, $event, ItemTypesEnum.Features)"
+												[aria-description]="'press enter to edit ' + feature">
+												{{feature}}
+												<button matChipRemove [attr.aria-label]="'remove ' + feature">
+													<mat-icon>cancel</mat-icon>
+												</button>
+											</mat-chip-row>
+											}
+											<input placeholder="New feature..." [matChipInputFor]="chipGridFeatures"
+												[matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+												[matChipInputAddOnBlur]="addOnBlur"
+												(matChipInputTokenEnd)="add($event,ItemTypesEnum.Features)" />
+										</mat-chip-grid>
+									</mat-form-field>
+									<mat-label class="title">Categories</mat-label>
+									<mat-form-field class="example-chip-list" appearance="outline">
+										<mat-chip-grid #chipGridCategories aria-label="Enter categories">
+											@for (category of categories; track category) {
+											<mat-chip-row (removed)="remove(category, ItemTypesEnum.Categories)"
+												[editable]="true"
+												(edited)="edit(category, $event, ItemTypesEnum.Categories)"
+												[aria-description]="'press enter to edit ' + category">
+												{{category}}
+												<button matChipRemove [attr.aria-label]="'remove ' + category">
+													<mat-icon>cancel</mat-icon>
+												</button>
+											</mat-chip-row>
+											}
+											<input placeholder="New category..." [matChipInputFor]="chipGridCategories"
+												[matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+												[matChipInputAddOnBlur]="addOnBlur"
+												(matChipInputTokenEnd)="add($event,ItemTypesEnum.Categories)" />
+										</mat-chip-grid>
+									</mat-form-field>
+									<div>
+										<button mat-button matStepperPrevious class="nextBtn">Back</button>
+										<button mat-button matStepperNext class="nextBtn">Next</button>
+									</div>
+
+								</mat-step>
+								<mat-step [completed]="isTitleGenerated">
+									<ng-template matStepLabel>Generate title and description</ng-template>
+									<div class="d-flex flex-column ">
+										<div class="d-flex mt-3">
+											<button mat-button matStepperPrevious class="nextBtn">Back</button>
+											<button (click)="generateTitleDescription()" class="generateBtn">
+												<img src="assets/images/button_magic.svg" alt="magic symbol">
+												Generate</button>
+										</div>
+										<div class="d-flex mt-2">
+											<mat-spinner *ngIf="loading" [diameter]="40"></mat-spinner>
+										</div>
+									</div>
+								</mat-step>
+								<mat-step>
+									<ng-template matStepLabel>Review generated title and description</ng-template>
+									<form [formGroup]="thirdFormGroup">
+										<ng-template matStepLabel>Fill out the product title</ng-template>
+										<mat-label class="title">Product title</mat-label>
+										<mat-form-field appearance="outline">
+											<input matInput [value]="title" formControlName="thirdCtrl" required>
+										</mat-form-field>
+										<mat-label class="title">Description</mat-label>
+										<mat-form-field appearance="outline">
+											<textarea matInput [value]="description" formControlName="fourthCtrl"
+												required style="min-height:200px"></textarea>
+										</mat-form-field>
+										<div>
+											<button mat-button matStepperPrevious class="nextBtn">Back</button>
+											<button mat-button matStepperNext class="nextBtn">Next</button>
+										</div>
+									</form>
+								</mat-step>
+								<mat-step [completed]="isSaved">
+
+									<ng-template matStepLabel>Save product</ng-template>
+									<div class="d-flex flex-column ">
+										<div class="d-flex mt-3">
+											<button mat-button matStepperPrevious class="nextBtn">Back</button>
+											<button (click)="saveProduct()" class="saveBtn">Save</button>
+										</div>
+										<div class="d-flex mt-2">
+											<mat-spinner *ngIf="loading" [diameter]="40"></mat-spinner>
+										</div>
+									</div>
+
+								</mat-step>
+
+								<mat-step>
+									<ng-template matStepLabel>Done</ng-template>
+									<p> Product saved! </p>
+									<div>
+										<button [routerLink]="['/content-creator/home']" class="saveBtn">Go
+											Home</button>
+										<button (click)="reset()" class="saveBtn">Add New Product</button>
+									</div>
+								</mat-step>
+							</mat-stepper>
+						</div>
+						<mat-divider inset vertical style="margin-top: -20px;margin-left: 0px;"></mat-divider>
+						<div class="col-6 mt-3">
+							<div class="product-background align-margin">
+								<div>
+									<div class="mb-4 box-shadow">
+										<div>
+											<label class="preview-title">Preview</label>
+										</div>
+										<mat-divider class="mb-4 mt-4" style="min-width:550px"></mat-divider>
+										<div *ngIf="this.firstFormGroup.controls['firstCtrl'].value"
+											class="d-flex flex-column">
+											<label class="productLabel">PRODUCT TITLE</label>
+											<span class="product-name">{{title ||
+												this.firstFormGroup.controls['firstCtrl'].value }}
+											</span>
+											<br>
+										</div>
+										<div class="d-flex">
+											<div class="col-6">
+												<div *ngIf="labels.length>0" class="d-flex flex-column">
+													<label class="productLabel">LABEL</label>
+													<span class="product-name">
+														{{labels.join(', ')}}
+													</span>
+												</div>
+												<div *ngIf="categories.length>0" class="d-flex flex-column">
+													<label class="productLabel">CATEGORY</label>
+													<span class="product-name">{{categories.join(', ')}}</span>
+												</div>
+											</div>
+											<div class="col-6 d-flex flex-column" style="margin-left:5px"
+												*ngIf="features.length>0">
+												<label class="productLabel">FEATURE</label>
+												<span class="product-name">{{features.join(', ')}}</span>
+											</div>
+										</div>
+										<!-- Product description -->
+										<div *ngIf="this.thirdFormGroup.controls['fourthCtrl'].value">
+											<div class="col-12 d-flex flex-column">
+												<label class="productLabel">PRODUCT DESCRIPTION</label>
+												<span class="product-name">
+													{{this.thirdFormGroup.controls['fourthCtrl'].value}}</span>
+											</div>
+										</div>
+										<div *ngIf="previews.length>0">
+											<div class="col-xl-12">
+												<label class="productLabel">IMAGES</label><br>
+												<img *ngFor="let preview of previews" [src]="preview" class="preview" />
+												<!-- <p-carousel [value]="previews" [numVisible]="3" [numScroll]="1" [circular]="false"
+													>
+													<ng-template let-p pTemplate="item">
+														<div class="col-sm-6 mb-2 product-background-img ">
+															<div class="card flex-md-row mb-4 box-shadow h-md-250 card-border">
+																<img class="card-img-right product-images flex-auto d-md-block"
+																	data-src="{{p}}" alt="Card image">
+															</div>
+														</div>
+													</ng-template>
+												</p-carousel> -->
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<br>
+						</div>
+					</div>
+
+				</div>
+			</mat-tab>
+			<mat-tab label="Services">
+				<mat-divider></mat-divider>
+				<div class="main" style="margin: 20px 0.5rem;">
+					<div>
+						<button class="mb-2 addProductBtn" (click)="addService()"
+							[routerLink]="['/content-creator/add-service']"
+							*ngIf="!showAddServiceCompoment"><mat-icon>add</mat-icon>
+							Add Service</button>
+						<!-- <content-creator-add-service *ngIf="showAddServiceCompoment"></content-creator-add-service> -->
+
+						<content-creator-service-list *ngIf="!showAddServiceCompoment"></content-creator-service-list>
+					</div>
+				</div>
+			</mat-tab>
+		</mat-tab-group>
+	</div>
+</div>

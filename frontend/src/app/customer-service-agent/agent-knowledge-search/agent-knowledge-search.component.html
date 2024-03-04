@@ -1,0 +1,263 @@
+<!--
+ Copyright 2024 Google LLC
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+
+<!-- <mat-tab-group>
+	<mat-tab label="Company Knowledge">
+		<form class="mx-3">
+			<mat-form-field class="col-10">
+				<mat-label>Ask your question</mat-label>
+				<input type="text" matInput [formControl]="kbMsgCtrl"
+					placeholder="I need help with my chair...">
+			</mat-form-field>
+			<button mat-icon-button (click)="searchKB()">
+				<mat-icon fontSet="google-symbols">
+					search_spark </mat-icon>
+			</button>
+
+		</form>
+		<p>{{kbSummary}}</p>
+		<mat-divider></mat-divider>
+		<ol [start]="(pageIndexKB * pageSizeKB) + 1">
+			<ng-container *ngFor="let kbResult of slicedResultsKB()">
+				<li class="m-2">
+					<a
+						[href]="kbResult.link.replace('gs://', 'https://storage.googleapis.com/')">{{kbResult.title}}</a>
+					<div [innerHTML]="kbResult.snippet"></div>
+					<mat-expansion-panel>
+
+						<mat-expansion-panel-header>
+							<mat-panel-title>Manual Preview</mat-panel-title>
+						</mat-expansion-panel-header>
+						<div [innerHTML]="kbResult.manual"></div>
+					</mat-expansion-panel>
+
+				</li>
+				<mat-divider></mat-divider>
+			</ng-container>
+		</ol>
+		<mat-paginator #paginatorKB (page)="handlePageEventKB($event)" [length]="kbResults.length"
+			[pageSize]="pageSizeKB" [pageIndex]="pageIndexKB" hidePageSize aria-label="Select page">
+		</mat-paginator>
+
+
+
+	</mat-tab>
+
+	<mat-tab label="Conversations">
+		<form class="mx-3">
+			<mat-form-field class="col-10">
+				<mat-label>Ask your question</mat-label>
+				<input type="text" matInput [formControl]="conversationMsgCtrl"
+					placeholder="I need help with my chair">
+			</mat-form-field>
+			<button mat-icon-button (click)="searchConversations()">
+				<mat-icon fontSet="google-symbols">
+					search_spark </mat-icon>
+			</button>
+
+
+		</form>
+		<p>{{conversationsSummary}}</p>
+		<mat-divider></mat-divider>
+		<ol [start]="(pageIndexConversations * pageSizeConversations) + 1">
+			<ng-container *ngFor="let conversationsResult of slicedResultsConversations()">
+				<li class="m-2">
+					<a
+						[href]="conversationsResult.link.replace('gs://', 'https://storage.googleapis.com/')">{{conversationsResult.title}}</a>
+					<div [innerHTML]="conversationsResult.snippet"></div>
+					<mat-expansion-panel>
+
+						<mat-expansion-panel-header>
+							<mat-panel-title>Conversation Preview</mat-panel-title>
+						</mat-expansion-panel-header>
+						<div [innerHTML]="conversationsResult.conversation"></div>
+					</mat-expansion-panel>
+
+				</li>
+				<mat-divider></mat-divider>
+			</ng-container>
+		</ol>
+		<mat-paginator #paginatorConversations (page)="handlePageEventConversations($event)"
+			[length]="conversationsResults.length" [pageSize]="pageSizeConversations"
+			[pageIndex]="pageIndexConversations" hidePageSize aria-label="Select page">
+		</mat-paginator>
+
+	</mat-tab>
+</mat-tab-group> -->
+
+<!-- <button class="currentCaseButton" (click)="companyKnowledgeClick()"
+	[ngClass]="{'btnActive': compKnowClicked === true}">Company Knowledge</button> &nbsp;&nbsp;
+<button class="currentCase" (click)="conversation()"
+	[ngClass]="{'btnActive': conversationClick === true}">Conversation</button>
+<br><br> -->
+
+<mat-tab-group style="margin-left: 20px;">
+	<mat-tab label="Company Knowledge">
+		<div *ngIf="showCompanyKnowledge" style="padding-top: 16px; padding-right: 20px;">
+			<form>
+				<div class="d-flex mb-2 col-12 align-items-center justify-content-between">
+					<input type="text" matInput [formControl]="kbMsgCtrl" placeholder="Type..." class="searchInput col-10">
+					<button (click)="searchKB()" class="searchBtn col-2">
+						<mat-icon fontSet="google-symbols">
+							search_spark </mat-icon>
+					</button>
+				</div>
+			</form>
+
+			<br>
+			<!-- <p>{{kbSummary}}</p> -->
+			<div class="card"
+				style="background: rgba(204, 221, 255, 0.30); padding:10px; border:none; margin-bottom:10px"
+				*ngIf="showSummary">
+				<div class="d-flex justify-content-between align-items-center">
+					<div class="d-flex justify-content-start align-items-center">
+						<span class="google-symbols aiSuggestion">
+							button_magic
+						</span>
+						<span class="aiSuggestion">AI Suggestions</span>
+					</div>
+					<button [cdkCopyToClipboard]="kbSummary" class="copyBtn" (click)="showContentCopiedMsg()"><span
+							class="google-symbols">
+							file_copy
+						</span></button>
+
+				</div>
+				<p class="kbSummary">{{kbSummary}}</p>
+			</div>
+			<ol [start]="(pageIndexKB * pageSizeKB) + 1" style="padding-left: 20px;">
+				<ng-container *ngFor="let kbResult of slicedResultsKB()">
+					<li class="kbResult">
+						<a [href]="kbResult.link.replace('gs://', 'https://storage.googleapis.com/')"
+							target="_blank">{{kbResult.title}}</a>
+						<div [innerHTML]="kbResult.snippet"></div>
+						<mat-expansion-panel>
+							<mat-expansion-panel-header>
+								<mat-panel-title>Manual Preview</mat-panel-title>
+							</mat-expansion-panel-header>
+							<div [innerHTML]="kbResult.manual"></div>
+						</mat-expansion-panel>
+					</li>
+				</ng-container>
+			</ol>
+			<mat-paginator #paginatorKB (page)="handlePageEventKB($event)" [length]="kbResults.length"
+				[pageSize]="pageSizeKB" [pageIndex]="pageIndexKB" hidePageSize aria-label="Select page"
+				*ngIf="kbResults.length">
+			</mat-paginator>
+		</div>
+	</mat-tab>
+	<mat-tab label="Conversations">
+		<div style="padding-right: 20px; padding-top: 16px;">
+		<div>
+			<form>
+				<div class="d-flex mb-2 col-12 align-items-center justify-content-between">
+					<input type="text" matInput [formControl]="conversationMsgCtrl" placeholder="Type..."
+						class="searchInput col-10">
+					<button (click)="searchConversations()" class="searchBtn col-2">
+						<mat-icon fontSet="google-symbols">
+							search_spark </mat-icon>
+					</button>
+				</div>
+			</form>
+		</div>
+		<div style="margin-bottom: 8px;" *ngIf="showConversationSummary">
+			<button class="filterButton d-flex align-items-center justify-content-center" (click)="showFilters()">
+				<span>Filter</span>
+				<span class="dot-flashing" *ngIf="showLoading"></span>
+			</button>
+		</div>
+		<div *ngIf="showFilterSection && showConversationSummary">
+			<table>
+				<tbody>
+					<tr class="filter-header">
+						<th style="width:20%;padding-left: 8px;">Rating</th>
+						<th style="width:20%">Status</th>
+						<th style="width:20%">Sentiment</th>
+						<th style="width:40%">Category</th>
+					</tr>
+					<tr>
+						<td style="width:20%"><ngb-rating [max]=5 [(rate)]="rating"
+								style="border-radius: 3px;border: 1px solid #E3E3E3; height:23px;margin-top:3px" /></td>
+						<td style="width:20%">
+							<div *ngFor="let res of buttonValuesStatus" style="margin-top: 2px;">
+								<button
+									[ngClass]="{'statusClass': selectButtonId === res._id , 'btnSelect':selectButtonId!=res._id}"
+									(click)="OnClickStatus(res.value , res._id)">{{res.name}}</button>
+							</div>
+						</td>
+						<td style="width:20%">
+							<div *ngFor="let res of buttonValuesSentiments">
+								<button (click)="OnClickSentiment(res.value , res._id)"
+									[ngClass]="{'statusClass': selectButtonSetimentId === res._id , 'btnSelect':selectButtonSetimentId!=res._id}">{{res.name}}</button>
+							</div>
+						</td>
+						<td style="width:40%">
+							<span *ngFor="let res of buttonValuesCatagorys">
+								<button
+									[ngClass]="{'statusClassCategory': selectButtonCategoryId === res._id , 'btnSelectCategory':selectButtonCategoryId!=res._id}"
+									(click)="OnClickCategory(res.value, res._id)">{{res.name}}</button>
+							</span>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+
+		<div class="actions d-flex align-items-center" *ngIf="showFilterSection">
+			<button class="applyBtn" (click)="OnClickApply()">Apply</button>
+			<button class="clearBtn" (click)="OnClickClear()">Clear</button>
+		</div>
+		<div class="card" style="background: rgba(204, 221, 255, 0.30); padding:10px ; border:none"
+			*ngIf="showConversationSummary">
+			<div class="d-flex justify-content-between align-items-center">
+				<div class="d-flex justify-content-start align-items-center">
+					<span class="google-symbols aiSuggestion">
+						button_magic
+					</span>
+					<span class="aiSuggestion">AI Suggestions</span>
+				</div>
+				<button [cdkCopyToClipboard]="conversationsSummary" class="copyBtn"
+					(click)="showContentCopiedMsg()">
+					<span class="google-symbols">
+						file_copy
+					</span>
+				</button>
+			</div>
+			<p class="kbSummary">{{conversationsSummary}}</p>
+		</div>
+
+		<ol [start]="(pageIndexConversations * pageSizeConversations) + 1" style="padding-left: 20px; padding-top:10px">
+			<ng-container *ngFor="let conversationsResult of slicedResultsConversations()">
+				<li class="kbResult">
+					<a [href]="conversationsResult.link.replace('gs://', 'https://storage.googleapis.com/')"
+						target="_blank">{{conversationsResult.title}}</a>
+					<div [innerHTML]="conversationsResult.snippet"></div>
+					<mat-expansion-panel>
+						<mat-expansion-panel-header>
+							<mat-panel-title>Conversation Preview</mat-panel-title>
+						</mat-expansion-panel-header>
+						<div [innerHTML]="conversationsResult.conversation"></div>
+					</mat-expansion-panel>
+				</li>
+			</ng-container>
+		</ol>
+		<mat-paginator #paginatorConversations (page)="handlePageEventConversations($event)"
+			[length]="conversationsResults.length" [pageSize]="pageSizeConversations"
+			[pageIndex]="pageIndexConversations" hidePageSize aria-label="Select page"
+			*ngIf="conversationsResults.length>0">
+		</mat-paginator>
+	</div>
+	</mat-tab>
+</mat-tab-group>

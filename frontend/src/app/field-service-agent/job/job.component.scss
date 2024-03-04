@@ -1,0 +1,468 @@
+/**
+ * Copyright 2024 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+h1 {
+    padding: 0 1rem;
+}
+
+h2 {
+    padding: 1rem;
+}
+
+mat-toolbar {
+    position: fixed;
+    top: 0;
+    z-index: 2;
+}
+
+
+// Move the content down so that it won't be hidden by the toolbar
+.content {
+    padding-top: 3.5rem;
+
+    @media screen and (min-width: 600px) {
+        padding-top: 4rem;
+    }
+
+    height: 100%;
+}
+
+.flex-expand {
+    flex: 1 1 auto;
+}
+
+.jobId {
+    color: #000;
+    font-family: Google Sans;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 20px;
+    /* 125% */
+    letter-spacing: 0.5px;
+    margin: 20px 60px;
+}
+
+.cardTitle {
+    color: #000;
+    font-family: Google Sans;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 20px;
+    /* 142.857% */
+    letter-spacing: 0.5px;
+    margin: 20px 60px;
+}
+
+.infoKeys {
+    color: var(--grey, #575757);
+    font-feature-settings: 'clig' off, 'liga' off;
+    font-family: Google Sans;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 20px;
+    /* 166.667% */
+    letter-spacing: -0.154px;
+}
+
+.infoValues {
+    color: #000;
+    font-feature-settings: 'clig' off, 'liga' off;
+    font-family: Google Sans;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 20px;
+    /* 142.857% */
+    letter-spacing: -0.154px;
+    word-break: break-word;
+}
+
+.jobDescTitle {
+    color: #000;
+    font-family: Google Sans;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 20px;
+    /* 142.857% */
+    letter-spacing: 0.5px;
+}
+
+.jobDesc {
+    color: #000;
+    font-feature-settings: 'clig' off, 'liga' off;
+    font-family: Google Sans;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px;
+    /* 142.857% */
+    letter-spacing: -0.154px;
+}
+
+.pastConv {
+    color: var(--messaging-light-on-background, #000);
+    font-feature-settings: 'clig' off, 'liga' off;
+    font-family: Google Sans;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px;
+    /* 142.857% */
+    letter-spacing: -0.154px;
+}
+
+.pastConvSubTitle {
+    color: #736C6C;
+    font-feature-settings: 'clig' off, 'liga' off;
+    font-family: Google Sans;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px;
+    /* 166.667% */
+    letter-spacing: -0.154px;
+    margin: 20px 60px;
+}
+
+.generateInsightsBtnEnabled {
+    border-radius: 10px;
+    background: #4D88FF;
+    color: #FFF;
+    text-align: center;
+    font-feature-settings: 'clig' off, 'liga' off;
+    font-family: Google Sans;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 20px;
+    /* 142.857% */
+    letter-spacing: -0.154px;
+    width: 146px;
+    height: 28px;
+    flex-shrink: 0;
+    border: none;
+}
+
+.generateInsightsBtn {
+    border-radius: 10px;
+    background: #BEBEBE;
+    color: #FFF;
+    text-align: center;
+    font-feature-settings: 'clig' off, 'liga' off;
+    font-family: Google Sans;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 20px;
+    /* 142.857% */
+    letter-spacing: -0.154px;
+    width: 146px;
+    height: 28px;
+    flex-shrink: 0;
+    border: none;
+}
+
+.convBody {
+    color: var(--messaging-light-on-background, #000);
+    font-feature-settings: 'clig' off, 'liga' off;
+    font-family: Google Sans;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px;
+    /* 142.857% */
+    letter-spacing: -0.154px;
+}
+
+.convHeader {
+    color: var(--grey, #575757);
+    font-feature-settings: 'clig' off, 'liga' off;
+    font-family: Google Sans;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 20px;
+    /* 166.667% */
+    letter-spacing: -0.154px;
+}
+
+::ng-deep .mdc-checkbox .mdc-checkbox__native-control:enabled:checked~.mdc-checkbox__background {
+    border-radius: 3px;
+    background: #3EC43B !important;
+    border-color: #3EC43B !important;
+}
+
+::ng-deep .mdc-checkbox:hover .mdc-checkbox__native-control:checked~.mdc-checkbox__ripple {
+    background: #beebbd !important;
+}
+
+::ng-deep .mdc-checkbox .mdc-checkbox__native-control:focus:checked~.mdc-checkbox__ripple {
+    background-color: #beebbd !important;
+}
+
+.kbSummary {
+    color: #000;
+    font-family: Google Sans;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 18px;
+    width: 648px;
+    //height: 94px;
+    border-radius: 10px;
+    border: 1px solid #E0E0E0;
+    padding: 10px;
+}
+
+.kbResultLink {
+    color: #000;
+    font-family: Google Sans;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 18px;
+}
+
+.kbResultSnippet {
+    color: #000;
+    font-family: Google Sans;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 18px;
+}
+
+.file-upload {
+    margin-left: 10px;
+    border-radius: 10px;
+    border: 1px solid #DFDFDF;
+    background: #FFF;
+    width: 113px;
+    height: 28px;
+    flex-shrink: 0;
+    color: var(--grey, #575757);
+    text-align: center;
+    font-feature-settings: 'clig' off, 'liga' off;
+    font-family: Google Sans;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px;
+    /* 142.857% */
+    letter-spacing: -0.154px;
+}
+
+//upload-image-css
+
+.imageUpload {
+    display: none;
+}
+
+.image-upload-container {
+    cursor: pointer;
+}
+
+.btn-bwm {
+    color: white;
+    font-size: 20px;
+}
+
+.convTitle {
+    color: #000;
+    font-feature-settings: 'clig' off, 'liga' off;
+    font-family: Google Sans;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 20px;
+    /* 125% */
+    letter-spacing: -0.154px;
+    margin: 20px 60px;
+}
+
+.convHtml {
+    color: #000;
+    font-feature-settings: 'clig' off, 'liga' off;
+    font-family: Google Sans;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px;
+    /* 142.857% */
+    letter-spacing: -0.154px;
+    margin: 20px 60px;
+    border-radius: 10px;
+    border: 1px solid #E0E0E0;
+    padding: 10px;
+}
+
+.searchBtn {
+    background: #4D88FF;
+    color: #FFF;
+    border-radius: 5px;
+    width: 45px;
+    height: 47px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+   // margin-top: 4px;
+    margin-left: 10px;
+}
+
+.manualPreviewTitle {
+    color: #000;
+    font-family: Google Sans;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 18px;
+}
+
+.aiTitle {
+    flex-direction: column;
+    justify-content: center;
+    flex-shrink: 0;
+    font-family: Google Sans;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 500;
+    background: linear-gradient(92deg, #7934A7 -15.74%, #A0BBFF 98.63%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.tabLabel {
+    color: #000;
+    text-align: center;
+    font-family: Google Sans;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px;
+    /* 125% */
+    letter-spacing: 0.5px;
+}
+
+/* Styles for tab labels */
+::ng-deep .mat-mdc-tab.mdc-tab--active .mdc-tab__text-label {
+    color: #000 !important;
+    text-align: center;
+    font-family: Google Sans;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px;
+    /* 125% */
+    letter-spacing: 0.5px;
+    //letter-spacing: -0.154px;
+}
+
+/* Styles for the active tab label */
+::ng-deep .mat-mdc-tab .mdc-tab__text-label {
+    color: #000 !important;
+    text-align: center;
+    font-family: Google Sans;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px;
+    /* 125% */
+    letter-spacing: 0.5px;
+}
+
+/* Styles for the ink bar */
+::ng-deep .mat-mdc-tab.mdc-tab--active .mdc-tab-indicator__content--underline {
+    stroke-width: 3px;
+    stroke: #4D88FF !important;
+    border-color: #4D88FF !important;
+    border-width : 3px;
+}
+
+::ng-deep .mat-mdc-tab.mdc-tab {
+    width: 50%;
+}
+
+.geminiTitle {
+    //text-align: center;
+    font-family: Google Sans !important;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 500;
+    // line-height: 57px;
+    /* 380% */
+    background: linear-gradient(92deg, #7934A7 -15.74%, #A0BBFF 98.63%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.geminiImage {
+    width: 320px;
+   // height: 178px;
+    flex-shrink: 0;
+    border-radius: 6px;
+}
+
+.searchInput {
+    width: 575px;
+    height: 48px;
+    flex-shrink: 0;
+    fill: var(--Grey-50, #F8F9FA);
+    stroke-width: 1px;
+    stroke: #D0D0D0;
+    background: #F8F9FA;
+    border-radius: 6px;
+    border: 1px solid #D0D0D0;
+    padding-left : 10px;
+    margin-left: 10px;
+}
+
+::ng-deep .adp{
+    font-family: Google Sans !important;
+}
+
+::ng-deep .mat-expansion-panel:not([class*=mat-elevation-z]){
+    box-shadow: none !important;
+    border : 1px solid #E3E3E3
+}
+
+.title {
+    color: #000;
+    font-family: "Google Sans";
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.upload-success {
+    color: rgb(23, 114, 51);
+    background-color: rgba(33, 195, 84, 0.1);
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 30px;
+    margin-top : 10px;
+    margin-left : 10px;
+    font-family: "Google Sans";
+}

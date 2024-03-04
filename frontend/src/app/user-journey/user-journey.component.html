@@ -1,0 +1,132 @@
+<!--
+ Copyright 2024 Google LLC
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+
+<div class="d-flex flex-column p-4 gap-4 list-css">
+    <div>
+        <span class="search">
+            <img src="/assets/images/Google Cloud _ Applied AI Engineering.svg"> </span>
+        <app-user-photo></app-user-photo>
+    </div>
+    <div class="list-group list-group-checkable d-grid gap-2 align-items-center justify-content-center"
+        style="margin: 50px;">
+        <div class="d-flex gap-2 w-100 justify-content-between">
+            <p class="left-text">
+                How to use this functional solution demo
+            </p>
+            <p class="right-text">
+                This demo consists of user journeys that are powered by Google Cloud products. Each User Journey has
+                architecture diagram and link to GCP console to real time demonstration. The user journeys are
+                interconnected, so we recommend starting from UJ1 and completing the full journey. However, if you want
+                to demonstrate specific feature, dive into the specific UJ.
+            </p>
+        </div>
+        <div *ngFor="let user of userJourneyList" class="user-text list-group-item d-flex gap-3 align"
+            aria-current="true">
+
+            <div class="d-flex gap-2 w-100 justify-content-between align">
+                <div>
+                    <img src="{{user.userImg}}" alt="twbs" class="rounded-circle flex-shrink-0 userImage">
+                </div>
+                <div class="user-title">
+                    <p class="mb-0 userId">{{user.userId}}</p>
+                    <p class="mb-0 userTitle">{{user.userTitle}}</p>
+                </div>
+                <div class="content-width">
+                    <ul>
+                        <div *ngFor="let content of user.userContent" class="d-grid gap-2">
+                            <li>
+                                <span class="mb-0 content">{{content}}</span>
+                            </li>
+                        </div>
+                    </ul>
+                </div>
+
+                <div class="d-grid gap-2">
+                    <!-- <button class="btn rounded-pill px-3 user-journey-btn" type="button" (click)="navigateToHome()">User Journey Demo</button>
+                    <button class="btn btn-secondary rounded-pill px-3 btn-text" type="button">Architecture
+                        Diagram</button>
+                    <button class="btn btn-secondary rounded-pill px-3 btn-text" type="button">Console Demo</button> -->
+                    <div [routerLink]="user.userHome"
+                        style="width: 182px; height: 40px; background: #D0BCFF; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15); border-radius: 100px; overflow: hidden; flex-direction: column; justify-content: center; align-items: center; display: inline-flex; cursor: pointer;">
+                        <div
+                            style="align-self: stretch; padding-left: 24px; padding-right: 24px; padding-top: 10px; padding-bottom: 10px; justify-content: center; align-items: center; gap: 8px; display: inline-flex">
+                            <div
+                                style="text-align: center; color: #4F378B; font-size: 14px; font-family: Roboto; font-weight: 500; line-height: 20px; letter-spacing: 0.10px; word-wrap: break-word">
+                                User Journey Demo
+                            </div>
+                        </div>
+                    </div>
+                    <div (click)="openArchitecture(user.userArchitecture)" class="user-architecture-button">
+                        <div
+                            style="align-self: stretch;  padding-top: 10px; padding-bottom: 10px; justify-content: center; align-items: center; gap: 8px; display: inline-flex">
+                            <div
+                                style="text-align: center; color: #D0BCFF; font-size: 14px; font-family: Roboto; font-weight: 500; line-height: 20px; letter-spacing: 0.10px; word-wrap: break-word">
+                                Architecture Diagram</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--         <div *ngFor="let user of greyOutUserJourneyList" class="greyuserJourney list-group-item d-flex gap-3 align"
+            aria-current="true">
+
+            <div class="d-flex gap-2 w-100 justify-content-between align">
+                <div>
+                    <img src="{{user.userImg}}" alt="twbs" class="rounded-circle flex-shrink-0 userImage">
+                </div>
+                <div class="user-title">
+                    <p class="mb-0 greyuserId">{{user.userId}}</p>
+                    <p class="mb-0 greyuserTitle">{{user.userTitle}}</p>
+                </div>
+                <div class="content-width">
+                    <ul>
+                        <div *ngFor="let content of user.userContent" class="d-grid gap-2">
+                            <li>
+                                <span class="mb-0 greycontent">{{content}}</span>
+                            </li>
+                        </div>
+                    </ul>
+                </div>
+
+                <div class="d-grid gap-2">
+                    <button class="btn rounded-pill px-3 greybtn-text" style="background :#E6E0E91F ; cursor: auto;"
+                        type="button">User Journey Demo</button>
+                    <button class="btn rounded-pill px-3 greybtn-text"
+                        style="background :#938F99 ;cursor: auto; border: 1px #E6E0E91F solid;"
+                        type="button">Architecture
+                        Diagram</button>
+                    <button class="btn rounded-pill px-3 greybtn-text" style="border-radius: 19px;cursor: auto;
+                    background: rgba(255, 255, 255, 0.20);" type="button">
+                        <span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="23" height="18" viewBox="0 0 23 18"
+                                fill="none" style="margin-bottom:4px; margin-right:4px">
+                                <path
+                                    d="M14.4071 5.09415H15.066L16.9439 3.21629L17.0361 2.41902C15.9604 1.46952 14.6603 0.809931 13.2588 0.502568C11.8572 0.195205 10.4005 0.250212 9.02607 0.662394C7.65169 1.07458 6.40508 1.83032 5.40399 2.85825C4.4029 3.88617 3.68038 5.15234 3.30469 6.53714C3.51389 6.45139 3.74563 6.43748 3.96359 6.4976L7.71931 5.87824C7.71931 5.87824 7.91039 5.56197 8.00922 5.58173C8.81396 4.69793 9.92608 4.15515 11.1179 4.06451C12.3098 3.97386 13.4912 4.34221 14.4203 5.09415H14.4071Z"
+                                    fill="#938F99" />
+                                <path
+                                    d="M19.6191 6.53731C19.1875 4.9478 18.3013 3.51886 17.0692 2.42578L14.4336 5.06138C14.9829 5.51019 15.4231 6.07788 15.721 6.72163C16.0189 7.36537 16.1667 8.06836 16.1533 8.77757V9.24538C16.4614 9.24538 16.7664 9.30606 17.051 9.42394C17.3356 9.54182 17.5941 9.7146 17.812 9.93242C18.0298 10.1502 18.2026 10.4088 18.3204 10.6934C18.4383 10.978 18.499 11.283 18.499 11.5911C18.499 11.8991 18.4383 12.2041 18.3204 12.4887C18.2026 12.7733 18.0298 13.0319 17.812 13.2497C17.5941 13.4675 17.3356 13.6403 17.051 13.7582C16.7664 13.8761 16.4614 13.9367 16.1533 13.9367H11.462L10.9941 14.4111V17.2246L11.462 17.6925H16.1533C17.4634 17.7027 18.7419 17.2909 19.7998 16.5182C20.8577 15.7454 21.6388 14.6526 22.0275 13.4015C22.4162 12.1504 22.3919 10.8075 21.9581 9.57126C21.5244 8.33505 20.7043 7.27128 19.6191 6.53731Z"
+                                    fill="#938F99" />
+                                <path
+                                    d="M6.76528 17.6658H11.4566V13.9101H6.76528C6.43104 13.91 6.10072 13.8381 5.79669 13.6992L5.1378 13.9035L3.24676 15.7813L3.08203 16.4402C4.14248 17.241 5.43646 17.6716 6.76528 17.6658Z"
+                                    fill="#938F99" />
+                                <path
+                                    d="M6.76417 5.48246C5.49304 5.49005 4.25602 5.89447 3.22588 6.63923C2.19575 7.38398 1.42395 8.43188 1.01827 9.63657C0.612598 10.8413 0.593312 12.1426 0.963109 13.3587C1.33291 14.5749 2.07332 15.6452 3.08093 16.4202L5.80218 13.6989C5.45637 13.5427 5.15362 13.3049 4.91992 13.0059C4.68621 12.707 4.52853 12.3558 4.4604 11.9825C4.39227 11.6091 4.41572 11.2249 4.52874 10.8626C4.64177 10.5004 4.84099 10.171 5.10931 9.90265C5.37764 9.63432 5.70706 9.4351 6.06931 9.32207C6.43155 9.20905 6.81581 9.1856 7.18912 9.25373C7.56242 9.32186 7.91362 9.47955 8.21259 9.71325C8.51155 9.94695 8.74936 10.2497 8.9056 10.5955L11.6268 7.87426C11.0557 7.12757 10.3195 6.52313 9.47596 6.1082C8.63238 5.69327 7.70426 5.47911 6.76417 5.48246Z"
+                                    fill="#938F99" />
+                            </svg></span>Console Demo</button>
+                </div>
+            </div>
+        </div> -->
+        </div>
+    </div>

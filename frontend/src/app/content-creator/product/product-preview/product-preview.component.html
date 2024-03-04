@@ -1,0 +1,74 @@
+<!--
+ Copyright 2024 Google LLC
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+
+<div class=" product-background align-margin">
+	<div>
+		
+		<div class="mb-4 box-shadow">
+			<div class="d-flex flex-column">
+				<label class="productLabel">PRODUCT TITLE</label>
+				<span class="product-name">{{product.title}}</span>
+			</div>
+			<div class="d-flex">
+				<div class="col-6">
+					<div class="d-flex flex-column">
+						<label class="productLabel">LABEL</label>
+						<span class="product-name">
+							{{product.labels.join(', ')}}
+						</span>
+					</div>
+					<div class="d-flex flex-column">
+						<label class="productLabel">CATEGORY</label>
+						<span class="product-name">
+							{{product.categories.join(', ')}}
+						</span>
+					</div>
+				</div>
+				<div class="d-flex flex-column col-6" style="margin-left:5px">
+					<label class="productLabel">FEATURE</label>
+					<span class="product-name">
+						{{product.features.join(', ')}}
+					</span>
+				</div>
+			</div>
+			<!-- Product description -->
+			<div>
+				<div class="col-12 d-flex flex-column">
+					<label class="productLabel">PRODUCT DESCRIPTION</label>
+					<span class="product-name">{{product.description}}</span>
+				</div>
+			</div>
+				<div class="col-xl-12" *ngIf="product.image_urls.length>0">
+					<label class="productLabel">IMAGES</label>
+					<!-- Product Carousel -->
+					<div class="col-12 product-background-img mt-2">
+						<p-carousel [value]="product.image_urls" [numVisible]="3" [numScroll]="1" [circular]="false"
+							[responsiveOptions]="responsiveOptions" class="d-flex align-items-center">
+							<ng-template let-p pTemplate="item">
+								<div class="col-sm-6 mb-2 product-background-img">
+									<div class="card flex-md-row mb-4 box-shadow h-md-250 card-border" style="padding:0px">
+										<img class=" card-img-right product-images flex-auto d-none d-md-block"
+											data-src="{{p}}" alt="Card image wrong">
+									</div>
+								</div>
+							</ng-template>
+						</p-carousel>
+					</div>
+					<!-- <img class="img-fluid" data-src="{{product.image_urls[0]}}" alt="Product image"> -->
+				</div>
+		</div>
+	</div>
+</div>

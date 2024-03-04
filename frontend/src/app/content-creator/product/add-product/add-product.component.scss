@@ -1,0 +1,486 @@
+/**
+ * Copyright 2024 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+.progress-bar {
+  padding: 0;
+}
+
+.progress {
+  width: 50px;
+}
+
+.mat-input-element {
+  font-size: medium;
+  font-weight: 200;
+}
+
+.toolbar-top {
+  position: fixed;
+  top: 0;
+  z-index: 2;
+}
+
+#fileInput {
+  position: absolute;
+  cursor: pointer;
+  z-index: 10;
+  opacity: 0;
+  height: 100%;
+  left: 0px;
+  top: 0px;
+}
+
+.toolbar-image {
+  height: auto !important;
+  background: transparent;
+  padding: 0;
+}
+
+.toolbar-image button {
+  width: 100px;
+}
+
+// .mat-form-field {
+//   width: 100%;
+// }
+
+.mat-mdc-form-field {
+  display: block;
+}
+
+.message {
+  background-color: #ddd;
+  padding: 15px;
+  color: #333;
+  border: #aaa solid 1px;
+  border-radius: 4px;
+  margin: 15px 0;
+}
+
+.preview {
+  width: 220px;
+  height: 220px;
+  flex-shrink: 0;
+  margin-right: 20px;
+  margin-bottom : 20px;
+}
+
+.list-card {
+  margin-top: 20px;
+}
+
+.text-inside-grid {
+  position: absolute;
+  left: 5px;
+}
+
+.image-inside-grid {
+  height: 50px;
+  position: absolute;
+  right: 5px;
+}
+
+// Move the content down so that it won't be hidden by the toolbar
+.content {
+  padding-top: 3.5rem;
+
+  @media screen and (min-width: 600px) {
+    padding-top: 4rem;
+  }
+}
+
+.flex-expand {
+  flex: 1 1 auto;
+}
+
+::ng-deep .mat-step-header .mat-step-icon {
+  background-color: rgba(77, 136, 255, 0.50);
+
+  +.mat-step-label {
+    color: rgba(77, 136, 255, 0.50) !important;
+    font-family: Google Sans;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 18px;
+  }
+}
+
+::ng-deep .mat-step-header .mat-step-icon-selected {
+  background-color: #4D88FF;
+
+  +.mat-step-label {
+    color: #4D88FF !important;
+    font-family: Google Sans;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 18px;
+  }
+}
+
+::ng-deep .mat-step-header .mat-step-icon-state-edit {
+  background-color: #4D88FF;
+
+  +.mat-step-label {
+    color: #4D88FF !important;
+    font-family: Google Sans;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 18px;
+  }
+}
+
+.preview-title {
+  color: #4D88FF;
+  text-align: center;
+  font-feature-settings: 'clig' off, 'liga' off;
+  font-family: Google Sans;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 20px;
+  /* 125% */
+  letter-spacing: -0.154px;
+  margin-right: 20px;
+}
+
+::ng-deep .mat-stepper-vertical-line::before {
+  background-color: rgba(77, 136, 255, 0.50);
+}
+
+::ng-deep .mat-stepper-vertical-line::after {
+  background-color: #4D88FF;
+}
+
+.nextBtn {
+  border-radius: 5px;
+  background: rgba(217, 217, 217, 0.30);
+  margin-right: 10px;
+  color: #000;
+  text-align: center;
+  font-family: Google Sans;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 18px;
+  /* 128.571% */
+}
+
+.product-background {
+  background: white;
+
+}
+
+.product-background-img {
+  background: white;
+
+  img {
+    height: 10em;
+    width: 10em;
+    border-radius: 10px;
+  }
+}
+
+.align-margin {
+  padding: 0px 20px;
+ }
+
+.product-images {
+  height: 12em;
+  width: 17em;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.product-name {
+  color: var(--grey, #575757);
+  font-family: Google Sans;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 23px;
+  margin-bottom: 15px;
+}
+
+.product-labels {
+  color: var(--grey, #575757);
+  font-family: Google Sans;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 23px;
+  padding: 2px;
+  /* 164.286% */
+}
+
+.product-placement {
+  font-family: Roboto;
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 24px;
+  letter-spacing: 0.5px;
+  text-align: left;
+  margin-block-start: 0em;
+  margin-block-end: 0em;
+  color: #98A2B3;
+}
+
+.card {
+  border: none !important;
+}
+
+.image {
+  box-sizing: border-box;
+  position: absolute;
+  width: 587px;
+  height: 691px;
+  border: 1px solid #EDF0F8;
+  border-radius: 17px;
+}
+
+::ng-deep .p-carousel .p-carousel-indicators {
+  display: none !important;
+}
+
+.productLabel {
+  color: #4D88FF;
+  font-family: Google Sans;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  margin-bottom:5px;
+}
+
+.generateBtn {
+  border-radius: 100px;
+  background: #4D88FF;
+  width: 145px;
+  height: 40px;
+  flex-shrink: 0;
+  color: #FFF;
+  text-align: center;
+
+  /* M3/label/large */
+  font-family: Roboto;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 20px;
+  /* 142.857% */
+  letter-spacing: 0.1px;
+  border: none;
+}
+
+.saveBtn {
+  border-radius: 100px;
+  background: #4D88FF;
+  width: 145px;
+  height: 40px;
+  flex-shrink: 0;
+  color: #FFF;
+  text-align: center;
+
+  /* M3/label/large */
+  font-family: Roboto;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 20px;
+  /* 142.857% */
+  letter-spacing: 0.1px;
+  border: none;
+  margin-right: 10px;
+}
+
+.title {
+  color: #666;
+  font-family: Google Sans;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 18px;
+  /* 150% */
+}
+
+
+input[type="file"] {
+  display: none;
+}
+
+.dropzone {
+  padding: 10px;
+  width: 480px;
+  height: 55px;
+  flex-shrink: 0;
+  //  height: 200px;
+  display: table;
+  //  width: 800px;
+  background-color: #eee;
+  // border: dotted 1px #aaa;
+  border-radius: 8px;
+  border: 1px dashed #979797;
+  background: #FFF;
+  margin-bottom: 20px;
+  margin-top: 20px
+}
+
+.centered {
+  font-family: sans-serif;
+  font-size: 1.3em;
+  text-align: center;
+}
+
+.dropLabel {
+  color: var(--typography-primary-dark, #000);
+  text-align: center;
+  font-family: Google Sans;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  /* 142.857% */
+}
+
+.textLink {
+  //background-color: #f45e61;
+  cursor: pointer;
+  color: #1A73E8;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid grey;
+  width: 116px;
+  height: 36px;
+  flex-shrink: 0;
+  // box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+}
+
+.textLink::before {
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  color: #fff;
+  font-size: large;
+}
+
+.fileItem {
+  //width: calc(25% - 6px);
+  overflow: hidden;
+  height: fit-content;
+  margin: 3px;
+  padding: 10px;
+  display: block;
+  position: relative;
+  float: left;
+  // border: 2px dashed #778899;
+  border-radius: 5px;
+  transition: .3s ease;
+  border-radius: 9px;
+  border: 1px solid var(--dividers-lines-divider, rgba(0, 0, 0, 0.12));
+  background: #FFF;
+}
+
+.fileItemText {
+  text-align: center;
+  margin-top: 10px;
+  height: 40px;
+  color: var(--typography-primary-dark, #000);
+  font-family: Google Sans;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 16px;
+  /* 133.333% */
+  letter-spacing: 0.1px;
+}
+
+.fileSize {
+  color: var(--typography-secondary-text, rgba(0, 0, 0, 0.66));
+  font-family: Google Sans;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 16px;
+  /* 133.333% */
+  letter-spacing: 0.1px;
+}
+
+.deleteBtn {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+/* Styles for tab labels */
+::ng-deep .mat-mdc-tab.mdc-tab--active .mdc-tab__text-label {
+  color: #4D88FF !important;
+  text-align: center;
+  font-feature-settings: 'clig' off, 'liga' off;
+  font-family: Google Sans;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 20px;
+  /* 125% */
+  //letter-spacing: -0.154px;
+}
+
+/* Styles for the active tab label */
+::ng-deep .mat-mdc-tab .mdc-tab__text-label {
+  color: #4D88FF !important;
+  text-align: center;
+  font-feature-settings: 'clig' off, 'liga' off;
+  font-family: Google Sans;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 20px;
+  /* 125% */
+  letter-spacing: -0.154px;
+}
+
+/* Styles for the ink bar */
+::ng-deep .mat-mdc-tab.mdc-tab--active .mdc-tab-indicator__content--underline {
+  stroke-width: 3px;
+  stroke: #4D88FF !important;
+  border-color:#4D88FF !important
+}
+
+.addProductBtn {
+  border-radius: 100px;
+  background: #4D88FF;
+  width: 145px;
+  height: 40px;
+  flex-shrink: 0;
+  color: #FFF;
+  text-align: center;
+  font-family: Roboto;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 20px;
+  letter-spacing: 0.1px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+}

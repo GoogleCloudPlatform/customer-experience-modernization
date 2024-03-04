@@ -1,0 +1,291 @@
+<!--
+ Copyright 2024 Google LLC
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+
+<div style="margin:20px">
+    <mat-divider></mat-divider>
+    <div class="d-flex justify-content-center">
+        <div class="d-flex flex-column col-md-4">
+            <div style="margin-top:50px" class="col-10 mx-auto">
+                <span class="orderTitle">Your Order</span>
+                <div class="d-flex" *ngFor="let product of products" style="margin-top:50px">
+                    <div class="card flex-md-row box-shadow" style="border:none">
+                        <img class="card-img-right product-images flex-auto d-none d-md-block"
+                            data-src="{{product?.image}}" alt="Card image cap">
+                        <div class="card-body d-flex flex-column align-items-start" style="padding-top:0px">
+                            <span class="product-name" style="margin-top:0px">{{product?.title}}</span>
+                            <span class="product-category">{{product?.categories[0]}}</span>
+                            <span class="price">{{product?.price | currency}}</span>
+                        </div>
+                    </div>
+                </div>
+                <mat-divider class="mt-4"></mat-divider>
+                <div class="d-flex justify-content-between" style="margin-top: 30px;" *ngIf="products.length>0">
+                    <span class="subtotal">Subtotal: {{products.length}} items</span>
+                    <span class="subtotal"> {{totalPrice | currency}}</span>
+                </div>
+            </div>
+        </div>
+        <mat-divider inset vertical style="margin-left: 0px;"></mat-divider>
+        <div class="col-md-8">
+            <div class="col-10 mx-auto">
+                <div class="orderOptionsTitle" style="margin-top:50px">How would you like to receive your order?</div>
+                <div>
+                    <button class="deliveryFormBtns" type="submit" (click)="pickInStore()"
+                        [ngClass]="pickUpInStore ? 'deliveryFormBtnsSelected' : 'deliveryFormBtns'">
+                        <span style="padding-left: 20px; padding-right: 12px;">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none">
+                                <path
+                                    d="M4 6V4H20V6H4ZM4 20V14H3V12L4 7H20L21 12V14H20V20H18V14H14V20H4ZM6 18H12V14H6V18ZM5.05 12H18.95L18.35 9H5.65L5.05 12Z"
+                                    fill="#575757" />
+                            </svg>
+                        </span>
+                        <span>
+                            Pick up in store
+                        </span>
+                    </button>
+                </div>
+                <div *ngIf="pickUpInStore" class="d-flex flex-column">
+                    <div>
+                        <span class="pickup-label">Pick up at Cymbal Furniture</span>
+                        <div class="d-flex justify-content-between">
+                            <span>5 Lionel Street, Brooklyn, 11224</span>
+                        </div>
+                    </div>
+                    <div style="margin-top: 30px;">
+                        <span class="pickup-label">Pick up date and time</span>
+                        <div class="d-flex flex-column justify-content-between" *ngIf="!isPickUpDateChange">
+                            <span> {{purchaseStartDate | date : "fullDate"}}</span>
+                            <span style="margin-top:10px">{{defaultPickUpTime}}</span>
+                        </div>
+                    </div>
+                    <div *ngIf="isPickUpDateChange">
+                        <mat-form-field appearance="outline">
+                            <input matInput [matDatepicker]="dobPicker" (click)="dobPicker.open()"
+                                (dateChange)="addEvent('change', $event)" [min]="minDate"
+                                [(ngModel)]="purchaseStartDate" />
+                            <mat-datepicker-toggle matSuffix [for]="dobPicker">
+                                <!-- <mat-icon matDatepickerToggleIcon>calendar</mat-icon> -->
+                            </mat-datepicker-toggle>
+                            <mat-datepicker #dobPicker>
+                            </mat-datepicker>
+                        </mat-form-field>`
+                    </div>
+
+                    <div *ngIf="isPickUpDateChange">
+                        <label id="pickup-radio-group-label" class="pickup-label">Available collection times</label>
+                        <mat-radio-group aria-labelledby="pickup-radio-group-label" class="example-radio-group"
+                            [(ngModel)]="defaultPickUpTime">
+                            @for (timeSlots of pickupTimeSlots; track timeSlots) {
+                            <mat-radio-button class="example-radio-button"
+                                [value]="timeSlots">{{timeSlots}}</mat-radio-button>
+                            }
+                        </mat-radio-group>
+                    </div>
+                    <div>
+                        <button class="changeBtn" type="submit" (click)="changePickUpDate()">Change</button>
+                    </div>
+                    <div style="margin-bottom:40px">
+                        <label class="delivery-form-title">Need help with assembly?</label>
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="email-quote"
+                                style="margin-right:10px">
+                            <label class="custom-control-label" for="email-quote"> Email me a quote and booking
+                                information</label>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <button class="deliveryFormBtns" type="submit" (click)="homeDelivery()"
+                        [ngClass]="isHomeDelivery ? 'deliveryFormBtnsSelected' : 'deliveryFormBtns'">
+                        <span style="padding-left: 20px;padding-right: 12px;">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none">
+                                <path
+                                    d="M6 20C5.16667 20 4.45833 19.7083 3.875 19.125C3.29167 18.5417 3 17.8333 3 17H1V6C1 5.45 1.19583 4.97917 1.5875 4.5875C1.97917 4.19583 2.45 4 3 4H17V8H20L23 12V17H21C21 17.8333 20.7083 18.5417 20.125 19.125C19.5417 19.7083 18.8333 20 18 20C17.1667 20 16.4583 19.7083 15.875 19.125C15.2917 18.5417 15 17.8333 15 17H9C9 17.8333 8.70833 18.5417 8.125 19.125C7.54167 19.7083 6.83333 20 6 20ZM6 18C6.28333 18 6.52083 17.9042 6.7125 17.7125C6.90417 17.5208 7 17.2833 7 17C7 16.7167 6.90417 16.4792 6.7125 16.2875C6.52083 16.0958 6.28333 16 6 16C5.71667 16 5.47917 16.0958 5.2875 16.2875C5.09583 16.4792 5 16.7167 5 17C5 17.2833 5.09583 17.5208 5.2875 17.7125C5.47917 17.9042 5.71667 18 6 18ZM3 15H3.8C4.08333 14.7 4.40833 14.4583 4.775 14.275C5.14167 14.0917 5.55 14 6 14C6.45 14 6.85833 14.0917 7.225 14.275C7.59167 14.4583 7.91667 14.7 8.2 15H15V6H3V15ZM18 18C18.2833 18 18.5208 17.9042 18.7125 17.7125C18.9042 17.5208 19 17.2833 19 17C19 16.7167 18.9042 16.4792 18.7125 16.2875C18.5208 16.0958 18.2833 16 18 16C17.7167 16 17.4792 16.0958 17.2875 16.2875C17.0958 16.4792 17 16.7167 17 17C17 17.2833 17.0958 17.5208 17.2875 17.7125C17.4792 17.9042 17.7167 18 18 18ZM17 13H21.25L19 10H17V13Z"
+                                    fill="#575757" />
+                            </svg>
+                        </span>
+                        <span>
+                            Home delivery
+                        </span>
+                    </button>
+                </div>
+                <div *ngIf="isHomeDelivery">
+                    <h4 class="mb-3" class="delivery-form-title">Delivery address</h4>
+                    <form class="needs-validation" [formGroup]="purchaseDeliveryForm">
+                        <div class="d-flex justify-content-between">
+                            <div class="col-md-6 mb-3" style="padding-right:20px">
+                                <label for="firstName" class="form-labels">First name</label>
+                                <input type="text" class="form-control" id="firstName" placeholder="" value=""
+                                    formControlName="firstName" required>
+                                <div *ngIf="purchaseDeliveryForm.controls['firstName'].invalid && purchaseDeliveryForm.controls['firstName'].touched"
+                                    class="alert alert-danger">
+                                    <div
+                                        *ngIf="purchaseDeliveryForm.controls['firstName'].invalid && purchaseDeliveryForm.controls['firstName'].touched">
+                                        firstName is required.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="lastName" class="form-labels">Last name</label>
+                                <input type="text" class="form-control" id="lastName" placeholder="" value=""
+                                    formControlName="lastName" required>
+                                <div *ngIf="purchaseDeliveryForm.controls['lastName'].invalid && purchaseDeliveryForm.controls['lastName'].touched"
+                                    class="alert alert-danger">
+                                    <div
+                                        *ngIf="purchaseDeliveryForm.controls['lastName'].invalid && purchaseDeliveryForm.controls['lastName'].touched">
+                                        lastName is required.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                            <div class="col-md-12 mb-3">
+                                <label for="streetAddress" class="form-labels">Street address *</label>
+                                <input type="text" class="form-control" id="streetAddress" placeholder="" value=""
+                                    formControlName="streetAddress" required>
+                                <div *ngIf="purchaseDeliveryForm.controls['streetAddress'].invalid && purchaseDeliveryForm.controls['streetAddress'].touched"
+                                    class="alert alert-danger">
+                                    <div
+                                        *ngIf="purchaseDeliveryForm.controls['streetAddress'].invalid && purchaseDeliveryForm.controls['streetAddress'].touched">
+                                        streetAddress is required.
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12 mb-3">
+                                    <label for="streetAddress2" class="form-labels">Street address 2</label>
+                                    <input type="text" class="form-control" id="streetAddress2" placeholder="" value=""
+                                        formControlName="streetAddress2">
+                                </div>
+                            </div>
+                            <div class="d-flex">
+                                <div class="col-md-6 mb-3" style="padding-right:20px">
+                                    <label for="city" class="form-labels">City *</label>
+                                    <input type="text" class="form-control" id="city" placeholder=""
+                                        formControlName="city" required>
+                                    <div *ngIf="purchaseDeliveryForm.controls['city'].invalid && purchaseDeliveryForm.controls['city'].touched"
+                                        class="alert alert-danger">
+                                        <div
+                                            *ngIf="purchaseDeliveryForm.controls['city'].invalid && purchaseDeliveryForm.controls['city'].touched">
+                                            city is required.
+                                        </div>
+                                    </div>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="zip" class="form-labels">Zip *</label>
+                                        <input type="text" class="form-control" id="zip" placeholder=""
+                                            formControlName="zip" required>
+                                        <div *ngIf="purchaseDeliveryForm.controls['zip'].invalid && purchaseDeliveryForm.controls['zip'].touched"
+                                            class="alert alert-danger">
+                                            <div
+                                                *ngIf="purchaseDeliveryForm.controls['zip'].invalid && purchaseDeliveryForm.controls['zip'].touched">
+                                                zip is required.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <label class="deliveryBtw">Delivery between</label>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <label class="custom-control-label" for="date">{{purchaseStartDate | date :
+                                            "fullDate"}} - {{purchaseEndDate | date :
+                                            "fullDate"}}</label>
+                                        <button class="changeBtn" type="submit">Change</button>
+                                    </div>
+                                </div>
+
+                                <div style="margin-bottom:40px">
+                                    <label class="delivery-form-title">Need help with assembly?</label>
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" class="custom-control-input" id="email-quote"
+                                            style="margin-right:10px" formControlName="emailQuote">
+                                        <label class="custom-control-label" for="email-quote"> Email me a quote and
+                                            booking
+                                            information</label>
+                                    </div>
+                                </div>
+                    </form>
+                </div>
+                <div *ngIf="!isHomeDelivery && !pickUpInStore">
+                    <label class="delivery-form-title">Need help with assembly?</label>
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" id="email-quote" style="margin-right:10px">
+                        <label class="custom-control-label" for="email-quote"> Email me a quote and booking
+                            information</label>
+                    </div>
+                </div>
+                <div style="margin-top: 40px;" *ngIf="!isHomeDelivery">
+                    <button [ngClass]="pickUpInStore ? 'continueBtn' : 'continueBtnDisabled'" type="submit" (click)="continuePurchase()" [disabled]="!pickUpInStore">Continue</button>
+                </div>
+                <div style="margin-top: 40px;" *ngIf="isHomeDelivery">
+                    <button [ngClass]="purchaseDeliveryForm.valid ? 'continueBtn' : 'continueBtnDisabled'" type="submit"
+                        (click)="continuePurchase()" [disabled]="!purchaseDeliveryForm.valid">Continue</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="d-flex align-items-center justify-content-center">
+        <app-home-product-carousel [categories]="categories"></app-home-product-carousel>
+
+        <!-- <div *ngIf="categories.length>0">
+
+            <div *ngFor="let category of categories" style="width:1382px">
+                <mat-divider class="mx-auto mt-3 mb-3"></mat-divider>
+
+                <p-carousel [value]="category?.products" [numVisible]="5" [numScroll]="1" [circular]="false"
+                    [responsiveOptions]="responsiveOptions">
+                    <ng-template pTemplate="header">
+                        <div class="category-title d-flex align-items-center mb-3" style="margin-left:40px">
+                            {{category?.categoryTitle}}
+                            <button *ngIf="category?.assistant" class="shopping-assi-btn mx-2">
+                                <span class="google-symbols">
+                                    spark
+                                </span>Shopping Assistant
+                            </button>
+                        </div>
+                    </ng-template>
+                    <ng-template let-product pTemplate="item">
+                        <div>
+                            <div style="width:200px">
+                                <img *ngIf="!category?.placeholder" class="flex-auto d-md-block carousel-image"
+                                    data-src="{{product?.image}}" alt="image">
+                                <svg *ngIf="category?.placeholder" class="product-images flex-auto d-none d-md-block"
+                                    width="100%" height="180" xmlns="http://www.w3.org/2000/svg" role="img"
+                                    aria-label="Placeholder" preserveAspectRatio="xMidYMid slice" focusable="false">
+                                    <title>Placeholder</title>
+                                    <rect width="100%" height="100%" fill="#868e96"></rect>
+                                </svg>
+                            </div>
+                            <div class="d-flex flex-column align-items-start placeholder-glow">
+                                <span class="product-name"
+                                    [ngClass]="{'placeholder col-md-6':category?.placeholder}">{{product?.title |
+                                    uppercase
+                                    }}</span>
+                                <span class="product-category"
+                                    [ngClass]="{'placeholder col-md-6':category?.placeholder}">{{product?.categories}}</span>
+                                <span class="price"
+                                    [ngClass]="{'placeholder col-md-6':category?.placeholder}">{{product?.price
+                                    | currency}}</span>
+                            </div>
+                        </div>
+                    </ng-template>
+                </p-carousel>
+            </div>
+        </div> -->
+
+    </div>
+</div>

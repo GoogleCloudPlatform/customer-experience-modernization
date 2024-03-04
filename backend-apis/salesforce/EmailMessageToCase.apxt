@@ -1,0 +1,41 @@
+trigger EmailMessageToCase on EmailMessage (after insert) {
+    set<Id> caseIds = new set<Id>();
+    map<Id,string> case2CustomValueMap = new map<Id,string>();
+	for (EmailMessage em : Trigger.new) {
+        if(em.Incoming&&!String.isBlank(em.ParentID)){
+            // Get email content and "From" address
+            String emailContent = em.TextBody;
+            String emailHtml = em.HtmlBody;
+            String fromEmailAddress = em.FromAddress;
+            String toEmailAddress = em.ToAddress;
+            String userName = em.FromName;
+            String subject = em.Subject;
+            Id caseId = em.ParentId;
+            List<Case> Casedetails=[select id, 	CaseNumber, Is_human_talking__c from case where id = :caseId];
+            
+            ID case_id = Id.valueOf(caseId);
+            String threadingMessageId = Cases.generateThreadingMessageId(case_id);
+            
+            EmailRequestWebhook.send(
+                emailContent, 
+                emailHtml, 
+                fromEmailAddress,
+                toEmailAddress,
+                userName, 
+                subject, 
+                Casedetails[0].CaseNumber,
+                caseId,
+                threadingMessageId,
+                Casedetails[0].Is_human_talking__c
+            );
+            
+        }
+    }
+    
+    //list<Case> casesToUpdate = [Select Id, Custom_Field__c From Case Where Id in: caseIds];
+    //for(Case c : casesToUpdate){
+    //    c.Custom_Field__c = case2CustomValueMap.get(c.Id);
+    //}
+
+    //update casesToUpdate;
+}

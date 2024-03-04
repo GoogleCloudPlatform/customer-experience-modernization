@@ -1,0 +1,86 @@
+<!--
+ Copyright 2024 Google LLC
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+
+<mat-card class="customer-service-chat">
+	<mat-card-header class="d-flex justify-content-between align-items-center" style="padding-bottom:16px">
+		<mat-card-title class="title">Customer Area</mat-card-title>
+		<button *ngIf="!showTranslationForm" mat-icon-button (click)="showTranslationForm=true" class="translate-icon">
+			<mat-icon>
+				translate
+			</mat-icon>
+		</button>
+
+	</mat-card-header>
+	<mat-card-content class="m-2">
+		<form class="col-12" *ngIf="showTranslationForm">
+			<mat-form-field>
+				<mat-label>Language</mat-label>
+				<input id="translationLanguage" type="text" matInput [formControl]="languageControl"
+					[matAutocomplete]="auto">
+				<mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+					@for (option of filteredOptions | async; track option) {
+					<mat-option [value]="option">{{option.name}}</mat-option>
+					}
+				</mat-autocomplete>
+			</mat-form-field>
+			<button class="mb-2" mat-raised-button type="submit" (click)="changeLanguage()" color="primary">Change
+				Language</button>
+
+			<mat-divider></mat-divider>
+		</form>
+
+		<div class="chat-body">
+			<div class="chat-messages">
+				<ul id="messages">
+					<li *ngFor="let message of messages" [ngClass]="message.author == 'User' ? 'sent' : 'received'">
+						<div *ngIf="!(message.link&&message.iconURL); else linkTemplate">
+							<p>{{message.text}}</p>
+						</div>
+						<ng-template #linkTemplate>
+							<img [src]="message.iconURL">
+							<a [href]="message.link">{{message.text}}</a>
+						</ng-template>
+						<span class="caption_span">{{message.author == 'User' ? userName :
+							message.author}}
+							<small>{{message.timestamp?.toDate()?.toLocaleString()}}</small>
+						</span>
+					</li>
+
+				</ul>
+			</div>
+		</div>
+
+	</mat-card-content>
+	<mat-card-footer>
+		<form class="mx-3" [formGroup]="msgFormGroup">
+			<div class="d-flex mb-2 align-items-center">
+				<input type="text" matInput formControlName="msgCtrl" placeholder="Ask your question"
+					class="searchInput">
+				<button (click)="sendMessage($event)" style="border:none ; background:transparent">
+					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+						<path
+							d="M21.44 11.11L3.44 2.09998V2.10999C3.31 2.03999 3.16 2 3 2C2.45 2 2 2.45 2 3V11V13V21C2 21.55 2.45 22 3 22C3.16 22 3.31 21.95 3.44 21.89V21.9L21.44 12.9V12.89C21.77 12.73 22 12.4 22 12C22 11.6 21.77 11.28 21.44 11.11ZM4 16C4 14.34 5.34 13 7 13H11C11.55 13 12 12.55 12 12C12 11.45 11.55 11 11 11H7C5.34 11 4 9.66 4 8V4.62L18.76 12L4 19.38V16Z"
+							fill="#3C4043" fill-opacity="0.38" />
+					</svg>
+				</button>
+			</div>
+		</form>
+		<div id="rephrase_candidates"></div>
+	</mat-card-footer>
+</mat-card>
+<button class="mx-3" mat-fab color="accent" aria-label="Example icon button with a delete icon">
+	<mat-icon>close</mat-icon>
+</button>

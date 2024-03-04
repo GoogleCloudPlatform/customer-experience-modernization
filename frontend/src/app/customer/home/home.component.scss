@@ -1,0 +1,515 @@
+/**
+ * Copyright 2024 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+.carousel {
+  position: relative;
+}
+
+.wp-block-group {
+  box-sizing: border-box;
+}
+
+
+.add-padding-top {
+  padding-top: 1em;
+}
+
+
+.bs-carousel-incr .carousel-inner {
+  display: flex;
+}
+
+.carousel-item {
+  position: relative;
+  display: none;
+  float: left;
+  width: 100%;
+  margin-right: -100%;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  transition: transform .6s ease-in-out;
+}
+
+
+
+
+
+.bs-carousel-incr .carousel-item {
+  margin-right: 0;
+  flex: 0 0 33.333333%;
+  display: block;
+  backface-visibility: visible;
+}
+
+.material-symbols-outlined {
+
+  font-variation-settings:
+    'FILL' 0,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 24,
+
+}
+
+.close {
+  padding-right: 10px;
+}
+
+.search {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  margin-top:26px;
+}
+
+.search1 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+}
+
+.full-width {
+  min-width: 150px;
+  max-width: 620px;
+
+  width: 100%;
+  width: 620px;
+}
+
+.search-input {
+  width: 100%;
+}
+
+.login-user {
+  width: 24px;
+}
+
+.done {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  color: white;
+}
+
+::ng-deep .mdc-notched-outline__leading {
+  border-top-left-radius: 8px !important;
+  border-bottom-left-radius: 8px !important;
+}
+
+::ng-deep .mdc-notched-outline__trailing {
+  border-top-right-radius: 8px !important;
+  border-bottom-right-radius: 8px !important;
+}
+
+::ng-deep mdc-text-field--filled:not(.mdc-text-field--disabled) {
+  background-color: white;
+}
+
+.image {
+  display: flex;
+  justify-content: left;
+  align-items: left;
+  padding: 10px;
+}
+
+.RNNXgb {
+  display: flex;
+  z-index: 3;
+  position: relative;
+  height: 56px;
+  background: #ECE6F0;
+  border: 1px solid #dfe1e5;
+  box-shadow: none;
+  border-radius: 28px;
+  width: 667px;
+}
+
+.SDkEP {
+  flex: 1;
+  display: flex;
+  padding: 0px 20px 0 20px;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+}
+
+.iblpc {
+  display: flex;
+  align-items: center;
+  margin-top: -5px;
+  height: 46px;
+}
+
+.CcAdNb {
+  margin: auto;
+}
+
+.QCzoEc {
+  margin-top: -5px !important;
+
+}
+
+textarea.gLFyf,
+.YacQv {
+  font-family: arial, sans-serif;
+  line-height: 22px;
+  overflow-x: hidden;
+ // padding-left: 20px;
+}
+
+.YacQv {
+  line-height: 34px;
+  font-size: 16px;
+  flex: 100%;
+}
+
+.z1asCe {
+  display: inline-block;
+  fill: currentColor;
+  height: 24px;
+  line-height: 24px;
+  position: relative;
+  width: 24px;
+}
+
+.z1asCe svg {
+  display: block;
+  height: 100%;
+  width: 100%;
+}
+
+.a4bIc {
+  display: flex;
+  flex-wrap: wrap;
+  flex: 1;
+}
+
+.YacQv {
+  color: transparent;
+  white-space: pre;
+  position: absolute;
+  pointer-events: none;
+}
+
+.gLFyf {
+  resize: none;
+  background-color: transparent;
+  border: none;
+  margin: 0;
+  padding: 0;
+  color: rgba(0, 0, 0, .87);
+  word-wrap: break-word;
+  outline: none;
+  display: flex;
+  -webkit-tap-highlight-color: transparent;
+}
+
+textarea.gLFyf,
+.YacQv {
+  font-family: arial, sans-serif;
+  line-height: 22px;
+  //margin-bottom: 8px;
+  overflow-x: hidden;
+}
+
+textarea.gLFyf,
+.YacQv {
+  font-family: arial, sans-serif;
+  line-height: 22px;
+ // margin-bottom: 8px;
+  overflow-x: hidden;
+}
+
+.BKRPef1 {
+  background: #D2BEDF !important;
+  align-items: center;
+  flex: 1 0 auto;
+  flex-direction: row;
+  display: flex;
+  cursor: pointer;
+}
+
+.BKRPef1 {
+  background: transparent !important;
+  align-items: center;
+  flex: 1 0 auto;
+  flex-direction: row;
+  display: flex;
+  cursor: pointer;
+}
+
+.M2vV3 {
+  padding-top: 30px;
+  display: flex;
+}
+
+.z1asCe {
+  display: inline-block;
+  fill: currentColor;
+  height: 24px;
+  line-height: 24px;
+  position: relative;
+  width: 24px;
+  padding-top: 20px;
+
+}
+
+.z1asCe {
+  display: inline-block;
+  fill: currentColor;
+  height: 24px;
+  line-height: 24px;
+  position: relative;
+  width: 24px;
+  padding-top: 20px;
+
+}
+
+.vOY7J {
+  background: transparent;
+  border: 0;
+  align-items: center;
+  flex: 1 0 auto;
+  cursor: pointer;
+  display: none;
+  height: 100%;
+  line-height: 44px;
+  outline: none;
+  padding: 0 12px;
+}
+
+.ExCKkf {
+  height: 100%;
+  color: #70757a;
+  vertical-align: middle;
+  outline: none;
+  margin-bottom: 18px;
+}
+
+.ACRAdd {
+  border-left: 1px solid #dadce0;
+  height: 65%;
+}
+
+
+.XDyW0e {
+  flex: 1 0 auto;
+  display: flex;
+  cursor: pointer;
+  align-items: center;
+  border: 0;
+  background: transparent;
+  outline: none;
+  padding: 0 8px;
+  width: 24px;
+  line-height: 44px;
+}
+
+.goxjub {
+  height: 24px;
+  /* width: 24px; */
+  vertical-align: middle;
+}
+
+.nDcEnd {
+  flex: 1 0 auto;
+  display: flex;
+  cursor: pointer;
+  align-items: center;
+  border: 0;
+  background: transparent;
+  outline: none;
+  padding: 0 8px;
+  width: 24px;
+  line-height: 44px;
+}
+
+.UUbT9 {
+  position: absolute;
+  text-align: left;
+  z-index: 3;
+  cursor: default;
+  -webkit-user-select: none;
+  width: 100%;
+  margin-top: -1px;
+}
+
+
+.M8H8pb {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding: inherit;
+  width: inherit;
+}
+
+// Assistant logic
+
+.container {
+  width: 100%;
+  // margin:16px;
+  // border-radius: 16px;
+  // position: absolute;
+  //width: 1405px;
+  // height: 560px;
+  left: 18px;
+  top: 121px;
+
+  background: #FDF8FD;
+
+  border-radius: 21px;
+  box-shadow: inset -3px 3px 5px rgba(0, 0, 0, 0.1);
+  padding: 12px;
+}
+
+/* scroll bar css*/
+.messages {
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+:host .messages::-webkit-scrollbar {
+  width: 5px;
+  /* Set your desired thickness here */
+  scroll-margin-top: 10px;
+}
+
+/* Customize the appearance of the scroll bar handle */
+:host .messages::-webkit-scrollbar-thumb {
+  background-color: #AAA;
+  /* Set your desired handle color */
+  border-radius: 40px;
+  /* Set your desired border radius */
+}
+
+:host .messages::-webkit-scrollbar-track {
+  background-color: transparent;
+  /* Set your desired handle color */
+}
+
+:host .messages::-webkit-scrollbar-track-piece:end {
+  background: transparent;
+  margin-bottom: 10px;
+}
+
+:host .messages::-webkit-scrollbar-track-piece:start {
+  background: transparent;
+  margin-top: 10px;
+}
+
+/* scroll bar css*/
+
+.input-area {
+  border: 2px solid black;
+}
+
+.Tg7LZd {
+  flex: 0 0 auto;
+  // padding-right: 13px;
+}
+
+.Tg7LZd {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  flex: 0 0 auto;
+}
+
+.card-border {
+  border: none !important;
+}
+
+//upload-image-css
+
+.imageUpload {
+  display: none;
+}
+
+.image-upload-container {
+  cursor: pointer;
+}
+
+.img-loading-overlay {
+  background-color: black;
+  bottom: 0;
+  left: 0;
+  opacity: .2;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.img-spinning-circle {
+  display: inline-block;
+  width: 64px;
+  height: 64px;
+  margin: auto;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+
+.img-spinning-circle:after {
+  content: " ";
+  display: block;
+  width: 46px;
+  height: 46px;
+  margin: 1px;
+  border-radius: 50%;
+  border: 5px solid #fff;
+  border-color: #fff transparent #fff transparent;
+  animation: lds-dual-ring 1.2s linear infinite;
+}
+
+@keyframes lds-dual-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+::ng-deep .mat-mdc-tab .mdc-tab-indicator__content--underline {
+  border-color: transparent !important;
+}
+
+
+::ng-deep .mat-mdc-tab.mdc-tab--active .mdc-tab__text-label {
+  color: dimgray !important;
+}
+
+.login-user {
+  float: right;
+ // padding-right: 20px;
+}
+
+.align-arrow-right {
+  position: absolute;
+  right: 0; //change as per requirement
+  top: 16px; //change as per requirement
+}
+
+.mainLogo {
+  border: none;
+  background-color: #FFFFFF;
+}

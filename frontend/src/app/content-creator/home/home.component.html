@@ -1,0 +1,74 @@
+<!--
+ Copyright 2024 Google LLC
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+
+<div class="grid-container">
+	<mat-toolbar style="background: #FFF;
+	box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.15); align-items: center;">
+		<img src="assets/images/cymbal-customer-service-logo.svg" alt="Cymbal Customer Service Logo" class="mb-1">
+		<img src="assets/images/cymbal-text-logo.svg" alt="Cymbal Text Logo" class="ms-2">
+		<content-creator-header class="ms-2"></content-creator-header>
+		<span class="flex-expand"></span>
+		<!-- <form class="translate">
+			<mat-form-field appearance="outline">
+				<input id="translationLanguage" type="text" matInput [formControl]="languageControl"
+					[matAutocomplete]="auto">
+				<mat-icon class="google-symbols align-arrow-right">
+					arrow_drop_down
+				</mat-icon>
+				<mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn"
+					(optionSelected)="changeLang($event)">
+					@for (option of filteredOptions | async; track option) {
+					<mat-option [value]="option">{{option.name}}</mat-option>
+					}
+				</mat-autocomplete>
+			</mat-form-field>
+		</form> -->
+
+		<app-user-photo></app-user-photo>
+	</mat-toolbar>
+	<div class="content col-10 mx-auto">
+		<mat-tab-group mat-stretch-tabs="false" style="margin-left: 15px;">
+			<mat-tab label="Products">
+				<mat-divider></mat-divider>
+
+				<div class="main" style="margin: 20px 0.5rem;">
+					<div>
+						<button class="mb-2 addProductBtn" (click)="addProduct()" *ngIf="!showAddProductCompoment"
+							[routerLink]="['/content-creator/add-product']"><mat-icon>add</mat-icon>
+							Add Product</button>
+						<!-- <content-creator-add-product *ngIf="showAddProductCompoment"></content-creator-add-product> -->
+						<content-creator-product-list *ngIf="!showAddProductCompoment"></content-creator-product-list>
+					</div>
+				</div>
+			</mat-tab>
+			<mat-tab label="Services">
+				<mat-divider></mat-divider>
+				<div class="main" style="margin: 20px 0.5rem;">
+					<div>
+						<button class="mb-2 addProductBtn" (click)="addService()"
+							[routerLink]="['/content-creator/add-service']"
+							*ngIf="!showAddServiceCompoment"><mat-icon>add</mat-icon>
+							Add Service</button>
+						<!-- <content-creator-add-service *ngIf="showAddServiceCompoment"></content-creator-add-service> -->
+
+						<content-creator-service-list *ngIf="!showAddServiceCompoment"></content-creator-service-list>
+					</div>
+				</div>
+			</mat-tab>
+		</mat-tab-group>
+	</div>
+</div>
+<app-architecture [architecture]="architecture"></app-architecture>

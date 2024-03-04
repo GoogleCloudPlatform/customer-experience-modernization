@@ -1,0 +1,136 @@
+/**
+ * Copyright 2024 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+.currentCaseButton {
+    background-color: white;
+    border-color: #4D88FF;
+    border-radius: 10px;
+    float: right;
+    color: #4D88FF;
+    text-align: center;
+    font-feature-settings: 'clig' off, 'liga' off;
+    font-family: Google Sans;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 20px;
+    /* 142.857% */
+    letter-spacing: -0.154px;
+}
+
+.currentCase {
+    background-color: white;
+    border-color: #4D88FF;
+    border-radius: 10px;
+    float: right;
+    color: #4D88FF;
+    text-align: center;
+    font-feature-settings: 'clig' off, 'liga' off;
+    font-family: Google Sans;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 20px;
+    /* 142.857% */
+    letter-spacing: -0.154px;
+    margin-right: 10px;
+}
+
+.btnActive {
+    background-color: #4D88FF;
+    border-color: #4D88FF;
+    border-radius: 10px;
+
+    color: white;
+    text-align: center;
+    font-feature-settings: 'clig' off, 'liga' off;
+    font-family: Google Sans;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 20px;
+    /* 142.857% */
+    letter-spacing: -0.154px;
+}
+
+.title {
+    color: #000;
+    font-family: "Google Sans";
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin-left: 10px;
+}
+
+.logo {
+    margin-left: 10px
+}
+
+/* Styles for tab labels */
+::ng-deep .mat-mdc-tab.mdc-tab--active .mdc-tab__text-label {
+    color: #4D88FF !important;
+    text-align: center;
+    font-feature-settings: 'clig' off, 'liga' off;
+    font-family: Google Sans;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 20px;
+    /* 125% */
+    //letter-spacing: -0.154px;
+}
+
+/* Styles for the active tab label */
+::ng-deep .mat-mdc-tab .mdc-tab__text-label {
+    color: #4D88FF !important;
+    text-align: center;
+    font-feature-settings: 'clig' off, 'liga' off;
+    font-family: Google Sans;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 20px;
+    /* 125% */
+    letter-spacing: -0.154px;
+}
+
+/* Styles for the ink bar */
+::ng-deep .mat-mdc-tab.mdc-tab--active .mdc-tab-indicator__content--underline {
+    border-width: 3px;
+    stroke: #4D88FF !important;
+    border-color: #4D88FF !important
+}
+
+.card-title {
+    color: #FFF;
+    font-feature-settings: 'clig' off, 'liga' off;
+    font-family: "Google Sans";
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 20px;
+    /* 100% */
+    letter-spacing: -0.154px;
+}
+
+.agent-chat {
+    margin-left: 10px;
+    margin-right: 10px;
+    border-radius: 10px;
+    min-height:100vh;
+    padding: 10px;
+}

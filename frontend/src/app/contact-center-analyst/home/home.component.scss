@@ -1,0 +1,466 @@
+/**
+ * Copyright 2024 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+h1 {
+    padding: 0 1rem;
+}
+
+h2 {
+    padding: 1rem;
+}
+
+mat-toolbar {
+    position: fixed;
+    top: 0;
+    z-index: 2;
+}
+
+
+// Move the content down so that it won't be hidden by the toolbar
+.content {
+    padding-top: 3.5rem;
+
+    @media screen and (min-width: 600px) {
+        padding-top: 4rem;
+    }
+
+    height: 100%;
+}
+
+.flex-expand {
+    flex: 1 1 auto;
+}
+
+iframe {
+    height: calc(100vh - 134px);
+}
+
+.mat-mdc-standard-chip {
+    --mdc-chip-label-text-color: #fff;
+}
+
+.PERSON {
+    background-color: #ea4335 !important;
+}
+
+.LOCATION {
+    background-color: #34a853 !important;
+}
+
+.ORGANIZATION {
+    background-color: #4285f4 !important;
+}
+
+.EVENT {
+    background-color: #f29900 !important;
+}
+
+.WORK_OF_ART {
+    background-color: #2a3010 !important;
+}
+
+.CONSUMER_GOOD {
+    background-color: #a142f4 !important;
+}
+
+.OTHER {
+    background-color: #9aa0a6 !important;
+}
+
+.PHONE_NUMBER {
+    background-color: #24c1e0 !important;
+}
+
+.ADDRESS {
+    background-color: #f538a0 !important;
+}
+
+.DATE {
+    background-color: #3b1412 !important;
+}
+
+.NUMBER {
+    background-color: #185abc !important;
+}
+
+.PRICE {
+    background-color: #b31412 !important;
+}
+
+.buttonStartCamp {
+    border-radius: 20px;
+    float: right;
+    height: 40px;
+    width: 148px;
+    border: none;
+    background: linear-gradient(to right, #B69DFC, #BDE3FF, #F37148, #F7C002);
+    position: relative;
+    z-index: 1;
+    color: #000;
+    text-align: center;
+    font-family: "Google Sans";
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 22px;
+    letter-spacing: -0.28px;
+    margin-top: 10px;
+}
+
+.buttonStartCamp::before {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    bottom: 2px;
+    left: 2px;
+    background: #FFFFFF;
+    content: "";
+    border-radius: 30.5px;
+    font-family: 'Google Sans';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 22px;
+    text-align: center;
+    letter-spacing: -0.02em;
+    color: #000000;
+    z-index: -1;
+    transition: 200ms
+}
+
+.buttonStartCamp::after {
+    content: attr(data);
+    font-family: 'Google Sans';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 22px;
+    text-align: center;
+    color: #000000;
+    transition: 200ms
+}
+
+.customerId {
+    color: #000;
+    font-feature-settings: 'clig' off, 'liga' off;
+    font-family: "Google Sans";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 20px;
+    letter-spacing: -0.154px;
+    margin-top: 20px;
+    margin-left: 6px
+}
+
+.customerInput {
+    height: 48px;
+    flex-shrink: 0;
+    border-radius: 7px;
+    border: 1px solid #E3E3E3;
+    width: 70%;
+    background-color: #F8F9FA;
+    padding-left: 10px;
+    fill: var(--Grey-50, #F8F9FA);
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 50%;
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
+    flex-basis: 100%;
+    flex: 1;
+}
+
+.name {
+    color: var(--grey, #575757);
+    font-feature-settings: 'clig' off, 'liga' off;
+    font-family: Google Sans;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 20px;
+    letter-spacing: -0.154px;
+}
+
+.values {
+    color: #000;
+    font-feature-settings: 'clig' off, 'liga' off;
+    font-family: Google Sans;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 20px;
+    letter-spacing: -0.154px;
+}
+
+.ConvTitle {
+    color: #736C6C;
+    font-feature-settings: 'clig' off, 'liga' off;
+    font-family: Google Sans;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px;
+    letter-spacing: -0.154px;
+}
+
+.convHeader {
+    color: var(--grey, #575757);
+    font-feature-settings: 'clig' off, 'liga' off;
+    font-family: "Google Sans";
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 20px;
+    letter-spacing: -0.154px;
+}
+
+.convBody {
+    color: var(--messaging-light-on-background, #000);
+    font-feature-settings: 'clig' off, 'liga' off;
+    font-family: "Google Sans";
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px;
+    letter-spacing: -0.154px;
+}
+
+.aiTitle {
+    font-family: Google Sans;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 35px;
+    color: #7934A7;
+    margin-bottom: 0rem;
+    display: flex;
+    align-items: center;
+}
+
+.btnSimilarConversation {
+    width: 146px;
+    height: 28px;
+    flex-shrink: 0;
+    border-radius: 10px;
+    background: #4D88FF;
+    color: white;
+    border-color: transparent;
+    margin-left: 450px;
+}
+
+.searchBtn {
+    background: #4D88FF;
+    color: #FFF;
+    border-radius: 5px;
+    width: 45px;
+    height: 47px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    margin-left: 10px;
+}
+
+::ng-deep .mdc-checkbox .mdc-checkbox__native-control:enabled:checked~.mdc-checkbox__background {
+    border-radius: 3px;
+    background: #3EC43B !important;
+    border-color: #3EC43B !important;
+}
+
+::ng-deep .mdc-checkbox:hover .mdc-checkbox__native-control:checked~.mdc-checkbox__ripple {
+    background: #beebbd !important;
+}
+
+::ng-deep .mdc-checkbox .mdc-checkbox__native-control:focus:checked~.mdc-checkbox__ripple {
+    background-color: #beebbd !important;
+}
+
+/* Styles for tab labels */
+::ng-deep .mat-mdc-tab.mdc-tab--active .mdc-tab__text-label {
+    color: #4D88FF !important;
+    text-align: center;
+    font-feature-settings: 'clig' off, 'liga' off;
+    font-family: Google Sans;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 20px;
+}
+
+/* Styles for the active tab label */
+::ng-deep .mat-mdc-tab .mdc-tab__text-label {
+    color: #4D88FF !important;
+    text-align: center;
+    font-feature-settings: 'clig' off, 'liga' off;
+    font-family: Google Sans;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 20px;
+    letter-spacing: -0.154px;
+}
+
+/* Styles for the ink bar */
+::ng-deep .mat-mdc-tab.mdc-tab--active .mdc-tab-indicator__content--underline {
+    border-width: 3px;
+    stroke: #4D88FF !important;
+    border-color: #4D88FF !important
+}
+
+::ng-deep .mat-mdc-tab-header {
+    display: flex;
+    overflow: hidden;
+    position: relative;
+    flex-shrink: 0;
+    //height: 60px;
+    align-items: end;
+}
+
+.infoKeys {
+    color: var(--grey, #575757);
+    font-feature-settings: 'clig' off, 'liga' off;
+    font-family: Google Sans;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 20px;
+    letter-spacing: -0.154px;
+}
+
+.infoValues {
+    color: #000;
+    font-feature-settings: 'clig' off, 'liga' off;
+    font-family: Google Sans;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 20px;
+    letter-spacing: -0.154px;
+    word-break: break-word;
+}
+
+.generateInsightsBtnEnabled {
+    border-radius: 10px;
+    background: #4D88FF;
+    color: #FFF;
+    text-align: center;
+    font-feature-settings: 'clig' off, 'liga' off;
+    font-family: Google Sans;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 20px;
+    /* 142.857% */
+    letter-spacing: -0.154px;
+    width: 146px;
+    height: 28px;
+    flex-shrink: 0;
+    border: none;
+}
+
+.generateInsightsBtn {
+    border-radius: 10px;
+    background: #BEBEBE;
+    color: #FFF;
+    text-align: center;
+    font-feature-settings: 'clig' off, 'liga' off;
+    font-family: Google Sans;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 20px;
+    /* 142.857% */
+    letter-spacing: -0.154px;
+    width: 146px;
+    height: 28px;
+    flex-shrink: 0;
+    border: none;
+}
+
+::ng-deep .review.mat-mdc-tab-labels {
+    justify-content: center;
+}
+
+.aiResults {
+    color: #000;
+    font-feature-settings: 'clig' off, 'liga' off;
+    font-family: "Google Sans";
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 20px;
+    /* 142.857% */
+    letter-spacing: -0.154px;
+}
+
+.convSearchTitle {
+    color: #000;
+    font-feature-settings: 'clig' off, 'liga' off;
+    font-family: "Google Sans";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 20px;
+    letter-spacing: -0.154px;
+    margin-top: 30px;
+}
+
+.convSearchResult {
+    color: #000;
+    font-feature-settings: 'clig' off, 'liga' off;
+    font-family: "Google Sans";
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px;
+    /* 142.857% */
+    letter-spacing: -0.154px;
+    padding: 10px
+}
+
+.title {
+    color: #000;
+    font-family: "Google Sans";
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+#retailbox {
+    border: solid #a08db7;
+    height: 500px;
+    width: 500px;
+    position: relative;
+}
+iframe {
+    position: relative;
+    top: 20px;
+    bottom: 20px;
+    left: 0;
+    right: 0;
+    max-height: 1000px;
+    width: 100%;
+    overflow: scroll;
+}

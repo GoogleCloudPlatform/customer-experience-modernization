@@ -1,0 +1,301 @@
+/**
+ * Copyright 2024 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+.product-images {
+  height: 12em;
+  width: 12em;
+  border-radius: 10px;
+}
+
+.container {
+  max-width: 960px;
+  margin: 10px;
+  // background: #FDF8FD;
+}
+
+.expanded-product-images {
+  height: 25em;
+  width: 30em;
+  border-radius: 10px;
+}
+
+.carousel-item.active {
+  display: inline-flex;
+}
+
+.card-border {
+  border: none !important;
+  // background: #FDF8FD;
+}
+
+.product-name {
+  font-family: "Google Sans";
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 24px;
+  text-align: left;
+}
+
+.product-placement {
+  font-family: "Google Sans";
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 24px;
+  letter-spacing: 0.5px;
+  text-align: left;
+  margin-block-start: 0em;
+  margin-block-end: 0em;
+}
+
+.price {
+  font-family: "Google Sans";
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 24px;
+  letter-spacing: 0.5px;
+  text-align: left;
+}
+
+.product-background {
+  // background: #FDF8FD;
+
+  img {
+    width: 208px;
+    height: 198px;
+    flex-shrink: 0;
+    // height: 16em;
+    // width: 16em;
+    border-radius: 10px;
+  }
+}
+
+.expanded-product-background {
+  //  background: #FDF8FD;
+
+  img {
+    width: 474px;
+    height: 451px;
+    top: 157px;
+    left: 99px;
+    border-radius: 8px
+  }
+}
+
+.see-more {
+  /* M3/sys/light/primary */
+  background: #6750A4;
+  border-radius: 100px;
+
+  flex-direction: row;
+  justify-content: center;
+  // padding: 10px 24px;
+  gap: 8px;
+
+  /* identical to box height, or 143% */
+  display: flex;
+  align-items: center;
+  text-align: center;
+  letter-spacing: 0.1px;
+  color: #FFFFFF;
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+  border: none;
+  padding: 4px;
+  position: relative;
+}
+
+.see-more-center {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+}
+
+.product-description {
+  color: #000;
+  font-family: 'Google Sans';
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 300;
+  line-height: 24px;
+  letter-spacing: 0.5px;
+  margin-bottom: 8px;
+}
+
+.title {
+  color: #000;
+  font-family: 'Google Sans';
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 900;
+  line-height: 24px;
+  /* 150% */
+  letter-spacing: 0.5px;
+}
+
+.card-body {
+  padding-top: 0px;
+
+}
+
+.add-to-bag {
+  border: none !important;
+  padding: 0px;
+  gap: 8px;
+  /* width: 191px; */
+  height: 40px;
+  left: 1067px;
+  top: 687px;
+  background: #c4b4ee;
+  border-radius: 100px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 24px;
+  gap: 8px;
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+  font-family: Google Sans, "Helvetica Neue", sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: 0.1px;
+  color: black;
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+  margin-right: 20px;
+}
+
+:host ::ng-deep {
+  .product-item {
+    .product-item-content {
+      border: 1px solid var(--surface-d);
+      border-radius: 3px;
+      margin: .3rem;
+      text-align: center;
+      padding: 2rem 0;
+    }
+
+    .product-image {
+      width: 50%;
+      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23)
+    }
+  }
+}
+
+::ng-deep .p-carousel-content {
+  overflow: visible !important
+}
+
+.p-carousel .p-carousel-content .p-carousel-prev,
+.p-carousel .p-carousel-content .p-carousel-next {
+  width: 2rem;
+  height: 2rem;
+  color: #6c757d;
+  border: 0 none;
+  background: transparent;
+  border-radius: 50%;
+  transition: background-color 0.2s, color 0.2s, box-shadow 0.2s;
+  margin: 0.5rem;
+}
+
+.p-carousel .p-carousel-indicators .p-carousel-indicator.p-highlight button {
+  background-color: #6750A4;
+}
+
+
+.compare-btn {
+  border: none !important;
+
+  border-radius: 40px;
+  background: #FFF;
+  box-shadow: 0px 1px 2px 1px rgba(0, 0, 0, 0.10);
+
+  color: #000;
+  font-family: Roboto;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px;
+  /* 150% */
+  letter-spacing: 0.5px;
+  width: 197px;
+  height: 47px;
+  flex-shrink: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.loader {
+  margin-bottom: 20px;
+  margin-right: 40px;
+  //margin-left: 700px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+}
+
+.product-name {
+  font-family: "Google Sans";
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 24px;
+  text-align: left;
+  width: 256px;
+  margin-top: 1em;
+
+  color: grey;
+  font-family: "Google Sans";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 24px;
+  /* 150% */
+  letter-spacing: 0.5px;
+}
+
+.product-category {
+  color: #000;
+  font-family: 'Google Sans';
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 300;
+  line-height: 24px;
+  /* 150% */
+  letter-spacing: 0.5px;
+  margin-top:5px
+}
+
+.price {
+  color: #000;
+  font-family: "Google Sans";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 24px;
+  /* 150% */
+  letter-spacing: 0.5px;
+  margin-top: 11px;
+  margin-bottom: 23px
+}

@@ -1,0 +1,67 @@
+<!--
+ Copyright 2024 Google LLC
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+
+<div class="grid-container">
+	<mat-toolbar style="height:53px;padding-right:0px ;background: #FFF;
+	box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.15); align-items: center;">
+		<img src="assets/images/cymbal-customer-service-logo.svg" alt="Cymbal Customer Service Logo">
+		<img src="assets/images/cymbal-text-logo.svg" alt="Cymbal Text Logo" class="ms-2">
+		<span class="title ms-2">Customer Experience Management</span>
+		<span class="flex-expand"></span>
+		<app-user-photo></app-user-photo>
+	</mat-toolbar>
+	<div class="row mt-4 col-10 mx-auto">
+		<div>
+			<a class="buttonStartCamp" [href]="genAIforMktURL" style="text-decoration: none;">
+				<div style="margin: 10px; text-align: center; color: black;">
+					Start a Campaign</div>
+			</a>
+		</div>
+		<br>
+		<br>
+		<div class="col-10">
+			<nav mat-tab-nav-bar [tabPanel]="tabPanel" class="">
+				<a mat-tab-link [active]="lookerTab" (click)="tab('Looker')">Looker</a>
+
+				<!-- <a mat-tab-link [active]="fadTab" (click)="tab('FAD')" [href]="firebaseAnalyticsURL" class="tab-link">
+					<p style="color:#4D88FF;margin-bottom: 0rem;">Firebase Analytics Dashboard</p>
+					<mat-icon style="color: #4D88FF;"> open_in_new</mat-icon>
+				</a>
+				<a mat-tab-link [active]="fraTab" (click)="tab('FRA')" [href]="firebaseRealtimeURL" class="tab-link">
+					<p style="color:#4D88FF;margin-bottom: 0rem;">Firebase Realtime Analytics</p>
+					<mat-icon style="color: #4D88FF;">open_in_new</mat-icon>
+				</a> -->
+
+				<button class="btnAnalytics" (click)="goToLink(firebaseAnalyticsURL)">
+					Firebase Analytics Dashboard <mat-icon>open_in_new</mat-icon>
+				</button>
+				<button class="btnAnalytics" (click)="goToLink(firebaseRealtimeURL)">
+					Firebase Realtime Analytics <mat-icon>open_in_new</mat-icon>
+				</button>
+			</nav>
+			<mat-tab-nav-panel #tabPanel>
+
+			</mat-tab-nav-panel>
+		</div>
+
+		<!-- <mat-divider></mat-divider> -->
+		<div class="overviewcss mb-3" style="overflow: auto;">
+			<iframe width="1000" height="900"
+				src="https://googlecloud.looker.com/embed/dashboards/1942?allow_login_screen=true"></iframe>
+		</div>
+	</div>
+</div>
+<app-architecture [architecture]="architecture"></app-architecture>

@@ -1,0 +1,136 @@
+/**
+ * Copyright 2024 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+.container{
+    display:flex;
+    height:calc(100vh - 70px);
+}
+
+.messages{
+    width : 100%;
+    margin:16px;
+    border-radius: 16px;
+}
+
+body {
+    background: #ECEFF1;
+    color: rgba(0, 0, 0, 0.87);
+    font-family: Roboto, Helvetica, Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+
+ 
+  
+body {
+	font-family: "DM Sans", sans-serif;
+}
+
+.carousel-control-next-icon,
+.carousel-control-prev-icon{ 
+	width: 10px;
+	height: 10px;
+}
+
+.msg {
+  border-radius: 10px;
+}
+
+.msg.right {
+  background-color:#CCC;
+  float: right;
+}
+
+.msg.left {
+  background-color:#555;
+  color: white;
+
+}
+
+.newUserMessage {
+  max-height: 0;
+  opacity: 0;
+  animation: grow 2s ease forwards;
+}
+
+.newBotMessage {
+  max-height: 0;
+  opacity: 0;
+  animation: grow 2s ease forwards;
+  animation-delay: 1s;
+}
+
+.fade-in {
+  max-height: 0;
+  opacity: 0;
+  animation: grow 2s ease forwards;
+  animation-delay: 2s;
+}
+
+#fade-in {
+  opacity:1;
+  transition: opacity 1s ease-out;
+}
+
+@keyframes grow {
+  to {
+    max-height: 1000px;
+    opacity: 1;
+  }
+}
+
+.product-compare output {
+  border-style: dotted;
+  border-radius: 10px;
+}
+
+.product-result small {
+  display: None;
+}
+
+.product-result img {
+  max-height: 140px !important;
+}
+
+.product-result h3 {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.product-result .breadcrumb {
+  display: None;
+}
+
+#collapse-drag-results output a.btn.btn-primary {
+    display: none;
+}
+
+.results-list .card{
+    box-shadow: 0 6px 10px rgba(0,0,0,.08), 0 0 6px rgba(0,0,0,.05);
+      transition: .3s transform cubic-bezier(.155,1.105,.295,1.12),.3s box-shadow,.3s -webkit-transform cubic-bezier(.155,1.105,.295,1.12);
+  cursor: pointer;
+}
+
+.results-list .card:hover{
+     transform: scale(1.05);
+  box-shadow: 0 10px 20px rgba(0,0,0,.12), 0 4px 8px rgba(0,0,0,.06);
+}
+
+
+.preview img {
+  max-width: 320px;
+}

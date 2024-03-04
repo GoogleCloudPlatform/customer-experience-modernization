@@ -1,0 +1,209 @@
+/**
+ * Copyright 2024 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+mat-card {
+    width: 400px;
+    border-radius: 14px;
+}
+
+mat-card-header {
+    border-radius: 14px 14px 0px 0px;
+    background: #FFA0A0;
+    height: 60px;
+    color: #FFF;
+    font-feature-settings: 'clig' off, 'liga' off;
+    font-family: Google Sans;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 20px;
+    letter-spacing: -0.154px;
+}
+
+mat-form-field {
+    width: 320px;
+}
+
+.chat-body {
+    height: 510px;
+    overflow-y: auto;
+    /* Add this line to enable vertical scrolling */
+    position: relative;
+    flex: 1 1 auto;
+    border: 0;
+    margin: 0;
+    vertical-align: baseline;
+}
+
+.msg {
+    border-radius: 10px;
+}
+
+.msg.right {
+    background-color: #CCC;
+    float: right;
+}
+
+.msg.left {
+    background-color: #555;
+    color: white;
+}
+
+#messages {
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    overflow-x: hidden;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-left: 0 !important;
+    list-style: none;
+}
+
+#messages li {
+    list-style: none;
+    margin-top: 1rem;
+    max-width: 500px;
+}
+
+#messages img {
+    width: 43px;
+    height: auto;
+}
+
+.received {
+    display: block;
+    width: 100%;
+    text-align: left;
+    position: relative;
+}
+
+li.received p,
+img,
+a {
+    color: #000;
+    font-size: 14px;
+    line-height: 1.5;
+    font-weight: 400;
+    padding: 5px 10px;
+    background: #fff;
+    display: inline-block;
+    border: 1px solid var(--messaging-light-border-system-message, rgba(0, 0, 0, 0.12));
+    border-radius: 20px;
+    margin-bottom: 0;
+}
+
+li.sent {
+    display: block;
+    width: 100%;
+    text-align: right;
+    position: relative;
+}
+
+li.sent p {
+    color: #000;
+    font-size: 14px;
+    line-height: 1.5;
+    font-weight: 400;
+    padding: 5px 10px;
+    background: #f4f6f8;
+    display: inline-block;
+    border-radius: 20px;
+    margin-bottom: 0;
+}
+
+li.sent:after {
+    display: block;
+    content: '';
+    clear: both;
+}
+
+.caption_span {
+    color: var(--grey, #575757);
+    font-feature-settings: 'clig' off, 'liga' off;
+    font-family: "Google Sans";
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px;
+    /* 200% */
+    letter-spacing: -0.154px;
+}
+
+li.sent .caption_span {
+    /* margin-top:5px; */
+    margin-right: 15px;
+}
+
+.mdc-fab {
+    height: 50px;
+    width: 50px
+}
+
+.customer-service-chat {
+    margin-top: 53px;
+    margin-left: 20px;
+    margin-right: 10px;
+    margin-bottom: 10px
+}
+
+.translate-icon {
+    border-radius: 22px;
+    background: #FFD0D0;
+    color: white;
+    width: 38px;
+    height: 38px;
+    flex-shrink: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2px;
+}
+
+
+.searchInput {
+    width: 344px;
+    height: 48px;
+    flex-shrink: 0;
+    fill: var(--Grey-50, #F8F9FA);
+    stroke-width: 1px;
+    stroke: #D0D0D0;
+    background: #F8F9FA;
+    border-radius: 6px;
+    border: 1px solid #F8F9FA;
+    padding-left: 10px;
+    color: var(--Typography-secondary-text, rgba(0, 0, 0, 0.66));
+
+    /* GM3/body/medium */
+    font-family: "Google Sans Text";
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px;
+    /* 142.857% */
+}
+
+.title {
+    color: #FFF;
+    font-feature-settings: 'clig' off, 'liga' off;
+    font-family: "Google Sans";
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 20px;
+    /* 100% */
+    letter-spacing: -0.154px;
+}

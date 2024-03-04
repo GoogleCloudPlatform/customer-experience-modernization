@@ -1,0 +1,477 @@
+/**
+ * Copyright 2024 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+// .container {
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+// }
+.container {
+  max-width: 100%;
+}
+
+.conversation {
+  width: 100%;
+  // margin:16px;
+  // border-radius: 16px;
+  // position: absolute;
+  //width: 1405px;
+  // height: 560px;
+  left: 18px;
+  top: 121px;
+
+  background: #FDF8FD;
+
+  border-radius: 21px;
+  box-shadow: inset -3px 3px 5px rgba(0, 0, 0, 0.1);
+  padding: 12px;
+}
+
+.card {
+  // min-height: 500px;
+  width: 100%;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  border: none !important;
+}
+
+.chat-list {
+  background: #FDF8FD;
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+
+  .chat-item {
+    max-width: 80%;
+    margin: 8px 0px;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: row;
+
+    #message-body {
+      margin: auto;
+      // padding: 8px;
+      border-radius: 21px;
+      margin-right: 20px;
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+
+    #avatar {
+      height: 48px;
+      width: 48px;
+      object-fit: cover;
+      border-radius: 50%;
+    }
+  }
+
+  .left {
+    #message-body {
+      background: #FFFFFF;
+      font-family: "Google Sans";
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 24px;
+      letter-spacing: 0.5px;
+      text-align: left;
+      padding-left: 20px;
+      padding-top: 20px;
+    }
+
+
+    margin-right: auto;
+    // margin-left: 20px;
+    // padding:20px;
+    border-radius: 50px
+  }
+
+  .left-typing {
+
+    background: #FFFFFF;
+    font-family: "Google Sans";
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+    letter-spacing: 0.5px;
+    text-align: left;
+    // padding-left: 20px;
+    // padding-top: 20px;
+    padding: 10px;
+
+    margin-right: auto;
+    // margin-left: 20px;
+    // padding:20px;
+    border-radius: 50px
+  }
+
+  // #product{
+  //   background : #FDF8FD;
+  // }
+  .right {
+    #message-body {
+      background: #F3EDFF;
+      font-family: "Google Sans";
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 24px;
+      letter-spacing: 0.5px;
+    }
+
+    margin-right: 20px;
+    margin-left: auto;
+    flex-direction: row-reverse;
+    padding:20px;
+    border-radius: 40px
+  }
+
+  .img-right-chat {
+    #message-body {
+      background: #F3EDFF;
+      font-family: "Google Sans";
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 24px;
+      letter-spacing: 0.5px;
+    }
+
+   // margin-right: 20px;
+    margin-left: auto;
+    flex-direction: row-reverse;
+    padding:5px 0px 20px 0px;
+    border-radius: 40px
+  }
+}
+
+.chat-area {
+  display: flex;
+  justify-content: space-evenly;
+  background: #FDF8FD;
+}
+
+.RNNXgb1 {
+  z-index: 3;
+  min-height: 44px;
+  background: #ECE6F0;
+  border: 1px solid #dfe1e5;
+  box-shadow: none;
+  border-radius: 24px;
+  width: 70%;
+  display: flex;
+  // justify-content: center;
+  // align-items: center;
+  margin-left: 20px;
+}
+
+.chat-text {
+  // position: absolute;
+  // width: 863px;
+  height: 40px;
+  left: 302px;
+  background: #ECE6F0;
+  border-radius: 50px;
+}
+
+.SDkEP {
+  flex: 1;
+  display: flex;
+  padding: 5px 8px 0 14px;
+}
+
+.a4bIc {
+  display: flex;
+  flex-wrap: wrap;
+  flex: 1;
+  margin-top: 6px;
+}
+
+.align-btns-end {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  float: right;
+  padding-top: 6px;
+  margin-right: 5px;
+}
+
+
+.ask-btn {
+  border: none !important;
+  padding: 0px;
+  gap: 8px;
+
+  width: 191px;
+  height: 40px;
+  left: 1067px;
+  top: 687px;
+
+  /* M3/sys/light/primary */
+  background: #6750A4;
+  border-radius: 100px;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 24px;
+  gap: 8px;
+
+
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+
+  /* M3/label/large */
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 20px;
+  /* identical to box height, or 143% */
+
+  letter-spacing: 0.1px;
+
+  /* M3/sys/light/on-primary */
+  color: #FFFFFF;
+
+
+  /* Inside auto layout */
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+
+  margin-top: -4px;
+  // margin-left: 500px;
+}
+
+.file-upload {
+  border: none !important;
+
+  width: 42px;
+  height: 40px;
+  // left: 1067px;
+  // top: 687px;
+
+  /* M3/sys/light/primary */
+  background: #6750A4;
+  border-radius: 100px;
+
+  // display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+
+
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+
+  /* M3/label/large */
+  font-family: "Google Sans";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 20px;
+  /* identical to box height, or 143% */
+
+  letter-spacing: 0.1px;
+
+  /* M3/sys/light/on-primary */
+  color: #FFFFFF;
+
+
+  /* Inside auto layout */
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+
+  margin-top: -4px;
+  margin-left: 10px;
+}
+
+//upload-image-css
+
+.imageUpload {
+  display: none;
+}
+
+.image-upload-container {
+  cursor: pointer;
+}
+
+.img-preview-container {
+  background: #F3EDFF;
+  position: relative;
+
+  .img-preview {
+    background: center center no-repeat;
+    background-size: cover;
+    height: 116px;
+    width: 250px;
+
+    &-error {
+      display: none;
+    }
+  }
+}
+
+.img-loading-overlay {
+  background-color: black;
+  bottom: 0;
+  left: 0;
+  opacity: .2;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.img-spinning-circle {
+  display: inline-block;
+  width: 64px;
+  height: 64px;
+  margin: auto;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+
+.img-spinning-circle:after {
+  content: " ";
+  display: block;
+  width: 46px;
+  height: 46px;
+  margin: 1px;
+  border-radius: 50%;
+  border: 5px solid #fff;
+  border-color: #fff transparent #fff transparent;
+  animation: lds-dual-ring 1.2s linear infinite;
+}
+
+@keyframes lds-dual-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.btn-bwm {
+  color: white;
+  font-size: 20px;
+}
+
+.loader {
+  margin-bottom: 20px;
+  margin-right: 40px;
+  //margin-left: 700px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+}
+
+/* scroll bar css*/
+.messages {
+  height: 700px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+:host .messages::-webkit-scrollbar {
+  width: 5px;
+  /* Set your desired thickness here */
+  scroll-margin-top: 10px;
+}
+
+/* Customize the appearance of the scroll bar handle */
+:host .messages::-webkit-scrollbar-thumb {
+  background-color: #AAA;
+  /* Set your desired handle color */
+  border-radius: 40px;
+  /* Set your desired border radius */
+}
+
+:host .messages::-webkit-scrollbar-track {
+  background-color: transparent;
+  /* Set your desired handle color */
+}
+
+:host .messages::-webkit-scrollbar-track-piece:end {
+  background: transparent;
+  margin-bottom: 10px;
+}
+
+:host .messages::-webkit-scrollbar-track-piece:start {
+  background: transparent;
+  margin-top: 10px;
+}
+
+::ng-deep .p-carousel .p-carousel-indicators {
+  display: none !important;
+}
+
+
+.dot-flashing {
+  position: relative;
+  width: 10px;
+  height: 10px;
+  border-radius: 5px;
+  background-color: #9880ff;
+  color: #9880ff;
+  animation: dot-flashing 1s infinite linear alternate;
+  animation-delay: 0.5s;
+}
+.dot-flashing::before, .dot-flashing::after {
+  content: "";
+  display: inline-block;
+  position: absolute;
+  top: 0;
+}
+.dot-flashing::before {
+  left: -15px;
+  width: 10px;
+  height: 10px;
+  border-radius: 5px;
+  background-color: #9880ff;
+  color: #9880ff;
+  animation: dot-flashing 1s infinite alternate;
+  animation-delay: 0s;
+}
+.dot-flashing::after {
+  left: 15px;
+  width: 10px;
+  height: 10px;
+  border-radius: 5px;
+  background-color: #9880ff;
+  color: #9880ff;
+  animation: dot-flashing 1s infinite alternate;
+  animation-delay: 1s;
+}
+
+@keyframes dot-flashing {
+  0% {
+    background-color: #9880ff;
+  }
+  50%, 100% {
+    background-color: rgba(152, 128, 255, 0.2);
+  }
+}

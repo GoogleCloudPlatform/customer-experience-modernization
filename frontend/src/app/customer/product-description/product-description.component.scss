@@ -1,0 +1,173 @@
+/**
+ * Copyright 2024 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+.product-background {
+    background: white;
+
+    img {
+        width: 587px;
+        height: 691px;
+        border-radius: 10px;
+    }
+}
+
+.align-margin {
+    padding: 20px;
+    padding-bottom: 0px
+}
+
+.product-name {
+    color: #000;
+    font-family: "Google Sans";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 24px;
+    /* 150% */
+    letter-spacing: 0.5px;
+}
+
+.product-category {
+    color: gray;
+    font-family: "Google Sans";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: 24px;
+    letter-spacing: 0.5px;
+}
+
+.price {
+    color: #000;
+    font-family: "Google Sans";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 24px;
+    /* 150% */
+    letter-spacing: 0.5px;
+    margin-top: 11px;
+}
+
+.card {
+    border: none !important;
+
+}
+
+.image {
+    /* Rectangle 4 */
+
+    box-sizing: border-box;
+
+    position: absolute;
+    width: 587px;
+    height: 691px;
+
+
+    border: 1px solid #EDF0F8;
+    border-radius: 17px;
+
+}
+
+.shopping-assi-btn {
+    border: none !important;
+    padding: 0px;
+    gap: 8px;
+
+    width: 204px;
+    height: 40px;
+    left: 1067px;
+    top: 687px;
+    // margin-top: -8px;
+    /* M3/sys/light/primary */
+    background: #ECE6F0;
+    border-radius: 100px;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 24px;
+    gap: 8px;
+
+
+    /* Inside auto layout */
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+
+    /* M3/label/large */
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 20px;
+    /* identical to box height, or 143% */
+
+    letter-spacing: 0.1px;
+
+    /* M3/sys/light/on-primary */
+    color: black;
+
+
+    /* Inside auto layout */
+    flex: none;
+    order: 1;
+    flex-grow: 0;
+}
+
+.recommend {
+    margin-left:15px;
+    font-family: 'Roboto';
+    font-weight: 700px;
+}
+
+::ng-deep .p-carousel .p-carousel-indicators {
+    display: none !important;
+}
+
+// ::ng-deep .p-carousel-container {
+//     margin-left: -32px;
+// }
+
+.addToCart {
+    display: flex;
+    width: 167px;
+    height: 40px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+    border-radius: 100px;
+    background: var(--M3-sys-light-primary, #6750A4);
+    color: var(--M3-sys-light-on-primary, #FFF);
+    text-align: center;
+
+    /* M3/label/large */
+    font-family: Roboto;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 20px;
+    /* 142.857% */
+    letter-spacing: 0.1px;
+    border: none;
+}
+
+::ng-deep .cdk-overlay-pane.mat-mdc-dialog-panel{
+    margin-left : 100px
+}

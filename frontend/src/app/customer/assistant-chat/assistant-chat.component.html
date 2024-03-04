@@ -1,0 +1,158 @@
+<!--
+ Copyright 2024 Google LLC
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+
+<!-- <div *ngIf="!chatLoading" class="loader">
+    <mat-spinner [diameter]="36"> </mat-spinner>
+</div> -->
+<div class="container">
+    <div *ngIf="chatMsgs.length>0 || imageProcessing" class="conversation">
+        <div class="card">
+            <div class="chat-list messages">
+                <div *ngIf="imageProcessing && chatMsgs.length==0" class="chat-item right">
+                    <div class="img-right-chat" data-title="dot-flashing">
+                        <div class="stage">
+                            <span style="margin:10px">Uploading Image</span>
+                            <div class="dot-flashing" style="margin-left:28px ; margin-top:5px"></div>
+                        </div>
+                    </div>
+                </div>
+                <ng-container *ngFor="let msg of chatMsgs">
+                    <div class="chat-item" [ngClass]="{'right':msg?.author== 'user' , left:msg?.author !== 'user'}">
+                        <span *ngIf="msg?.author== 'user'"> <img src="{{photoURL}}" id="avatar"
+                                class="rounded-circle img-fluid login-user" alt="User Profile Image" width="25">
+                        </span>
+                        <span id="message-body">
+                            <p style="margin:10px">{{msg?.message}}</p>
+
+                            <div *ngIf="msg?.author== 'user' && msg?.imageSrc" class="img-right-chat">
+                                <img [src]="msg?.imageSrc" height="200" style="border-radius:10px">
+                            </div>
+                            <span class="left row" id="product" *ngIf="chatMsgs.length > 0 && msg?.author== 'system'">
+                                <app-product-carousel [products]="msg?.results"></app-product-carousel>
+                            </span>
+                        </span>
+                    </div>
+                    <div class="chat-item left"
+                        *ngIf="showAssistantTyping && (msg.message == (chatMsgs[chatMsgs.length-1].message))">
+                        <div class="snippet" data-title="dot-flashing">
+                            <div class="stage left-typing">
+                                <span style="margin:10px; text-align: left;">Shopping Assistant is
+                                    typing</span>
+                                <div class="dot-flashing" style="margin-left:28px ; margin-top:5px"></div>
+                            </div>
+                        </div>
+                    </div>
+                </ng-container>
+            </div>
+        </div>
+        <mat-divider style="margin:1em; background: #FDF8FD;"></mat-divider>
+        <div class="chat-area">
+            <div class="RNNXgb1 chat-text">
+                <div class="SDkEP">
+                    <div jscontroller="vZr2rb" class="a4bIc" data-hpmde="false" data-mnr="10" jsname="gLFyf"
+                        jsaction="h5M12e;input:d3sQLd;blur:jI3wzf;keydown:uYT2Vb">
+                        <style data-iml="1698992811581">
+                            .gLFyf,
+                            .YacQv {
+                                line-height: 34px;
+                                font-size: 16px;
+                                flex: 100%;
+                            }
+
+                            textarea.gLFyf,
+                            .YacQv {
+                                font-family: 'Google Sans';
+                                line-height: 22px;
+                                margin-bottom: 8px;
+                                overflow-x: hidden
+                            }
+
+                            textarea.gLFyf {}
+
+                            .sbfc textarea.gLFyf {
+                                white-space: pre-line;
+                                overflow-y: auto
+                            }
+
+                            .gLFyf {
+                                resize: none;
+                                background-color: transparent;
+                                border: none;
+                                margin: 0;
+                                padding: 0;
+                                color: rgba(0, 0, 0, .87);
+                                word-wrap: break-word;
+                                outline: none;
+                                display: flex;
+                                -webkit-tap-highlight-color: transparent
+                            }
+
+                            .a4bIc {
+                                display: flex;
+                                flex-wrap: wrap;
+                                flex: 1;
+                                margin-top: 6px
+                            }
+
+                            .YacQv {
+                                color: transparent;
+                                white-space: pre;
+                                position: absolute;
+                                pointer-events: none
+                            }
+
+                            .YacQv span {
+                                text-decoration: #d93025 dotted underline
+                            }
+                        </style>
+                        <div jsname="vdLsw" class="YacQv"></div>
+                        <textarea #assistantChat jsname="yZiJbe" class="gLFyf " jsaction="paste:puy29d;" id="APjFqb"
+                            maxlength="2048" name="q" rows="1" aria-activedescendant="" aria-autocomplete="both"
+                            aria-controls="Alh6id" aria-expanded="false" aria-haspopup="both" aria-owns="Alh6id"
+                            autocapitalize="off" autocomplete="off" autocorrect="off" autofocus="" role="combobox"
+                            spellcheck="false" title="Type" type="text" value="" aria-label="Type"
+                            [(ngModel)]="chatInputMessage" data-ved="0ahUKEwjXwIK4maeCAxXdqVYBHRu7CzEQ39UDCAQ"
+                            placeholder="Type..." (keydown.enter)="followUp(assistantChat.value , $event)"></textarea>
+                    </div>
+
+                </div>
+            </div>
+            <div class="align-btns-end">
+                <button class="ask-btn" (click)="followUp(assistantChat.value)">
+                    <span class="google-symbols">
+                        astrophotography_mode
+                    </span> Ask a follow up
+                </button>
+
+                <button class="file-upload">
+                    <label class="image-upload-container btn-bwm">
+                        <input #imageInput class="imageUpload" type="file" accept="image/*"
+                            (change)="processFile(imageInput , assistantChat.value)">
+                        <span class="google-symbols" *ngIf="!uploadingImage">
+                            upload
+                        </span>
+
+                        <div data-title="dot-flashing" *ngIf="uploadingImage">
+                            <div class="stage">
+                                <div class="dot-flashing" style="margin-top:5px"></div>
+                            </div>
+                        </div>
+                    </label>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

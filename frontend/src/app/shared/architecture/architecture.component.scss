@@ -1,0 +1,318 @@
+/**
+ * Copyright 2024 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+// .expand_button {
+//   z-index: 999;
+//   position: fixed;
+//   bottom: 106px;
+//   right: 16px;
+//   transform: translate(-50%, -50%);
+// }
+
+// .e-button {
+//   color: transparent;
+  
+//   padding-left: 10px;
+//   padding-right: 10px;
+//   position: relative;
+//   float: right;
+//   overflow: hidden;
+//   max-width: 60px;
+//   -webkit-transition: max-width 0.3s ease-in-out;
+//   -moz-transition: max-width 0.3s ease-in-out;
+//   -o-transition: max-width 0.3s ease-in-out;
+//   transition: max-width 0.3s linear;
+  
+//   border-radius: 60px;
+// }
+// .e-button-text {
+//   white-space: nowrap;
+//   color: black;
+// }
+
+// .e-button-userJourney {
+//   color: transparent;
+//   background-color: black;
+//   padding-right: 10px;
+//   position: relative;
+//   float: right;
+//   overflow: hidden;
+//   max-width: 35px;
+//   -webkit-transition: max-width 0.3s ease-in-out;
+//   -moz-transition: max-width 0.3s ease-in-out;
+//   -o-transition: max-width 0.3s ease-in-out;
+//   transition: max-width 0.3s linear;
+//   padding-left: 4px;
+//   border-radius: 60px;
+// }
+// .e-button:hover {
+//   background-color: white;
+//   color: #fff;
+//   max-width: 280px;
+//   box-shadow: 0px 15px 20px rgba(133, 134, 134, 0.4);
+//   circle{
+//     display: none !important;
+//   }
+// }
+
+// .e-button-userJourney-text{
+//   white-space: nowrap;
+//   color: white;
+// }
+
+// .e-button-userJourney:hover {
+//   background-color: black;
+//   color: black;
+//   max-width: 280px;
+// }
+// // .abc {
+// //   /* Group 11480054 */
+// //   position: fixed;
+// //   bottom: 600px;
+// //   right: 9px;
+// //   z-index: 999;
+
+// //}
+
+// .abc {
+//   // background: #ffffff;
+//   width: 19.64px;
+//   height: 15.8px;
+
+//   position: absolute;
+//   left: 98.32%;
+//   right: 2.99%;
+//   top: 48%;
+//   bottom: 72.38%;
+
+//   z-index:999;
+// }
+
+// .archdig {
+//   /* Group 11480054 */
+
+//   position: absolute;
+//   width: 40px;
+//   height: 40px;
+//   left: 1377px;
+//   top: 750px;
+
+//   /* Ellipse 1065 */
+
+//   position: absolute;
+//   width: 40px;
+//   height: 40px;
+//   left: 1377px;
+//   top: 750px;
+
+//   background: #ffffff;
+//   box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.25);
+
+//   /* Group 11480052 */
+
+//   position: absolute;
+//   width: 19.64px;
+//   height: 15.8px;
+//   left: 1387px;
+//   top: 760.82px;
+
+//   /* Vector */
+
+//   position: absolute;
+//   left: 96.48%;
+//   right: 2.65%;
+//   top: 37.02%;
+//   bottom: 72.75%;
+
+//   background: #ea4335;
+
+//   /* Vector */
+
+//   position: absolute;
+//   left: 96.97%;
+//   right: 2.32%;
+//   top: 37.09%;
+//   bottom: 72.34%;
+
+//   background: #4285f4;
+
+//   /* Vector */
+
+//   position: absolute;
+//   left: 96.47%;
+//   right: 3%;
+//   top: 37.51%;
+//   bottom: 72.34%;
+
+//   background: #34a853;
+
+//   /* Vector */
+
+//   position: absolute;
+//   left: 98.32%;
+//   right: 2.99%;
+//   top: 27.21%;
+//   bottom: 72.38%;
+
+//   background: #fbbc05;
+// }
+
+// // .userJourney{
+// //   position: fixed;
+// //   bottom: 700px;
+// //   right: 16px;
+// //   z-index: 999;
+// // }
+
+// .userJourney {
+//   // background: white;
+//   width: 19.64px;
+//   height: 15.8px;
+
+//   position: absolute;
+//   left: 98.1%;
+//   right: 2.99%;
+//   top: 41.5%;
+//   bottom: 72.38%;
+//   z-index:999;
+// }
+
+
+
+.expand_button {
+  position: absolute;
+  left: 50%;
+  top: 80%;
+  right: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.e-button {
+  color: transparent;
+  padding-left: 10px;
+  padding-right: 10px;
+  position: relative;
+  float: right;
+  overflow: hidden;
+  max-width: 52px;
+  -webkit-transition: max-width 0.3s ease-in-out;
+  -moz-transition: max-width 0.3s ease-in-out;
+  -o-transition: max-width 0.3s ease-in-out;
+  transition: max-width 0.3s linear;
+
+  border-radius: 60px;
+  text-align: center;
+  /* M3/label/large */
+  font-family: Roboto;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 20px;
+  /* 142.857% */
+  letter-spacing: 0.1px;
+}
+
+.e-button-text {
+  white-space: nowrap;
+  color: black;
+  padding-right: 10px;
+}
+
+.e-button-userJourney {
+  color: transparent;
+  background-color: black;
+  padding-right: 10px;
+  position: relative;
+  float: right;
+  overflow: hidden;
+  max-width: 34px;
+  -webkit-transition: max-width 0.3s ease-in-out;
+  -moz-transition: max-width 0.3s ease-in-out;
+  -o-transition: max-width 0.3s ease-in-out;
+  transition: max-width 0.3s linear;
+  padding-left: 4px;
+  border-radius: 60px;
+  color: #414244;
+
+  text-align: center;
+  font-family: Roboto;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 20px;
+  letter-spacing: 0.1px;
+}
+
+.e-button:hover {
+  background-color: white;
+  color: #fff;
+  max-width: 280px;
+  box-shadow: 0px 15px 20px rgba(133, 134, 134, 0.4);
+
+  circle {
+    display: none !important;
+  }
+}
+
+.e-button-userJourney-text {
+  white-space: nowrap;
+  color: white;
+}
+
+.e-button-userJourney:hover {
+  background-color: black;
+  color: black;
+  max-width: 280px;
+}
+
+.abc {
+  // background: #ffffff;
+  width: 19.64px;
+  height: 15.8px;
+
+  position: absolute;
+  left: 98.32%;
+  right: 2.99%;
+  top: 56%;
+  bottom: 72.38%;
+  z-index: 999;
+}
+
+.demo {
+  // background: #ffffff;
+  width: 19.64px;
+  height: 15.8px;
+
+  position: absolute;
+  left: 98.32%;
+  right: 2.99%;
+  top: 56%;
+  bottom: 72.38%;
+  z-index: 999;
+}
+
+.userJourney {
+  // background: white;
+  width: 19.64px;
+  height: 15.8px;
+
+  position: absolute;
+  left: 98.1%;
+  right: 2.99%;
+  top: 41.5%;
+  bottom: 72.38%;
+  z-index: 999;
+}

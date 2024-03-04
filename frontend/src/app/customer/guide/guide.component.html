@@ -1,0 +1,134 @@
+<!--
+ Copyright 2024 Google LLC
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+
+<div class="d-flex flex-column p-4 gap-4 list-css">
+	<div>
+		<span class="search">
+			<img src="/assets/images/Google Cloud _ Applied AI Engineering.svg"> </span>
+		<app-user-photo></app-user-photo>
+	</div>
+	<div class="list-group list-group-checkable d-grid gap-2 align-items-center justify-content-center"
+		style="margin: 50px;">
+		<div class="d-flex gap-2 w-100 justify-content-between">
+			<p class="left-text">
+				User Journey 1 Customer
+			</p>
+			<p class="right-text">
+				An individual who visits and interacts with an online platform primarily to browse,
+				select, and purchase products or services. They may also provide feedback, leave
+				reviews, and engage in online promotions or loyalty programs. Their experience and
+				satisfaction are pivotal for the website's success and reputation.
+			</p>
+		</div>
+		<div *ngFor="let demo of demoList" class="user-text list-group-item d-flex gap-3 align"
+			aria-current="true">
+
+			<div class="d-flex gap-2 w-100 justify-content-between align">
+				<div>
+					<img src="{{demo.demoImg}}" alt="twbs"
+						class="rounded-circle flex-shrink-0 userImage">
+				</div>
+				<div class="user-title">
+					<p class="mb-0 userId">{{demo.demoId}}</p>
+					<p class="mb-0 userTitle">{{demo.demoTitle}}</p>
+				</div>
+				<div class="content-width">
+					<p>{{demo.description}}</p>
+					<p>Features</p>
+					<div [innerHTML]="demo.featuresHTML"></div>
+					<!-- <p>Instructions</p> -->
+					<div [innerHTML]="demo.instructionsHTML"></div>
+				</div>
+
+				<div class="d-grid gap-2">
+					<!-- <button class="btn rounded-pill px-3 user-journey-btn" type="button" (click)="navigateToHome()">User Journey Demo</button>
+                    <button class="btn btn-secondary rounded-pill px-3 btn-text" type="button">Architecture
+                        Diagram</button>
+                    <button class="btn btn-secondary rounded-pill px-3 btn-text" type="button">Console Demo</button> -->
+					<div [routerLink]="demo.demoHome"
+						style="width: 182px; height: 40px; background: #D0BCFF; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15); border-radius: 100px; overflow: hidden; flex-direction: column; justify-content: center; align-items: center; display: inline-flex; cursor: pointer;">
+						<div
+							style="align-self: stretch; padding-left: 24px; padding-right: 24px; padding-top: 10px; padding-bottom: 10px; justify-content: center; align-items: center; gap: 8px; display: inline-flex">
+							<div
+								style="text-align: center; color: #4F378B; font-size: 14px; font-family: Roboto; font-weight: 500; line-height: 20px; letter-spacing: 0.10px; word-wrap: break-word">
+								Demo
+							</div>
+						</div>
+					</div>
+					<div (click)="openArchitecture(demo.userArchitecture)"
+						class="user-architecture-button">
+						<div
+							style="align-self: stretch;  padding-top: 10px; padding-bottom: 10px; justify-content: center; align-items: center; gap: 8px; display: inline-flex">
+							<div
+								style="text-align: center; color: #D0BCFF; font-size: 14px; font-family: Roboto; font-weight: 500; line-height: 20px; letter-spacing: 0.10px; word-wrap: break-word">
+								Architecture Diagram</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div *ngFor="let demo of externalDemoList" class="user-text list-group-item d-flex gap-3 align"
+			aria-current="true">
+
+			<div class="d-flex gap-2 w-100 justify-content-between align">
+				<div>
+					<img src="{{demo.demoImg}}" alt="twbs"
+						class="rounded-circle flex-shrink-0 userImage">
+				</div>
+				<div class="user-title">
+					<p class="mb-0 userId">{{demo.demoId}}</p>
+					<p class="mb-0 userTitle">{{demo.demoTitle}}</p>
+				</div>
+				<div class="content-width">
+					<p>{{demo.description}}</p>
+					<p>Features</p>
+					<div [innerHTML]="demo.featuresHTML"></div>
+					<!-- <p>Instructions</p> -->
+					<div [innerHTML]="demo.instructionsHTML"></div>
+					
+					<div [innerHTML]="demo.salesforceLink"></div>
+					
+				</div>
+
+				<div class="d-grid gap-2">
+					<!-- <button class="btn rounded-pill px-3 user-journey-btn" type="button" (click)="navigateToHome()">User Journey Demo</button>
+                    <button class="btn btn-secondary rounded-pill px-3 btn-text" type="button">Architecture
+                        Diagram</button>
+                    <button class="btn btn-secondary rounded-pill px-3 btn-text" type="button">Console Demo</button> -->
+					<a *ngFor="let link of demo.links" [href]="link.link"
+						style="width: 182px; height: 40px; background: #D0BCFF; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15); border-radius: 100px; overflow: hidden; flex-direction: column; justify-content: center; align-items: center; display: inline-flex; cursor: pointer;">
+						<div
+							style="align-self: stretch; padding-left: 24px; padding-right: 24px; padding-top: 10px; padding-bottom: 10px; justify-content: center; align-items: center; gap: 8px; display: inline-flex">
+							<div
+								style="text-align: center; color: #4F378B; font-size: 14px; font-family: Roboto; font-weight: 500; line-height: 20px; letter-spacing: 0.10px; word-wrap: break-word">
+								{{link.name}}
+							</div>
+						</div>
+					</a>
+					<div (click)="openArchitecture(demo.userArchitecture)"
+						class="user-architecture-button">
+						<div
+							style="align-self: stretch;  padding-top: 10px; padding-bottom: 10px; justify-content: center; align-items: center; gap: 8px; display: inline-flex">
+							<div
+								style="text-align: center; color: #D0BCFF; font-size: 14px; font-family: Roboto; font-weight: 500; line-height: 20px; letter-spacing: 0.10px; word-wrap: break-word">
+								Architecture Diagram</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>

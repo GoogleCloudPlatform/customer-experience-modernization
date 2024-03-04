@@ -1,0 +1,275 @@
+/**
+ * Copyright 2024 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+h1 {
+	padding: 0 1rem;
+}
+
+h2 {
+	padding: 1rem;
+}
+
+.userMsg {
+	color: #000;
+	//text-align: center;
+	font-family: Google Sans;
+	font-size: 34px;
+	font-style: normal;
+	font-weight: 500;
+	line-height: 20px;
+	/* 58.824% */
+	letter-spacing: 0.5px;
+}
+
+mat-toolbar {
+	position: fixed;
+	top: 0;
+	z-index: 2;
+}
+
+
+// Move the content down so that it won't be hidden by the toolbar
+.content {
+	padding-top: 3.5rem;
+
+	@media screen and (min-width: 600px) {
+		padding-top: 4rem;
+	}
+
+	height: 100%;
+}
+
+.flex-expand {
+	flex: 1 1 auto;
+}
+
+.header-background {
+	background: #EBF2FF !important;
+	color: #4D88FF;
+	font-family: Google Sans;
+	font-size: 12px;
+	font-style: normal;
+	font-weight: 500;
+	line-height: normal;
+	letter-spacing: 0.6px;
+	text-transform: uppercase;
+}
+
+.td-background {
+	color: var(--Fonts-Primary, #25213B);
+	font-family: Google Sans;
+	font-size: 14px;
+	font-style: normal;
+	font-weight: 400;
+	line-height: normal;
+	background: #FFF;
+}
+
+.openJobs {
+	border-radius: 12px;
+	border: 1px solid #CDF;
+	background: #EEF2FC;
+	//width: 362px;
+	height:479px;
+	max-height: 479px;
+	flex-shrink: 0;
+	margin-right: 30px;
+	margin-bottom: 30px;
+	overflow: auto
+}
+
+.inProgress {
+	border-radius: 12px;
+	border: 1px solid #C9A983;
+	background: #FFF6EB;
+	//width: 362px;
+	height:479px;
+	max-height: 479px;
+	flex-shrink: 0;
+	margin-right: 30px;
+	margin-bottom: 30px;
+	overflow:auto;
+}
+
+.completed {
+	border-radius: 12px;
+	border: 1px solid #79A48F;
+	background: #EFFBF5;
+	//width: 362px;
+	height:479px;
+	max-height: 479px;
+	flex-shrink: 0;
+	margin-bottom: 30px;
+	overflow: auto;
+}
+
+.jobsTitle {
+	color: var(--grey, #575757);
+	text-align: center;
+	font-family: Google Sans;
+	font-size: 12px;
+	font-style: normal;
+	font-weight: 500;
+	line-height: normal;
+	margin-top: 20px;
+	display: flex;
+	justify-content: center;
+	margin-bottom: 20px;
+}
+
+.tasksAlignment {
+	margin-bottom: 30px;
+	margin-top: 30px
+}
+
+.openJobsHeader {
+	border-radius: 9px 9px 0px 0px;
+	background: #6786D2;
+	color: #FFF;
+	font-family: Google Sans;
+	font-size: 12px;
+	font-style: normal;
+	font-weight: 400;
+	line-height: 20px;
+	letter-spacing: 0.5px;
+	justify-content: space-around;
+	height:30px
+}
+
+.openJobsBody {
+	border-radius: 9px;
+	background: #FFF;
+	justify-content: space-around;
+	align-items: center;
+	padding-bottom : 10px;
+
+	.titles {
+		color: var(--grey, #575757);
+		font-family: Google Sans;
+		font-size: 12px;
+		font-style: normal;
+		font-weight: 400;
+		line-height: 20px;
+		/* 166.667% */
+		letter-spacing: 0.5px;
+		width: 60px;
+		//height: 19px;
+		flex-shrink: 0;
+		align-items: start;
+		margin-top: 10px;
+		margin-left:5px
+	}
+
+	.values {
+		color: #202020;
+		font-family: Google Sans;
+		font-size: 12px;
+		font-style: normal;
+		font-weight: 500;
+		line-height: 20px;
+		/* 166.667% */
+		letter-spacing: 0.5px;
+		width: 213px;
+		//height: 19px;
+		flex-shrink: 0;
+		margin-top: 10px;
+		margin-left:5px;
+	}
+}
+
+.todayTasks {
+	color: var(--181818, #181818);
+	text-align: center;
+	font-family: Google Sans;
+	font-size: 17.442px;
+	font-style: normal;
+	font-weight: 500;
+	line-height: normal;
+	margin-left:60px
+}
+
+.currentDate {
+	width: 189px;
+	height: 125px;
+	flex-shrink: 0;
+	border-radius: 8px;
+	border: 1px solid #000;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+.date {
+	color: #141414;
+	text-align: center;
+	font-family: Google Sans;
+	font-size: 16px;
+	font-style: normal;
+	font-weight: 700;
+	line-height: 20px;
+	/* 125% */
+	letter-spacing: 0.5px;
+}
+
+.time {
+	color: #141414;
+	font-family: Google Sans;
+	font-size: 50px;
+	font-style: normal;
+	font-weight: 400;
+	line-height: 20px;
+	/* 40% */
+	letter-spacing: 0.5px;
+}
+
+.completedJobsHeader {
+	border-radius: 9px 9px 0px 0px;
+	background: #79A48F;
+	color: #FFF;
+	font-family: Google Sans;
+	font-size: 12px;
+	font-style: normal;
+	font-weight: 400;
+	line-height: 20px;
+	/* 166.667% */
+	letter-spacing: 0.5px;
+	justify-content: space-around;
+	height:30px
+}
+
+.inprogressHeader {
+	border-radius: 9px 9px 0px 0px;
+	background: #C9A983;
+	color: #FFF;
+	font-family: Google Sans;
+	font-size: 12px;
+	font-style: normal;
+	font-weight: 400;
+	line-height: 20px;
+	/* 166.667% */
+	letter-spacing: 0.5px;
+	justify-content: space-around;
+	height:30px
+}
+
+.title {
+    color: #000;
+    font-family: "Google Sans";
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}

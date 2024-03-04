@@ -1,0 +1,161 @@
+<!--
+ Copyright 2024 Google LLC
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+
+<div class="grid-container vh-100">
+	<mat-toolbar style="height:53px;padding-right:0px ;background: #FFF;
+	box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.15); align-items: center;">
+		<img src="assets/images/cymbal-customer-service-logo.svg" alt="Cymbal Customer Service Logo">
+		<img src="assets/images/cymbal-text-logo.svg" alt="Cymbal Text Logo" class="ms-2">
+		<span class="title ms-2">Field Service</span>
+		<span class="flex-expand"></span>
+		<app-user-photo></app-user-photo>
+	</mat-toolbar>
+	<div class="col-lg-10 mx-auto content">
+		<div class="col-12 d-flex mt-4 mb-4">
+			<div class="col-8">
+				<p class="m-4 userMsg">Good morning, {{userName}}</p>
+			</div>
+			<div class="col-4 d-flex" style="justify-content: end;">
+				<div class="currentDate text-center">
+					<p class="date">{{today | date : "d MMMM, y"}}</p>
+					<p class="time">{{today | date :"h:mm"}}</p>
+				</div>
+			</div>
+		</div>
+
+		<div *ngIf="activities.length>0">
+			<p class="text-center todayTasks">Today's Tasks</p>
+			<div class="d-flex tasksAlignment justify-content-between">
+				<div class="col-4 openJobs">
+					<mat-label class="jobsTitle">Open Jobs</mat-label>
+					<div *ngFor="let activity of activities">
+						<div *ngIf="activity.status === 'Open'" style="margin:10px">
+							<div class="d-flex openJobsHeader align-items-center">
+								<span>Job ID</span>
+								<span><a [routerLink]="['/field-service-agent/job']"
+										[queryParams]="{activityId: activity.id}" style="color:#FFF">{{activity.id}}</a>
+								</span>
+								<span>Customer ID</span>
+								<span>{{activity.customer_id}}</span>
+							</div>
+							<div class="d-flex openJobsBody">
+								<div class="d-flex flex-column">
+									<div class="d-flex">
+										<span class="titles">Task</span>
+										<span class="values">{{activity.title}}</span>
+									</div>
+									<div class="d-flex">
+										<span class="titles">Address</span>
+										<span class="values">124 W 8th St, Apt 2, New York</span>
+									</div>
+									<div class="d-flex">
+										<span class="titles">Date</span>
+										<span class="values">{{activity.timestamp.toDate().toLocaleString()}}
+										</span>
+									</div>
+								</div>
+								<button mat-icon-button (click)="changeActivityStatus(activity, 'In progress')"
+									class="col-2">
+									<mat-icon fontIcon="arrow_forward">
+									</mat-icon>
+								</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-4 inProgress">
+					<mat-label class="jobsTitle">In Progress</mat-label>
+					<div *ngFor="let activity of activities">
+
+
+						<div *ngIf="activity.status === 'In progress'" style="margin:10px">
+							<div class="d-flex inprogressHeader align-items-center">
+								<span>Job ID</span>
+								<span><a [routerLink]="['/field-service-agent/job']"
+										[queryParams]="{activityId: activity.id}" style="color:#FFF">{{activity.id}}</a>
+								</span>
+								<span>Customer ID</span>
+								<span>{{activity.customer_id}}</span>
+							</div>
+							<div class="d-flex openJobsBody">
+								<div class="d-flex flex-column">
+									<div class="d-flex">
+										<span class="titles">Task</span>
+										<span class="values">{{activity.title}}</span>
+									</div>
+									<div class="d-flex">
+										<span class="titles">Address</span>
+										<span class="values">124 W 8th St, Apt 2, New York</span>
+									</div>
+									<div class="d-flex">
+										<span class="titles">Date</span>
+										<span class="values">{{activity.timestamp.toDate().toLocaleString()}}
+										</span>
+									</div>
+								</div>
+								<button mat-icon-button (click)="changeActivityStatus(activity, 'Completed')">
+									<mat-icon fontIcon="arrow_forward">
+									</mat-icon>
+								</button>
+							</div>
+						</div>
+					</div>
+
+				</div>
+				<div class="col-4 completed">
+					<mat-label class="jobsTitle">Completed</mat-label>
+					<div *ngFor="let activity of activities">
+
+						<div *ngIf="activity.status === 'Completed'" style="margin:10px">
+							<div class="d-flex completedJobsHeader align-items-center">
+								<span>Job ID</span>
+								<span><a [routerLink]="['/field-service-agent/job']"
+										[queryParams]="{activityId: activity.id}" style="color:#FFF">{{activity.id}}</a>
+								</span>
+								<span>Customer ID</span>
+								<span>{{activity.customer_id}}</span>
+							</div>
+							<div class="d-flex openJobsBody">
+								<div class="d-flex flex-column">
+									<div class="d-flex">
+										<span class="titles">Task</span>
+										<span class="values">{{activity.title}}</span>
+									</div>
+									<div class="d-flex">
+										<span class="titles">Address</span>
+										<span class="values">100 Bay Vw Dr #100, Mountain View, CA</span>
+									</div>
+									<div class="d-flex">
+										<span class="titles">Date</span>
+										<span class="values">{{activity.timestamp.toDate().toLocaleString()}}
+										</span>
+									</div>
+								</div>
+								<button mat-icon-button (click)="changeActivityStatus(activity, 'Open')">
+									<mat-icon fontIcon="replay">
+									</mat-icon>
+								</button>
+
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<app-architecture [architecture]="architecture"></app-architecture>

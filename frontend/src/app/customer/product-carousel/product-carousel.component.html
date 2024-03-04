@@ -1,0 +1,101 @@
+<!--
+ Copyright 2024 Google LLC
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+
+<div class="container" *ngIf="products.length>0">
+  <p-carousel [value]="products" [numVisible]="3" [numScroll]="3" [circular]="false"
+    [responsiveOptions]="responsiveOptions">
+
+    <ng-template let-p pTemplate="item">
+      <div class="row mb-2 product-background">
+        <div class="card flex-md-row mb-4 box-shadow h-md-250 card-border">
+
+          <mat-checkbox [checked]="p?.isChecked" (change)="selectProduct(p)"
+            [disabled]="p?.isChecked ? false : disableButtons"></mat-checkbox>
+          <img class="card-img-right product-images flex-auto d-md-block" data-src="{{p?.snapshot?.image}}"
+            alt="Card image cap">
+
+        </div>
+        <div class="card-body d-flex flex-column align-items-start">
+          <span class="product-name">{{p?.snapshot?.title | uppercase | truncate: 40}}</span>
+          <span style="color: grey;">{{p?.snapshot?.categories?.[0]}}</span>
+          <span class="price">{{p?.snapshot?.price | currency}}</span>
+          <button *ngIf="expandMore && productId!==p?.id || !showExpandedProduct" class="see-more"
+            (click)="displayExpandedProduct(p)">
+            <span class="google-symbols ">
+              expand_more
+            </span>
+          </button>
+          <button *ngIf="showClose && productId==p?.id" class="see-more" (click)="closeExpandedProduct()">
+            <span class="google-symbols ">
+              close
+            </span>
+          </button>
+        </div>
+      </div>
+    </ng-template>
+  </p-carousel>
+  <button class="compare-btn" *ngIf="showCompare" (click)="compareProducts()">
+    <span class="google-symbols">
+      astrophotography_mode
+    </span> 
+    <span style="padding-left:10px">Compare</span>
+  </button>
+  <button class="compare-btn" *ngIf="showClearCompare" (click)="clearCompare()">
+    <span class="google-symbols">
+      astrophotography_mode
+    </span>
+    <span style="padding-left:10px">Clear Compare</span>
+  </button>
+</div>
+<div *ngIf="showSpinner" class="loader">
+  <mat-spinner [diameter]="36"> </mat-spinner>
+</div>
+
+<div><ng-container *ngIf="showExpandedProduct && product">
+    <div class="row mb-2 expanded-product-background align-margin">
+      <div>
+        <div class="card flex-md-row mb-4 box-shadow h-md-250 card-border">
+          <img class="card-img-right flex-auto d-none d-md-block" data-src="{{product.image}}" alt="Card image cap">
+          <div class="card-body d-flex flex-column">
+            <span class="product-name" style="margin-top:0px">{{product?.title | uppercase}}</span>
+            <span class="product-category">{{product.categories?.[0]}}</span>
+            <span class="price">{{product.price | currency}}</span>
+            <span class="title">Product description</span>
+            <span class="product-description">{{product.description}}</span>
+            <div class="d-flex flex-md-row">
+              <div class="see-more-center">
+                <button class="add-to-bag" (click)="addToCart()">
+                  Add to bag
+                </button>
+              </div>
+              <div class="see-more-center">
+                <button class="add-to-bag" (click)="seeMore()">
+                  See more
+                </button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </ng-container></div>
+
+<div *ngIf="compareResults.length>0">
+  <ng-container>
+    <div [innerHTML]="htmlContent"></div>
+  </ng-container>
+</div>

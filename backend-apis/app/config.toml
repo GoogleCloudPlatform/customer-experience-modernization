@@ -1,0 +1,495 @@
+# Copyright 2023 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+[global]
+project_id = ""
+location = "us-central1"
+datastore_location = "global"
+serving_config_id = "default_config"
+images_bucket_name = ""
+project_number = ""
+
+
+[website_search]
+# Vertex AI Search Datastore ID
+website_datastore_id = ""
+# Pubsub topic for website search
+website_topic_id = "website-search"
+
+
+[workspace]
+# Google Calendar
+calendar_id = ""
+# Cloud Run only supports one secret per directory
+calendar_scopes = ["https://www.googleapis.com/auth/calendar"]
+calendar_secret_id = ""
+
+
+[search-persona5]
+conversations_datastore_id = ""
+reviews_datastore_id = ""
+product_manuals_datastore_id = ""
+
+text_embeddings_model = "textembedding-gecko@003"
+
+conversations_index_endpoint_id = ""
+conversations_deployed_index_id = ""
+conversations_vector_api_endpoint = ""
+
+reviews_index_endpoint_id = ""
+reviews_deployed_index_id = ""
+reviews_vector_api_endpoint = ""
+
+firestore_customers = "p5-customers"
+firestore_reviews = "p5-reviews"
+firestore_conversations = "p5-conversations"
+
+# Prompts for SINGLE conversation
+prompt_summary_conversation = """The following text is a conversation between a call center agent and a customer of an online furniture store.
+Create a concise and clear summary of the conversation below.
+conversation: {}
+
+output:"""
+
+prompt_insights_conversation = """The following text is a conversation between a call center agent and a customer of an online furniture store.
+From this conversation, provide some insights on what went well and what can be done to improve the user experience.
+conversation: {}
+
+output:"""
+
+prompt_pending_tasks_conversation = """The following text is a conversation between a call center agent and a customer of an online furniture store.
+Indicate if there are pending tasks from the customer and agent perspective.
+conversation: {}
+
+output:"""
+
+prompt_nbs_conversation = """The following text is a conversation between a call center agent and a customer of an online furniture store.
+Based on this conversation, select one or more of the next best actions listed below for the call center analyst. Explain why you chose that next best action.
+The main goal of the furniture store is to increase the hability of the customers to find information and resolve the issues by themselves and reduce the need to get in touch with the Call Center.. 
+Currently most of the users are following these steps before getting in touch with the Call Center and Product Specialist:
+User Steps: (1) Home Page (2) Product Page (3) Product FAQ (4) Product Manual (5) Search (6) Chatbot (7) Call Center (8) Product Specialist.
+
+conversation: {}
+
+Suggested list of next best actions:
+ - Personalize content and recommendations: Suggest relevant products, articles, or features based on user preferences and behavior.
+ - Provide loyalty programs and rewards: Incentivize continued engagement and encourage positive brand sentiment.
+ - Host webinars, workshops, or live events: Offer valuable learning opportunities and foster a sense of community.
+ - Run social media contests or giveaways: Generate buzz, increase brand awareness, and encourage user-generated content.
+ - Publish engaging blog posts or articles: Share valuable insights, tips, and success stories to educate and inspire users.
+ - Respond to user reviews and social media comments: Show you care about their feedback and address concerns promptly.
+ - Collect feedback on recent interactions or purchases: Get insights into their satisfaction and identify areas for improvement.
+ - Offer personalized support and guidance: Provide resources and assistance to help them maximize their experience.
+ - Run satisfaction surveys and NPS scores: Measure user loyalty and identify areas for improvement in the long term.
+ - Send re-engagement campaigns or targeted offers: Encourage repeat purchases or remind them of features they haven't used yet.
+ - Build a community forum or user group: Foster peer-to-peer support and knowledge sharing among users.
+ - Create personalized welcome messages or tutorials: Help users understand the value proposition and navigate the platform smoothly.
+ - Offer interactive onboarding experiences: Gamify the process or provide step-by-step guidance with rewards for completion.
+ - Send targeted email campaigns or in-app notifications: Guide users through key features and functionalities based on their usage patterns.
+ - Run user feedback surveys or polls: Gather real-time insights and act on them promptly to improve first impressions.
+ - Improve product documentation, FAQ page or product page.
+
+output:"""
+
+# Prompts for MULTIPLE conversations
+prompt_summary_multi_conversations = """The following text has multiple conversations between call center agents and customers of an online furniture store. 
+Create a concise and clear summary of the conversations below.
+conversations: {}
+
+output:"""
+
+prompt_insights_multi_conversations = """The following text has multiple conversations between call center agents and customers of an online furniture store. 
+From this conversations, provide some insights on what went well and what can be done to improve the user experience.
+conversations: {}
+
+output:"""
+
+prompt_pending_tasks_multi_conversations = """The following text has multiple conversations between call center agents and customers of an online furniture store.
+Indicate if there are pending tasks from the customers and agents perspective.
+conversation: {}
+
+output:"""
+
+prompt_nbs_multi_conversations = """The following text has multiple conversations between call center agents and customers of an online furniture store.
+Based on these conversations, select one or more of the next best actions listed below for the call center analyst. Explain why you chose that next best action.
+The main goal of the furniture store is to increase the hability of the customers to find information and resolve the issues by themselves and reduce the need to get in touch with the Call Center.. 
+Currently most of the users are following these steps before getting in touch with the Call Center and Product Specialist:
+User Steps: (1) Home Page (2) Product Page (3) Product FAQ (4) Product Manual (5) Search (6) Chatbot (7) Call Center (8) Product Specialist.
+conversations: {}
+
+Suggested list of next best actions:
+ - Personalize content and recommendations: Suggest relevant products, articles, or features based on user preferences and behavior.
+ - Provide loyalty programs and rewards: Incentivize continued engagement and encourage positive brand sentiment.
+ - Host webinars, workshops, or live events: Offer valuable learning opportunities and foster a sense of community.
+ - Run social media contests or giveaways: Generate buzz, increase brand awareness, and encourage user-generated content.
+ - Publish engaging blog posts or articles: Share valuable insights, tips, and success stories to educate and inspire users.
+ - Respond to user reviews and social media comments: Show you care about their feedback and address concerns promptly.
+ - Collect feedback on recent interactions or purchases: Get insights into their satisfaction and identify areas for improvement.
+ - Offer personalized support and guidance: Provide resources and assistance to help them maximize their experience.
+ - Run satisfaction surveys and NPS scores: Measure user loyalty and identify areas for improvement in the long term.
+ - Send re-engagement campaigns or targeted offers: Encourage repeat purchases or remind them of features they haven't used yet.
+ - Build a community forum or user group: Foster peer-to-peer support and knowledge sharing among users.
+ - Create personalized welcome messages or tutorials: Help users understand the value proposition and navigate the platform smoothly.
+ - Offer interactive onboarding experiences: Gamify the process or provide step-by-step guidance with rewards for completion.
+ - Send targeted email campaigns or in-app notifications: Guide users through key features and functionalities based on their usage patterns.
+ - Run user feedback surveys or polls: Gather real-time insights and act on them promptly to improve first impressions.
+ - Improve product documentation, FAQ page or product page.
+
+output:"""
+
+# Prompts for reviews
+prompt_summary_reviews = """The following text represents product reviews written by customers from an online furniture store.
+Create a concise and clear summary of the reviews below.
+reviews: {}
+
+output:"""
+
+prompt_insights_reviews = """The following text represents product reviews written by customers from an online furniture store.
+From this reviews, provide some insights on what went well and what can be done to improve the user experience.
+conversations: {}
+
+output:"""
+
+prompt_pending_tasks_reviews = """The following text represents product reviews written by customers from an online furniture store.
+Indicate if there are pending tasks described in one of the reviews.
+conversation: {}
+
+output:"""
+
+prompt_nbs_reviews = """The following text represents product reviews written by customers from an online furniture store.
+Based on these conversations, select one of the next best actions the customer analyst should take. Explain why you chose that next best action.
+conversations: {}
+
+Suggested list of next best actions:
+ - Personalize content and recommendations: Suggest relevant products, articles, or features based on user preferences and behavior.
+ - Provide loyalty programs and rewards: Incentivize continued engagement and encourage positive brand sentiment.
+ - Host webinars, workshops, or live events: Offer valuable learning opportunities and foster a sense of community.
+ - Run social media contests or giveaways: Generate buzz, increase brand awareness, and encourage user-generated content.
+ - Publish engaging blog posts or articles: Share valuable insights, tips, and success stories to educate and inspire users.
+ - Respond to user reviews and social media comments: Show you care about their feedback and address concerns promptly.
+ - Collect feedback on recent interactions or purchases: Get insights into their satisfaction and identify areas for improvement.
+ - Offer personalized support and guidance: Provide resources and assistance to help them maximize their experience.
+ - Run satisfaction surveys and NPS scores: Measure user loyalty and identify areas for improvement in the long term.
+ - Send re-engagement campaigns or targeted offers: Encourage repeat purchases or remind them of features they haven't used yet.
+ - Build a community forum or user group: Foster peer-to-peer support and knowledge sharing among users.
+ - Create personalized welcome messages or tutorials: Help users understand the value proposition and navigate the platform smoothly.
+ - Offer interactive onboarding experiences: Gamify the process or provide step-by-step guidance with rewards for completion.
+ - Send targeted email campaigns or in-app notifications: Guide users through key features and functionalities based on their usage patterns.
+ - Run user feedback surveys or polls: Gather real-time insights and act on them promptly to improve first impressions.
+
+output:"""
+
+
+[search]
+# Vertex AI Search Datastore ID
+p4_support_datastore_id = ""
+p4_salesforce_datastore_id = ""
+
+datastore_location = "global"
+serving_config = "default_config"
+datastore_parent = "projects/{}/locations/global/dataStores/{}"
+
+[salesforce]
+# Vertex AI Search for email support
+user_secret_name = ""
+sa_secret_name = ""
+user_id = ""
+
+username = ""
+password = ""
+security_token = ""
+
+website_uri = "https://HOSTING.web.app/customer/home?productId="
+
+# Scope for the Workspace API - don't change
+email_scopes = [
+	'https://www.googleapis.com/auth/gmail.modify',
+	'https://www.googleapis.com/auth/documents',
+	'https://www.googleapis.com/auth/script.projects',
+]
+workspace_scopes = [
+	'https://www.googleapis.com/auth/drive.file',
+	'https://www.googleapis.com/auth/drive',
+	'https://www.googleapis.com/auth/drive.resource',
+	'https://www.googleapis.com/auth/documents',
+]
+
+prompt_email_support = """Extract any questions, inquiries, instances of questioning, or orders from the input text below.
+Provide the output in the JSON format below.
+JSON format:
+{{
+    "questions_inquiries_orders": [
+        "Question, inquiry or order",
+        "Question, inquiry or order",
+        "Question, inquiry or order"
+    ]
+}}
+text: {}
+output:"""
+
+exception_email_response = """Dear customer {},
+Thank you for contacting the Cymbal support.
+An agent will analyze your request and get in touch soon to address your questions.
+Best regards,
+Cymbal support
+"""
+
+prompt_generate_reply = """The text below represents the description of two items. Provide a summary of both items in one sentence.
+Items:
+{references}
+output:"""
+
+prompt_talk_to_human = """<instructions>
+The text below is an email from a customer to a support center. Is the customer explicitly asking to talk to a human agent?
+Respond with True or False.
+</instructions>
+<conversation>
+{}
+</conversation>
+<output>
+"""
+
+# Vertex LLM Prompts
+rephrase_prompt_template = """You are a customer service agent that help customers from different countries,
+you rephrase the given paragraph in a professional and empathic manner in less than 50 words.
+
+paragraph:{}"""
+
+sf_summarize_prompt_template = """You are an expert customer service analyst. Given below are a list of historical cases with the reason why they were raised and the subject of the case.
+Based on the list of cases - analyse the products that the customer uses and what problems they have faced before so that we can learn more about the customer. Keep your response short, concise and precise and give valuable insights
+
+Historical cases raised:
+{}
+
+Unique Customer Attributes:"""
+
+chat_summarize_prompt_template = """The following text is a conversation between a call center agent and a customer of an online furniture store.
+Create a concise and clear summary of the conversation below.
+From this conversation, provide some insights on what went well and what can be done to improve the user experience.
+Indicate if there are pending tasks from the customer and agent perspective.
+conversation: {}
+
+output:"""
+
+chat_title_prompt_template = """The following text is a conversation between a call center agent and a customer of an online furniture store.
+Create a concise and clear title of the conversation below.
+conversation: {}
+
+output:"""
+
+auto_suggest_prompt_template = """The following text is a conversation between a call center agent and a customer of an online furniture store.
+Create a concise and clear query which can be asked to a product knowledge base based on Vertex Search.
+conversation: {}
+
+output:"""
+
+translate_text_prompt_template = """You are an language expert.
+You translate the input text to target language: {}
+
+input text: {}
+your translation:"""
+
+apps_script_code = "function sendId() {\n  var id = DocumentApp.getActiveDocument().getId();\n  var data = {\n  'docs_id': id\n  }\n\n  var options = {\n    'method' : 'post',\n    'contentType': 'application/json',\n    // Convert the JavaScript object to a JSON string.\n    'payload' : JSON.stringify(data)\n  };\n  UrlFetchApp.fetch('https://APIURL/p1/send-email-from-docs', options);\n}\n\nfunction onOpen() {\n  var ui = DocumentApp.getUi();\n  // Or DocumentApp or FormApp.\n  ui.createMenu('Send Email')\n      .addItem('Send email to Salesforce case', 'sendId')\n      .addToUi();\n}\n"
+
+# ID of the templates
+# Change this variables according to your Google Workspace settings
+drive_folder_id = ""  # example: "1MYB0Ybyo9XZERgIcjsdfeqO0SKqhrkvqMx"
+docs_template_id = ""
+
+
+[recommendations]
+# Vertex AI Recommendations
+rec_vertex_datastore_id = ""
+rec_app_id = ""
+media_rec_datastore_id = ""
+media_rec_app_id.recommended-for-you = ""
+media_rec_app_id.others-you-may-like = ""
+media_rec_app_id.more-like-this = ""
+media_rec_app_id.most-popular-items = ""
+# Pubsub topic for Recommendations
+recommendations_topic_id = "website-recommendations"
+
+
+[multimodal]
+multimodal_model = "multimodalembedding"
+index_endpoint_id = "7591806732397969408"
+deployed_index_id = "csm_deployed_index"
+vector_api_endpoint = "1212002304.us-central1-244831775715.vdb.vertexai.goog"
+prompt_with_query = """
+<Instructions>
+Answer the question below citing the index of the reference where you found the information.
+If you found the information in more than one reference, you can cite more than one index.
+</Instructions>
+<ConversationHistory>
+{history}
+</ConversationHistory>
+<Reference>
+{results}
+</Reference>
+<SampleOutputFormat>
+Some gaming chairs have 90° to 155° reclining positions and adjustable backrests to ensure comfort while gaming [1].
+Some also have Bluetooth speakers and a 2.4-inch height-adjustable backrest [3, 4].
+</SampleOutputFormat>
+<Question>
+{question}
+</Question>
+"""
+prompt_without_query = """
+<Instructions>
+Make a summary of the references below citing the index of the reference where you found the information.
+If you found the information in more than one reference, you can cite more than one index.
+</Instructions>
+<ConversationHistory>
+{history}
+</ConversationHistory>
+<Reference>
+{results}
+</Reference>
+<SampleOutputFormat>
+Some gaming chairs have 90° to 155° reclining positions and adjustable backrests to ensure comfort while gaming [1].
+Some also have Bluetooth speakers and a 2.4-inch height-adjustable backrest [3, 4].
+</SampleOutputFormat>
+"""
+
+[compare]
+prompt_compare = """Compare the products below. Output as a ✅ or ⛔️ table.
+Format the output as a HTML table, like the sample below.
+<Product1>
+{product_title_1}
+{product_description_1}
+</Product1>
+<Product2>
+{product_title_2}
+{product_description_2}
+</Product2>
+<SampleHTMLOutput>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Title of Product 1</th>
+<th>Title of Product 2</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Feature 1</td>
+<td>✅</td>
+<td>⛔️</td>
+</tr>
+</tbody>
+</table>
+</SampleHTMLOutput>
+<Output>"""
+
+[summary]
+prompt_product = """
+Make a summary of the text below:
+
+{product}
+"""
+
+prompt_reviews = """
+Make a summary of the reviews below:
+
+{reviews}
+"""
+
+
+[content_creation]
+prompt_features = """<instructions>
+Extract features of the product description below. Provide the output in JSON format.
+</instructions>
+<productDescription>
+{}
+</productDescription>
+<jsonOutputFormat>
+{{
+    "product_features": [
+        "feature 1", "feature 2", "feature 3"
+    ]
+}}
+</jsonOutputFormat>
+<output>"""
+
+prompt_categories = """<instructions>
+Extract all the categories of the product description below. Provide the output in the JSON format below.
+</instructions>
+<productDescription>
+{}
+</productDescription>
+<jsonOutputFormat>
+{{
+    "product_categories": [
+        "category 1", "category 2", "category 3"
+    ]
+}}
+</jsonOutputFormat>
+<output>"""
+
+prompt_title_description = """<instructions>
+Using the information from the product description below, generate a creative title and a long description for a product. The output must be in the JSON format below.
+This title and description will be used in a product page.
+</instructions>
+<productDescription>
+Product categories:
+{}
+Additional context:
+{}
+</productDescription>
+<jsonOutputFormat>
+{{
+    "title": "Title for the product, including as many details as possible",
+    "description": "Long and verbose description of the product with all the details and more"
+}}
+</jsonOutputFormat>
+<output>"""
+
+prompt_price = """<instructions>
+I am a retailer and I am selling a {}. What price range would you suggest for this product?
+Respond using the JSON format below.
+</instructions>
+<jsonOutputFormat>
+{{
+    "min": "minimum price for the product",
+    "max": "maximum price for the product"
+}}
+</jsonOutputFormat>
+<output>
+"""
+
+[field_service_agent]
+prompt_agent_activity = """
+<instructions>
+Using the information from the conversation below, generate a creative title and a long description for the field agent task. The output must be in the JSON format below.
+This title and description will be used to instruct the field agent.
+</instructions>
+<conversation>
+{}
+</conversation>
+<jsonOutputFormat>
+{{
+    "title": "Title for the field agent activity, including as many details as possible",
+    "description": "Long and verbose description of the field agent activity with all the details and more"
+}}
+</jsonOutputFormat>
+<output>
+"""
+
+[sql]
+db_user = ""
+db_name = "csm"
+project = ""
+region = "us-central1"
+instance_name = "csm-database"

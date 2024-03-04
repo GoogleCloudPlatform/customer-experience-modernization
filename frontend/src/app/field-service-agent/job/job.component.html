@@ -1,0 +1,248 @@
+<!--
+ Copyright 2024 Google LLC
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+
+<div class="grid-container vh-100">
+	<mat-toolbar style="background: #FFF;
+	box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.15); align-items: center;">
+		<img src="assets/images/cymbal-customer-service-logo.svg" alt="Cymbal Customer Service Logo">
+		<img src="assets/images/cymbal-text-logo.svg" alt="Cymbal Text Logo" class="ms-2">
+		<span class="title ms-2">Field Service</span>
+		<span class="flex-expand"></span>
+		<app-user-photo></app-user-photo>
+	</mat-toolbar>
+	<div class="content d-flex">
+		<div class="col-md-6 mb-3">
+			<p class="jobId">Job ID #{{agentActivity?.id}}</p>
+			<p class="cardTitle">Customer Information</p>
+
+			<mat-card *ngIf="customerInfo" class="col-10 mx-auto mt-2 mb-2" style="border-radius: 10px;
+			border: 1px solid #E0E0E0;">
+				<mat-card-content class="row d-flex m-2">
+					<div *ngFor="let info of customerInfo | keyvalue" class="col-6">
+						<div class="row">
+							<div class="col-4">
+								<span class="infoKeys">{{info.key.replaceAll("_", " ") |
+									titlecase}}:</span>
+							</div>
+							<div class="col-8">
+								<span class="infoValues">
+									{{info.value}}</span>
+							</div>
+						</div>
+					</div>
+				</mat-card-content>
+			</mat-card>
+			<p class="cardTitle">Job Summary</p>
+
+			<mat-card *ngIf="agentActivity" class="col-10 mx-auto mt-2 mb-2"
+				style="border-radius: 10px;border: 1px solid #E0E0E0;">
+				<mat-card-header class="m-2">
+					<mat-card-subtitle>
+						{{agentActivity.title}}
+					</mat-card-subtitle>
+				</mat-card-header>
+				<mat-card-content class="row d-flex m-2 jobDesc">
+					{{agentActivity.description}}
+				</mat-card-content>
+			</mat-card>
+			<div style="margin-bottom: 30px;">
+				<p class="cardTitle" *ngIf="customerConversations.length>0">Past Conversations</p>
+				<p class="pastConvSubTitle" *ngIf="customerConversations.length>0">Select one or more of the
+					conversations</p>
+				<mat-card *ngIf="customerConversations.length>0" class="col-10 mx-auto mt-2 mb-3" style="border-radius: 10px;
+			border: 1px solid #E0E0E0; overflow:auto ;height: 320px;">
+					<table mat-table [dataSource]="dataSource" style="margin-top: 5px;" class="pastConv mb-2">
+						<ng-container matColumnDef="select">
+							<th mat-header-cell *matHeaderCellDef>
+							</th>
+							<td mat-cell *matCellDef="let row ; let ind = index">
+								<mat-checkbox (click)="onSelection(ind, row, select.checked)" #select></mat-checkbox>
+							</td>
+						</ng-container>
+
+						<ng-container matColumnDef="conversation">
+							<th mat-header-cell *matHeaderCellDef class="convHeader"> Conversation
+							</th>
+							<td mat-cell *matCellDef="let element" class="convBody">
+								{{element.title}} </td>
+						</ng-container>
+
+						<ng-container matColumnDef="category">
+							<th mat-header-cell *matHeaderCellDef class="convHeader"> Category </th>
+							<td mat-cell *matCellDef="let element" class="convBody">
+								{{element.category}} </td>
+						</ng-container>
+
+						<ng-container matColumnDef="sentiment">
+							<th mat-header-cell *matHeaderCellDef class="convHeader"> Sentiment
+							</th>
+							<td mat-cell *matCellDef="let element" class="convBody">
+								{{element.sentiment | titlecase}} </td>
+						</ng-container>
+
+						<ng-container matColumnDef="rating">
+							<th mat-header-cell *matHeaderCellDef class="convHeader"> Rating </th>
+							<td mat-cell *matCellDef="let element" class="convBody">
+								{{element.rating}} </td>
+						</ng-container>
+
+						<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+						<tr mat-row *matRowDef="let row; columns: displayedColumns;">
+							<!-- (click)="selection.toggle(row)"> -->
+						</tr>
+					</table>
+					<!-- <mat-card-footer class="d-flex justify-content-center mb-2">
+
+					</mat-card-footer> -->
+				</mat-card>
+				<div class="d-flex justify-content-center mb-2">
+					<button class="mx-3 mb-3" *ngIf="selectedConversations.length>0"
+						(click)="generateConversationsInsights(selectedConversations)"
+						[ngClass]="selectedConversations.length>0 ? 'generateInsightsBtnEnabled' : 'generateInsightsBtn'"
+						[disabled]="selectedConversations.length<=0">
+						Generate Insights </button>
+				</div>
+			</div>
+			<div *ngIf="selectedConversationHTML">
+				<p class="convTitle">Conversation</p>
+				<div [innerHTML]="selectedConversationHTML" class="convHtml">
+				</div>
+			</div>
+
+			<div *ngIf="insightsLoading">
+				<p class="convTitle">Generating insights. This will take a few seconds...</p>
+				<mat-progress-spinner class="mx-auto" mode="indeterminate" [diameter]="40"
+					color="primary"></mat-progress-spinner>
+			</div>
+			<div *ngIf="extractedPendingTasksHTML">
+				<p class="convTitle">Pending Tasks</p>
+				<div [innerHTML]="extractedPendingTasksHTML" class="convHtml"></div>
+			</div>
+			<div *ngIf="generatedSummaryHTML">
+				<p class="convTitle">Summary</p>
+				<div [innerHTML]="generatedSummaryHTML" class="convHtml"></div>
+			</div>
+			<div *ngIf="generatedInsightsHTML">
+				<p class="convTitle">Insights</p>
+				<div [innerHTML]="generatedInsightsHTML" class="convHtml"></div>
+			</div>
+			<div *ngIf="generatedNextBestActionHTML">
+				<p class="convTitle">Next best action</p>
+				<div [innerHTML]="generatedNextBestActionHTML" class="convHtml">
+				</div>
+			</div>
+		</div>
+		<mat-divider vertical style="min-height:1000px"></mat-divider>
+
+		<div class="col-md-6">
+			<mat-tab-group mat-stretch-tabs="false" class="mb-3">
+				<mat-tab label="Search results" class="tabLabel">
+					<div class="main" style="margin: 20px 0.5rem;">
+						<div>
+							<div class="d-flex mb-3 mx-2">
+								<input type="text" matInput [formControl]="kbMsgCtrl" placeholder="Type..."
+									class="searchInput">
+								<button (click)="search()" class="searchBtn">
+									<mat-icon fontSet="google-symbols">
+										search_spark </mat-icon>
+								</button>
+							</div>
+							<div class="d-flex">
+								<button class="file-upload mx-3">
+									<label class="image-upload-container">
+										<input #imageInput class="imageUpload" type="file" accept="image/*"
+											(change)="processFile(imageInput)">
+										Image Upload
+									</label>
+								</button>
+								<div class="mx-2">
+									<mat-spinner *ngIf="imageUploading" [diameter]="30"></mat-spinner>
+								</div>
+							</div>
+							<div class="d-flex">
+								<div class="mx-2 col-10">
+									<span *ngIf="geminiImageURL" class="upload-success">Image Uploaded Successfully <mat-icon>check_circle</mat-icon></span>
+								</div>
+							</div>
+							<br>
+							<mat-divider></mat-divider>
+							<div *ngIf="geminiImageURL" class="mt-2 mb-2" style="margin-left: 20px;">
+								<p class="geminiTitle" *ngIf="geminiResponse"><span class="google-symbols" style="font-size: 18px !important;">
+										button_magic
+									</span>Gemini Insights</p>
+								<div class="mb-3 mt-2">
+									<img *ngIf="geminiImageURL" [src]="geminiImageURL" class="geminiImage">
+									<button *ngIf="geminiImageName" mat-icon-button
+										(click)="geminiImageName=''; geminiImageURL=''">
+										<mat-icon>cancel</mat-icon>
+									</button>
+								</div>
+
+								<p *ngIf="geminiResponse" class="kbSummary">
+									{{geminiResponse}}</p>
+							</div>
+
+							<div *ngIf="kbSummary" class="mb-2 mt-2" style="margin-left: 20px;">
+								<p class="aiTitle"><span class="google-symbols" style="font-size: 18px !important;">
+										button_magic
+									</span>Assistant AI</p>
+								<p *ngIf="kbSummary" class="kbSummary">{{kbSummary}}</p>
+							</div>
+							<ol [start]="(pageIndexKB * pageSizeKB) + 1">
+								<ng-container *ngFor="let kbResult of slicedResultsKB()">
+									<li class="m-2">
+										<a class="kbResultLink"
+											[href]="kbResult.link.replace('gs://', 'https://storage.googleapis.com/')"
+											target="_blank">{{kbResult.title}}</a>
+										<div class="kbResultSnippet" [innerHTML]="kbResult.snippet">
+										</div>
+										<mat-expansion-panel>
+											<mat-expansion-panel-header style="height:38px">
+												<mat-panel-title class="manualPreviewTitle">Manual
+													Preview</mat-panel-title>
+											</mat-expansion-panel-header>
+											<div [innerHTML]="kbResult.manual">
+											</div>
+										</mat-expansion-panel>
+									</li>
+								</ng-container>
+							</ol>
+							<mat-paginator #paginatorKB (page)="handlePageEventKB($event)" [length]="kbResults.length"
+								*ngIf="kbResults.length > 0" [pageSize]="pageSizeKB" [pageIndex]="pageIndexKB"
+								hidePageSize aria-label="Select page">
+							</mat-paginator>
+						</div>
+					</div>
+				</mat-tab>
+				<mat-tab label="Journey on Google Maps" class="tabLabel">
+					<mat-divider></mat-divider>
+					<div class="main">
+						<google-map *ngIf="directionsResults" height="400px" width="100%" [center]="center"
+							[zoom]="zoom">
+							<map-directions-renderer [directions]="directionsResults"
+								[options]="{panel: routeInstructions}" />
+							<map-traffic-layer [autoRefresh]="false" />
+							<map-info-window></map-info-window>
+						</google-map>
+					</div>
+					<div #routeInstructions style="margin:10px ; font-family: Google Sans !important;"></div>
+				</mat-tab>
+			</mat-tab-group>
+		</div>
+	</div>
+</div>
+
+<app-architecture [architecture]="architecture"></app-architecture>

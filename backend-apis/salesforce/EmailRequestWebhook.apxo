@@ -1,0 +1,87 @@
+public class EmailRequestWebhook {
+    @future (callout=true)
+     Public static void send(
+         String emailContent, 
+         String emailHtml, 
+         String fromEmailAddress,
+         String toEmailAddress, 
+         String userName, 
+         String subject, 
+         String caseNumber,
+         Id caseId,
+         String threadingMessageId,
+         Boolean isHumanTalking
+     )
+     {
+          // Prepare data to send to REST API
+            Map<String, Object> requestData = new Map<String, Object>();
+            requestData.put('email_content', emailContent);
+            requestData.put('email_address', fromEmailAddress);
+         	requestData.put('email_html', emailHtml);
+         	requestData.put('user_name', userName);
+         	requestData.put('subject', subject);
+         	requestData.put('case_number', caseNumber);
+         	requestData.put('salesforce_thread_id', threadingMessageId);
+         	requestData.put('is_human_talking', isHumanTalking);
+         
+            // Send data to REST API and retrieve reply email
+            HttpRequest req = new HttpRequest();
+            req.setEndpoint('<YOUR-CLOUD-RUN-ENDPOINT>');
+            req.setMethod('POST');
+            req.setHeader('Content-Type', 'application/json');
+            req.setBody(JSON.serialize(requestData));
+         	req.setTimeout(120000);
+            Http http = new Http();
+            HTTPResponse res = http.send(req);
+    
+            if (res.getStatusCode() == 200) {
+                JSONParser parser = JSON.createParser(res.getBody());
+                
+                while (parser.nextToken() != null) {
+                    
+                    if (parser.getCurrentToken() == JSONToken.FIELD_NAME) {
+                        switch on parser.getText() {
+                            when 'email_response' {
+                                // Advance to the value.
+                                parser.nextToken();
+                                string emailResponse = parser.getText();
+                                EmailMessage emailMessage = new EmailMessage();
+                                emailMessage.status = '3'; // email was sent
+                                //emailMessage.relatedToId = '001XXXXXXXXXXX'; 
+                                emailMessage.fromAddress = toEmailAddress; // from address
+                                emailMessage.fromName = 'Support'; // from name
+                                emailMessage.toAddress = fromEmailAddress;
+                                emailMessage.Subject = subject;
+                                emailMessage.ParentId = caseId;
+                                
+                                emailMessage.HtmlBody = emailResponse;
+                                insert emailMessage;
+                            }
+                            when 'docs_id' {
+                                // Advance to the value.
+                                parser.nextToken();
+                                string docsId = parser.getText();
+                                if (docsId != ''){
+                                    FeedItem draftDocsPost = new FeedItem();
+                                    draftDocsPost.Type = 'TextPost';
+                                    draftDocsPost.Body = 'https://docs.google.com/document/d/' + docsId + '/edit';
+                                    draftDocsPost.ParentId = caseId;
+                                    insert draftDocsPost;
+                                }
+                            }
+                            when 'is_human_talking' {
+                                // Advance to the value.
+                                parser.nextToken();
+                                boolean isHumanTalkingFlag = parser.getBooleanValue();
+								Case caseToUpdate = [select Is_human_talking__c from case where id = :caseId LIMIT 1];
+                                caseToUpdate.Is_human_talking__c = isHumanTalkingFlag;
+                                update caseToUpdate;
+                            }
+                        }
+                    }
+                }
+            } else {
+                System.debug('Error sending data to REST API: ' + res.getStatus());
+            }
+     }
+}

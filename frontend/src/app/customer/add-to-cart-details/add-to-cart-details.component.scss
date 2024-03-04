@@ -1,0 +1,400 @@
+/**
+ * Copyright 2024 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+.title {
+    /* Added to Shopping Cart */
+    font-family: Roboto;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 38px;
+    letter-spacing: 0em;
+    text-align: left;
+    left: 289px;
+    /* identical to box height, or 190% */
+
+    /* Gray/700 */
+    color: #344054;
+    margin-top: 1rem;
+}
+
+.titleCart {
+    color: black;
+    //width: 166px;
+    height: 21px;
+    font-family: 'Roboto';
+    margin-bottom: 18px;
+}
+
+.item {
+    margin-left: 50px;
+}
+
+
+.popup {
+    /* Rectangle 6442 */
+
+    position: absolute;
+    width: 1109px;
+    height: 847px;
+    left: 166px;
+    top: 0px;
+
+    background: #FFFFFF;
+    border-radius: 0px 0px 10px 10px;
+
+}
+
+.shopAssistant {
+    border-radius: 100px;
+}
+
+.product-background {
+    background: white;
+
+    img {
+        border-radius: 10px;
+        //background: #F7F5F7;
+        width: 252px;
+        height: 250px;
+        flex-shrink: 0;
+    }
+}
+
+.align-margin {
+    margin-left: 35px;
+    padding: 20px;
+    padding-bottom: 0px
+}
+
+.product-images {
+    height: 12em;
+    width: 17em;
+    border-radius: 10px;
+}
+.product-name {
+    font-family: "Google Sans";
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 24px;
+    text-align: left;
+    width: 256px;
+    // margin-top: 1em;
+
+    color: #000;
+    font-family: "Google Sans";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 24px;
+    /* 150% */
+    letter-spacing: 0.5px;
+}
+
+.product-category {
+    color: gray;
+    font-family: "Google Sans";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: 24px;
+    letter-spacing: 0.5px;
+}
+
+.price {
+    color: #000;
+    font-family: "Google Sans";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 24px;
+    /* 150% */
+    letter-spacing: 0.5px;
+    margin-top: 11px;
+}
+
+.product-details {
+    /* Group 95 */
+
+    position: absolute;
+    left: 39.58%;
+    right: 47.29%;
+    top: 7.53%;
+    bottom: 89.11%;
+
+
+
+    /* TDX Sinkers */
+
+    position: absolute;
+    left: 39.58%;
+    right: 47.29%;
+    top: 7.53%;
+    bottom: 91.51%;
+
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 21px;
+
+    /* Gray/500 */
+    color: #667085;
+
+
+
+    /* Quantity 1 */
+
+    position: absolute;
+    left: 39.61%;
+    right: 55.95%;
+    top: 8.71%;
+    bottom: 90.59%;
+
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 16px;
+
+    /* Gray/400 */
+    color: #98A2B3;
+
+
+
+    /* $ 675.00 */
+
+    position: absolute;
+    left: 39.63%;
+    right: 55.37%;
+    top: 9.97%;
+    bottom: 89.11%;
+
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 21px;
+    /* identical to box height */
+    text-align: right;
+
+    /* Gray/700 */
+    color: #344054;
+
+
+}
+
+.subtotal {
+    color: black;
+    width: 166px;
+    height: 21px;
+    margin-top: 16px;
+    font-family: 'Roboto';
+    margin-left: 77px;
+}
+
+.totalItems {
+    color: black;
+    width: 166px;
+    height: 21px;
+    margin-top: 35px;
+    font-family: 'Roboto';
+    margin-left: 16px;
+}
+
+.summary {
+    //margin-left: 1000px;
+    /* Gray/700 */
+    color: black;
+    width: 166px;
+    height: 21px;
+    font-family: 'Roboto';
+    margin-top: 18px;
+}
+
+.ask-btn {
+
+    padding: 0px;
+    gap: 8px;
+
+    width: 191px;
+    height: 40px;
+    left: 1067px;
+    top: 687px;
+    margin-top: 11px;
+    margin-left: 490px;
+    /* M3/sys/light/primary */
+    background: transparent;
+    border-radius: 100px;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 24px;
+    gap: 8px;
+
+
+    /* Inside auto layout */
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+
+    /* M3/label/large */
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 20px;
+    /* identical to box height, or 143% */
+
+    letter-spacing: 0.1px;
+
+    /* M3/sys/light/on-primary */
+    color: black;
+
+
+    /* Inside auto layout */
+    flex: none;
+    order: 1;
+    flex-grow: 0;
+
+    margin-top: 5px;
+    // margin-left: 500px;
+}
+
+.checkout {
+    border: none !important;
+    padding: 0px;
+    gap: 8px;
+
+    width: 140px;
+    height: 40px;
+    left: 1067px;
+    top: 687px;
+    margin-top: 11px;
+    background: #6750A4;
+    border-radius: 100px;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 24px;
+    gap: 8px;
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+
+    /* M3/label/large */
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 20px;
+    /* identical to box height, or 143% */
+
+    letter-spacing: 0.1px;
+
+    /* M3/sys/light/on-primary */
+    color: #FFFFFF;
+
+
+    /* Inside auto layout */
+    flex: none;
+    order: 1;
+    flex-grow: 0;
+
+    margin-top: 15px;
+    margin-left: 6px;
+}
+
+button[disabled] {
+    background: #5c5178 !important;
+    color: #EEE;
+}
+
+.shopping-assi-btn {
+    border: none !important;
+    padding: 0px;
+    gap: 8px;
+
+    width: 204px;
+    height: 40px;
+    left: 1067px;
+    top: 687px;
+    margin-top: 11px;
+    margin-left: 58px;
+    /* M3/sys/light/primary */
+    background: #ECE6F0;
+    border-radius: 100px;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 24px;
+    gap: 8px;
+
+
+    /* Inside auto layout */
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+
+    /* M3/label/large */
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 20px;
+    /* identical to box height, or 143% */
+
+    letter-spacing: 0.1px;
+
+    /* M3/sys/light/on-primary */
+    color: black;
+
+
+    /* Inside auto layout */
+    flex: none;
+    order: 1;
+    flex-grow: 0;
+
+    margin-top: 28px;
+    // margin-left: 500px;
+
+}
+
+.recommend {
+    margin-left: 282px;
+    margin-top: -31px;
+    font-family: 'Roboto';
+    font-weight: 700px;
+}
+
+.card {
+    border: none !important;
+    width: 50%;
+}
+
+
+::ng-deep .p-carousel .p-carousel-indicators {
+    display: none !important;
+}
+
+// ::ng-deep .p-carousel-container {
+//     margin-left: -32px;
+// }

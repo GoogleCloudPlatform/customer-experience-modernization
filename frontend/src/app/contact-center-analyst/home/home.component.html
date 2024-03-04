@@ -1,0 +1,743 @@
+<!--
+ Copyright 2024 Google LLC
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+
+<div>
+	<mat-toolbar style="height:53px;padding-right:0px ;background: #FFF;
+	box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.15); align-items: center;">
+		<img src="assets/images/cymbal-customer-service-logo.svg" alt="Cymbal Customer Service Logo">
+		<img src="assets/images/cymbal-text-logo.svg" alt="Cymbal Text Logo" class="ms-2">
+		<span class="ms-2 title">Contact Center Management</span>
+		<span class="flex-expand"></span>
+		<app-user-photo></app-user-photo>
+	</mat-toolbar>
+
+	<div class="col-xxl-8 mx-auto content">
+		<a class="buttonStartCamp" [href]="genAIforMktURL" style="text-decoration: none;">
+			<div style="margin: 10px; text-align: center; color: black;">
+				Start a Campaign</div>
+		</a>
+		<mat-tab-group dynamicHeight mat-stretch-tabs="false">
+			<mat-tab label="Overview">
+				<mat-divider></mat-divider>
+				<div class="retailbox col-10" style="margin-left: auto;">
+					<iframe src="https://googlecloud.looker.com/embed/dashboards/1943?allow_login_screen=true"></iframe>
+				</div>
+			</mat-tab>
+
+			<mat-tab label="Customer Lookup">
+				<mat-divider></mat-divider>
+				<form class="mt-2 col-10" style="margin-left: auto;">
+					<p class="customerId">Customer ID</p>
+					<div class="d-flex">
+						<input type="text" class="customerInput" [formControl]="customerIdCtrl" placeholder="1">
+						<button (click)="getCustomerInfo()" style="border:none; background: transparent;">
+							<mat-icon mat-icon-button fontSet="google-symbols" class="searchBtn">
+								search_spark </mat-icon>
+						</button>
+					</div>
+				</form>
+				<br>
+				<!-- <div class="card" *ngIf="customerInfo">
+					<div class='some-page-wrapper '>
+						<div class='row'>
+							<div class='column'>
+								<div *ngFor="let info of customerInfo | keyvalue">
+									&nbsp; <span class="name">{{info.key.replaceAll("_",
+										" ") | titlecase}}:</span>
+								</div>
+							</div>
+							<div class='column'>
+								<div *ngFor="let info of customerInfo | keyvalue">
+									<span class="values">{{info.value.toString()}}</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div> -->
+
+				<mat-card *ngIf="customerInfo" class="col-10 mt-2 mb-2" style="border-radius: 10px;
+			border: 1px solid #E0E0E0; margin-left: auto;">
+					<mat-card-content class="row d-flex m-2 w-100">
+						<div *ngFor="let info of customerInfo | keyvalue" class="col-6">
+							<div class="d-flex">
+								<div class="col-4">
+									<span class="infoKeys">{{info.key.replaceAll("_", " ") |
+										titlecase}}:</span>
+								</div>
+								<div class="col-8">
+									<span class="infoValues">
+										{{info.value}}</span>
+								</div>
+							</div>
+						</div>
+					</mat-card-content>
+				</mat-card>
+
+				<mat-tab-group dynamicHeight mat-stretch-tabs="false" class="col-10" style="margin-left: auto;" #tabs>
+					<div *ngIf="customerConversations.length > 0">
+						<mat-tab label="Conversation">
+							<mat-divider></mat-divider>
+							<br>
+							<p class="ConvTitle">Select one or more of the conversations</p>
+							<div class="card">
+								<table mat-table [dataSource]="dataSource" style="margin-top: 4px;margin-bottom:4px"
+									class="pastConv">
+
+									<!-- Checkbox Column -->
+									<ng-container matColumnDef="select">
+										<th mat-header-cell *matHeaderCellDef>
+										</th>
+										<td mat-cell *matCellDef="let row ; let ind = index">
+											<!-- <mat-checkbox (click)="$event.stopPropagation()"
+												  (change)="$event ? selection.toggle(row) : null"
+												  [checked]="selection.isSelected(row)">
+									</mat-checkbox> -->
+											<mat-checkbox (click)="onSelection(ind, row, select.checked)"
+												#select></mat-checkbox>
+										</td>
+									</ng-container>
+
+									<!-- Position Column -->
+									<ng-container matColumnDef="conversation">
+										<th mat-header-cell *matHeaderCellDef class="convHeader"> Conversation
+										</th>
+										<td mat-cell *matCellDef="let element" class="convBody">
+											{{element.title}} </td>
+									</ng-container>
+
+									<!-- Name Column -->
+									<ng-container matColumnDef="category">
+										<th mat-header-cell *matHeaderCellDef class="convHeader"> Category
+										</th>
+										<td mat-cell *matCellDef="let element" class="convBody">
+											{{element.category}} </td>
+									</ng-container>
+
+									<!-- Weight Column -->
+									<ng-container matColumnDef="sentiment">
+										<th mat-header-cell *matHeaderCellDef class="convHeader"> Sentiment
+										</th>
+										<td mat-cell *matCellDef="let element" class="convBody">
+											{{element.sentiment |
+											titlecase}} </td>
+									</ng-container>
+
+									<!-- Symbol Column -->
+									<ng-container matColumnDef="rating">
+										<th mat-header-cell *matHeaderCellDef class="convHeader"> Rating </th>
+										<td mat-cell *matCellDef="let element" class="convBody">
+											{{element.rating}} </td>
+									</ng-container>
+
+									<tr mat-header-row *matHeaderRowDef="displayedColumns">
+									</tr>
+									<tr mat-row *matRowDef="let row; columns: displayedColumns;">
+										<!-- (click)="selection.toggle(row)"> -->
+									</tr>
+								</table>
+							</div>
+							<br>
+							<div class="d-flex justify-content-center align-items-center mb-2">
+								<button class="mx-3 mb-3 d-flex justify-content-center align-items-center"
+									*ngIf="selectedConversations.length>0"
+									(click)="clickGenrateInsightConversation(selectedConversations)"
+									[ngClass]="selectedConversations.length>0 ? 'generateInsightsBtnEnabled' : 'generateInsightsBtn'"
+									[disabled]="selectedConversations.length<=0">
+									Generate Insights </button>
+							</div>
+							<div style="margin-bottom: 20px;">
+								<p *ngIf="selectedConversationHTML" class="convSearchTitle">Conversation</p>
+								<div *ngIf="selectedConversationHTML" class="card convSearchResult"
+									[innerHTML]="selectedConversationHTML">
+								</div>
+								<div *ngIf="insightsLoading">
+									<p style="margin-left: 10px;">Generating insights. This will take a few seconds...
+									</p>
+									<mat-progress-spinner mode="indeterminate" color="primary"
+										style="margin-left: auto;" [diameter]="40"></mat-progress-spinner>
+								</div>
+								<div class="d-flex">
+									<div class="col-6">
+										<p *ngIf="generatedInsightsHTML" class="convSearchTitle">Pending
+											Tasks</p>
+										<div [innerHTML]="extractedPendingTasksHTML" class="card convSearchResult"
+											*ngIf="generatedInsightsHTML">
+										</div>
+									</div>
+									<div class="col-6" style="margin-left: 20px;">
+										<p *ngIf="generatedInsightsHTML" class="convSearchTitle">Summary</p>
+										<div [innerHTML]="generatedSummaryHTML" class="card convSearchResult"
+											*ngIf="generatedInsightsHTML" style="width:95% ;">
+										</div>
+									</div>
+								</div>
+								<div class="d-flex">
+									<div class="col-6">
+										<p *ngIf="generatedInsightsHTML" class="convSearchTitle">Insights</p>
+										<div [innerHTML]="generatedInsightsHTML" class="card convSearchResult"
+											*ngIf="generatedInsightsHTML">
+										</div>
+									</div>
+									<div class="col-6" style="margin-left: 20px;">
+										<p *ngIf="generatedInsightsHTML" class="convSearchTitle">Next best action
+										</p>
+										<div [innerHTML]="generatedNextBestActionHTML" class="card convSearchResult"
+											*ngIf="generatedInsightsHTML" style="width:95%;">
+										</div>
+									</div>
+								</div>
+								<div class="mb-4">
+									<p *ngIf="extractedEntities.length > 0" class="m-3">Entities</p>
+									<div class="card" *ngIf="extractedEntities.length > 0">
+										<mat-chip-set role="list">
+											<mat-chip *ngFor="let entity of extractedEntities"
+												[class]="entity.entity_type"
+												[title]="entity.entity_type">{{entity.name.replaceAll("*","")}}</mat-chip>
+										</mat-chip-set>
+									</div>
+								</div>
+							</div>
+						</mat-tab>
+					</div>
+					<div *ngIf="customerReviews.length > 0" style="margin-bottom: 20px;">
+						<mat-tab label="Review">
+							<mat-divider></mat-divider>
+							<br>
+							<p class="ConvTitle">Select one or more of the review</p>
+							<div class="card">
+								<table mat-table [dataSource]="dataSourceReview"
+									style="margin-top: 4px; margin-bottom: 4px;" class="pastConv">
+									<ng-container matColumnDef="select">
+										<th mat-header-cell *matHeaderCellDef>
+										</th>
+										<td mat-cell *matCellDef="let row ; let ind = index">
+											<mat-checkbox (click)="onSelectionReview(ind, row, select.checked)"
+												#select></mat-checkbox>
+										</td>
+									</ng-container>
+									<ng-container matColumnDef="conversation">
+										<th mat-header-cell *matHeaderCellDef class="convHeader"> Conversation
+										</th>
+										<td mat-cell *matCellDef="let element" class="convBody">
+											{{element.title}} </td>
+									</ng-container>
+									<ng-container matColumnDef="category">
+										<th mat-header-cell *matHeaderCellDef class="convHeader"> Category
+										</th>
+										<td mat-cell *matCellDef="let element" class="convBody">
+											{{element.category}} </td>
+									</ng-container>
+									<ng-container matColumnDef="sentiment">
+										<th mat-header-cell *matHeaderCellDef class="convHeader"> Sentiment
+										</th>
+										<td mat-cell *matCellDef="let element" class="convBody">
+											{{element.sentiment |
+											titlecase}} </td>
+									</ng-container>
+									<ng-container matColumnDef="rating">
+										<th mat-header-cell *matHeaderCellDef class="convHeader"> Rating </th>
+										<td mat-cell *matCellDef="let element" class="convBody">
+											{{element.rating}} </td>
+									</ng-container>
+
+									<tr mat-header-row *matHeaderRowDef="displayedColumns">
+									</tr>
+									<tr mat-row *matRowDef="let row; columns: displayedColumns;">
+									</tr>
+								</table>
+							</div>
+							<br>
+							<div class="d-flex justify-content-center align-items-center mb-2">
+								<button class="mx-3 mb-3 d-flex justify-content-center align-items-center"
+									*ngIf="selectedConversationsReview.length>0"
+									(click)="clickGenrateInsightReview(selectedConversationsReview)"
+									[ngClass]="selectedConversationsReview.length>0 ? 'generateInsightsBtnEnabled' : 'generateInsightsBtn'"
+									[disabled]="selectedConversationsReview.length<=0">
+									Generate Insights </button>
+							</div>
+							<h3 *ngIf="selectedConversationHTML">Conversation</h3>
+							<div *ngIf="selectedConversationHTML" [innerHTML]="selectedConversationHTML">
+							</div>
+							<div *ngIf="insightsLoading">
+								<p style="margin-left: 10px;">Generating insights. This
+									will take a few seconds...</p>
+								<mat-progress-spinner class="mx-auto" mode="indeterminate" color="primary"
+									[diameter]="40"></mat-progress-spinner>
+							</div>
+							<div class="d-flex">
+								<div class="col-6">
+									<p *ngIf="generatedInsightsHTML" class="convSearchTitle">Summary</p>
+									<div *ngIf="generatedInsightsHTML" [innerHTML]="generatedSummaryHTML"
+										class="card convSearchResult"></div>
+								</div>
+								<div class="col-6" style="margin-left: 20px;">
+									<p *ngIf="generatedInsightsHTML" class="convSearchTitle">Pending Tasks</p>
+									<div *ngIf="generatedInsightsHTML" [innerHTML]="extractedPendingTasksHTML"
+										class="card convSearchResult" style="width:95%">
+									</div>
+								</div>
+							</div>
+							<div class="d-flex">
+								<div class="col-6">
+									<p *ngIf="generatedInsightsHTML" class="convSearchTitle">Insights
+									</p>
+									<div *ngIf="generatedInsightsHTML" [innerHTML]="generatedInsightsHTML"
+										class="card convSearchResult"></div>
+								</div>
+								<div class="col-6" style="margin-left: 20px;">
+									<p *ngIf="generatedInsightsHTML" class="convSearchTitle">Next best
+										action</p>
+									<div *ngIf="generatedInsightsHTML" [innerHTML]="generatedNextBestActionHTML"
+										class="card convSearchResult" style="width:95%">
+									</div>
+								</div>
+							</div>
+							<div class="mb-4">
+								<p *ngIf="extractedEntities.length > 0" class="convSearchTitle">
+									Entities</p>
+								<div class="card convSearchResult" *ngIf="extractedEntities.length > 0">
+									<mat-chip-set role="list">
+										<mat-chip *ngFor="let entity of extractedEntities" [class]="entity.entity_type"
+											[title]="entity.entity_type">{{entity.name.replaceAll("*","")}}</mat-chip>
+									</mat-chip-set>
+								</div>
+							</div>
+						</mat-tab>
+					</div>
+				</mat-tab-group>
+			</mat-tab>
+
+			<mat-tab label="Find Similar">
+				<mat-divider></mat-divider>
+				<div style="margin-left: auto;" class="col-10">
+					<form class="mt-2">
+						<p class="customerId">Question</p>
+						<div class="d-flex align-items-center">
+							<input type="text" matInput [formControl]="similarQuestionCtrl" class="customerInput"
+								placeholder="What to do when you have problems assembling a chair?">
+							<button (click)="search(false)" style="border:none; background: transparent;">
+								<mat-icon fontSet="google-symbols" class="searchBtn">
+									search_spark </mat-icon>
+							</button>
+						</div>
+						<br>
+						<div class="col-10">
+							<label>Contact Channel: </label>
+							<mat-radio-group [formControl]="contactChannelCtrl">
+								<mat-radio-button value="conversations">Conversations</mat-radio-button>
+								<mat-radio-button value="reviews">Reviews</mat-radio-button>
+							</mat-radio-group>
+						</div>
+					</form>
+					<div *ngIf="searchedSummary" class="mt-2 mb-2">
+						<p class="aiTitle"><span class="google-symbols"
+								style="font-size: 18px !important; margin-left: 10px;">
+								button_magic
+							</span>Assistant AI</p>
+						<div class="card" style="padding: 10px;">
+							<p class="aiResults">{{searchedSummary}}</p>
+						</div>
+					</div>
+					<form *ngIf="searchedSummary" class="mt-2 mb-2" style="margin-top:20px">
+						<div class="d-flex align-items-center">
+							<input class="customerInput" type="text" matInput [formControl]="followUpQuestionCtrl"
+								placeholder="Ask a follow up question">
+							<button (click)="search(true)" style="border:none; background: transparent;">
+								<mat-icon fontSet="google-symbols" class="searchBtn">
+									search_spark </mat-icon>
+							</button>
+						</div>
+					</form>
+					<div *ngIf="searchLoading">
+						<p>Generating results. This will take a few
+							seconds...</p>
+						<mat-progress-spinner mode="indeterminate" color="primary"
+							[diameter]="40"></mat-progress-spinner>
+					</div>
+
+					<div *ngIf="searchedSummary">
+						<div *ngIf="searchedConversations.length > 0">
+							<p class="convSearchTitle">Conversations by Search</p>
+							<div class="card" style="overflow-y:scroll;height:320px">
+								<table mat-table [dataSource]="dataSourceSearchConvesation"
+									style="margin-top: 5px; margin-bottom:5px" class="pastConv">
+									<ng-container matColumnDef="select">
+										<th mat-header-cell *matHeaderCellDef>
+										</th>
+										<td mat-cell *matCellDef="let row ; let ind = index">
+											<mat-checkbox
+												(click)="onSelectionSearchConversation(ind, row, select.checked)"
+												#select></mat-checkbox>
+										</td>
+									</ng-container>
+
+									<ng-container matColumnDef="conversation">
+										<th mat-header-cell *matHeaderCellDef class="convHeader">
+											Conversation
+										</th>
+										<td mat-cell *matCellDef="let element" class="convBody">
+											{{element.title}} </td>
+									</ng-container>
+
+									<ng-container matColumnDef="category">
+										<th mat-header-cell *matHeaderCellDef class="convHeader">
+											Category </th>
+										<td mat-cell *matCellDef="let element" class="convBody">
+											{{element.category}} </td>
+									</ng-container>
+
+									<!-- Weight Column -->
+									<ng-container matColumnDef="sentiment">
+										<th mat-header-cell *matHeaderCellDef class="convHeader">
+											Sentiment
+										</th>
+										<td mat-cell *matCellDef="let element" class="convBody">
+											{{element.sentiment | titlecase}} </td>
+									</ng-container>
+
+									<ng-container matColumnDef="rating">
+										<th mat-header-cell *matHeaderCellDef class="convHeader"> Rating
+										</th>
+										<td mat-cell *matCellDef="let element" class="convBody">
+											{{element.rating}} </td>
+									</ng-container>
+
+									<tr mat-header-row *matHeaderRowDef="displayedColumns">
+									</tr>
+									<tr mat-row *matRowDef="let row; columns: displayedColumns;">
+										<!-- (click)="selection.toggle(row)"> -->
+									</tr>
+								</table>
+							</div>
+							<br>
+
+						</div>
+						<br>
+						<div *ngIf="searchedConversations.length > 0"
+							class="d-flex justify-content-center align-items-center">
+							<button style="background: #4D88FF; border-radius: 10px;border-color: transparent;
+						color: white;" (click)="clickGenrateInsightConversation(selectedConversationsSearch , false)">
+								Generate Conversations Insights
+							</button> &nbsp;
+							<button style="background: #4D88FF; border-radius: 10px;border-color: transparent;
+						 color: white;" (click)="searchSimilarConversations(selectedConversationsSearch)">
+								Search for similar conversations
+							</button>
+						</div>
+
+						<br>
+						<div *ngIf="similarConversations.length > 0">
+							<p>Similar Conversations</p>
+							<!-- <mat-card class="col-10 mx-auto mt-2 mb-2">
+							<mat-card-title>
+								<p>Similar Conversations</p>
+							</mat-card-title>
+							<mat-selection-list class="mx-2" #similarConversationsList>
+								@for (conversation of similarConversations; track
+								conversation)
+								{
+								<mat-list-option
+									[value]="conversation">{{conversation.title}}</mat-list-option>
+								}
+							</mat-selection-list>
+							<mat-card-footer>
+								<button mat-flat-button color="primary"
+									class="mx-3 mb-3"
+									[disabled]="similarConversationsList.selectedOptions.selected.length == 0"
+									(click)="generateConversationsInsights(similarConversationsList.selectedOptions.selected, false)">
+									Generate Conversations Insights </button>
+							</mat-card-footer>
+						</mat-card> -->
+							<div class="card" style="overflow-y:scroll;height:320px">
+								<table mat-table [dataSource]="dataSourceSimilarConvesation"
+									style="margin-top: 5px; margin-bottom:5px" class="pastConv">
+
+									<!-- Checkbox Column -->
+									<ng-container matColumnDef="select">
+										<th mat-header-cell *matHeaderCellDef>
+										</th>
+										<td mat-cell *matCellDef="let row ; let ind = index">
+											<mat-checkbox (click)="onSelection(ind, row, select.checked)"
+												#select></mat-checkbox>
+										</td>
+									</ng-container>
+
+									<ng-container matColumnDef="conversation">
+										<th mat-header-cell *matHeaderCellDef class="convHeader">
+											Conversation
+										</th>
+										<td mat-cell *matCellDef="let element" class="convBody">
+											{{element.title}} </td>
+									</ng-container>
+
+									<ng-container matColumnDef="category">
+										<th mat-header-cell *matHeaderCellDef class="convHeader">
+											Category </th>
+										<td mat-cell *matCellDef="let element" class="convBody">
+											{{element.category}} </td>
+									</ng-container>
+
+									<!-- Weight Column -->
+									<ng-container matColumnDef="sentiment">
+										<th mat-header-cell *matHeaderCellDef class="convHeader">
+											Sentiment
+										</th>
+										<td mat-cell *matCellDef="let element" class="convBody">
+											{{element.sentiment | titlecase}} </td>
+									</ng-container>
+
+									<ng-container matColumnDef="rating">
+										<th mat-header-cell *matHeaderCellDef class="convHeader"> Rating
+										</th>
+										<td mat-cell *matCellDef="let element" class="convBody">
+											{{element.rating}} </td>
+									</ng-container>
+
+									<tr mat-header-row *matHeaderRowDef="displayedColumns">
+									</tr>
+									<tr mat-row *matRowDef="let row; columns: displayedColumns;">
+										<!-- (click)="selection.toggle(row)"> -->
+									</tr>
+								</table>
+							</div>
+							<br>
+							<div class="d-flex align-items-center justify-content-center">
+								<button style="background: #4D88FF; border-radius: 10px;border-color: transparent;
+						color: white;" (click)="clickGenrateInsightConversation(selectedConversations , false)">
+									Generate Conversations Insights
+								</button>
+							</div>
+						</div>
+
+					</div>
+					<div *ngIf="searchedSummary">
+						<!-- <div class="col-6" *ngIf="searchedReviews.length > 0">
+						<mat-card class="col-10 mx-auto mt-2 mb-2">
+							<mat-card-title>
+								<h2>Reviews by Search</h2>
+							</mat-card-title>
+							<mat-selection-list class="mx-2" #searchedReviewsList>
+								@for (review of searchedReviews; track
+								review)
+								{
+								<mat-list-option
+									[value]="review">{{review.title}}</mat-list-option>
+								}
+							</mat-selection-list>
+							<mat-card-footer>
+								<button mat-flat-button color="primary"
+									class="mx-3 mb-3"
+									[disabled]="searchedReviewsList.selectedOptions.selected.length == 0"
+									(click)="generateReviewsInsights(searchedReviewsList.selectedOptions.selected, false)">
+									Generate Reviews Insights </button>
+								<button mat-flat-button color="primary"
+									class="mx-3 mb-3"
+									[disabled]="searchedReviewsList.selectedOptions.selected.length != 1"
+									(click)="searchSimilarReviews(searchedReviewsList.selectedOptions.selected)">
+									Search for similar reviews </button>
+
+							</mat-card-footer>
+						</mat-card>
+					</div> -->
+						<div *ngIf="searchedReviews.length > 0">
+							<div class="card" style="overflow-y:scroll;height:320px ;margin-left: auto;">
+								<table mat-table [dataSource]="dataSourcesearchedReviews"
+									style="margin-top: 5px; margin-bottom: 4px;" class="pastConv">
+
+									<!-- Checkbox Column -->
+									<ng-container matColumnDef="select">
+										<th mat-header-cell *matHeaderCellDef>
+										</th>
+										<td mat-cell *matCellDef="let row ; let ind = index">
+											<mat-checkbox (click)="onSelectionSearchReview(ind, row, select.checked)"
+												#select></mat-checkbox>
+										</td>
+									</ng-container>
+
+									<ng-container matColumnDef="conversation">
+										<th mat-header-cell *matHeaderCellDef class="convHeader">
+											Conversation
+										</th>
+										<td mat-cell *matCellDef="let element" class="convBody">
+											{{element.title}} </td>
+									</ng-container>
+
+									<ng-container matColumnDef="category">
+										<th mat-header-cell *matHeaderCellDef class="convHeader">
+											Category </th>
+										<td mat-cell *matCellDef="let element" class="convBody">
+											{{element.category}} </td>
+									</ng-container>
+
+									<!-- Weight Column -->
+									<ng-container matColumnDef="sentiment">
+										<th mat-header-cell *matHeaderCellDef class="convHeader">
+											Sentiment
+										</th>
+										<td mat-cell *matCellDef="let element" class="convBody">
+											{{element.sentiment | titlecase}} </td>
+									</ng-container>
+
+									<ng-container matColumnDef="rating">
+										<th mat-header-cell *matHeaderCellDef class="convHeader"> Rating
+										</th>
+										<td mat-cell *matCellDef="let element" class="convBody">
+											{{element.rating}} </td>
+									</ng-container>
+
+									<tr mat-header-row *matHeaderRowDef="displayedColumns">
+									</tr>
+									<tr mat-row *matRowDef="let row; columns: displayedColumns;">
+										<!-- (click)="selection.toggle(row)"> -->
+									</tr>
+								</table>
+							</div>
+							<br>
+							<div *ngIf="searchedReviews.length > 0"
+								class="d-flex align-items-center justify-content-center">
+								<button
+									style="background: #4D88FF; border-radius: 10px;border-color: transparent;color: white;"
+									(click)="clickGenrateInsightReview(selectedReviewData , false)">
+									Generate Conversations Insights
+								</button> &nbsp;
+								<button
+									style="background: #4D88FF; border-radius: 10px;border-color: transparent;color: white;"
+									(click)="searchSimilarReviews(selectedReviewData)">
+									Search for similar conversations
+								</button>
+							</div>
+						</div>
+						<br>
+						<div *ngIf="similarReviews.length > 0">
+							<div class="card" style="overflow-y:scroll;height:320px;">
+								<table mat-table [dataSource]="dataSourceSearchSimilarReviews"
+									style="margin-top: 4px; margin-bottom: 4px;" class="pastConv">
+
+									<!-- Checkbox Column -->
+									<ng-container matColumnDef="select">
+										<th mat-header-cell *matHeaderCellDef>
+										</th>
+										<td mat-cell *matCellDef="let row ; let ind = index">
+											<mat-checkbox
+												(click)="onSelectionSimilarSearchReview(ind, row, select.checked)"
+												#select></mat-checkbox>
+										</td>
+									</ng-container>
+
+									<ng-container matColumnDef="conversation">
+										<th mat-header-cell *matHeaderCellDef class="convHeader">
+											Conversation
+										</th>
+										<td mat-cell *matCellDef="let element" class="convBody">
+											{{element.title}} </td>
+									</ng-container>
+
+									<ng-container matColumnDef="category">
+										<th mat-header-cell *matHeaderCellDef class="convHeader">
+											Category </th>
+										<td mat-cell *matCellDef="let element" class="convBody">
+											{{element.category}} </td>
+									</ng-container>
+
+									<!-- Weight Column -->
+									<ng-container matColumnDef="sentiment">
+										<th mat-header-cell *matHeaderCellDef class="convHeader">
+											Sentiment
+										</th>
+										<td mat-cell *matCellDef="let element" class="convBody">
+											{{element.sentiment | titlecase}} </td>
+									</ng-container>
+
+									<ng-container matColumnDef="rating">
+										<th mat-header-cell *matHeaderCellDef class="convHeader"> Rating
+										</th>
+										<td mat-cell *matCellDef="let element" class="convBody">
+											{{element.rating}} </td>
+									</ng-container>
+
+									<tr mat-header-row *matHeaderRowDef="displayedColumns">
+									</tr>
+									<tr mat-row *matRowDef="let row; columns: displayedColumns;">
+										<!-- (click)="selection.toggle(row)"> -->
+									</tr>
+								</table>
+							</div>
+							<br>
+							<div *ngIf="similarReviews.length > 0"
+								class="d-flex align-items-center justify-content-center">
+								<button style="background: #4D88FF; border-radius: 10px;border-color: transparent;
+							color: white;" (click)="generateReviewsInsights(selectedsimilarSearchReviewData , false)">
+									Generate Review Insights
+								</button> &nbsp;
+							</div>
+						</div>
+					</div>
+					<br>
+					<div style="margin-bottom: 20px;">
+						<mat-divider *ngIf="selectedConversationSearchHTML"></mat-divider>
+						<p *ngIf="selectedConversationSearchHTML" class="convSearchTitle">Conversation</p>
+						<div *ngIf="selectedConversationSearchHTML" [innerHTML]="selectedConversationSearchHTML"
+							class="card convSearchResult"></div>
+
+						<div *ngIf="searchInsightsLoading">
+							<p>Generating insights. This will take a few
+								seconds...</p>
+							<mat-progress-spinner class="mx-auto" mode="indeterminate" color="primary"
+								[diameter]="40"></mat-progress-spinner>
+						</div>
+						<div class="d-flex">
+							<div class="col-6">
+								<p *ngIf="generatedInsightsSearchHTML" class="convSearchTitle">Summary</p>
+								<div [innerHTML]="generatedSummarySearchHTML" class="card convSearchResult"
+									*ngIf="generatedInsightsSearchHTML"></div>
+							</div>
+							<div class="col-6" style="margin-left: 20px;">
+								<p *ngIf="generatedInsightsSearchHTML" class="convSearchTitle">Pending Tasks</p>
+								<div class="card convSearchResult" *ngIf="generatedInsightsSearchHTML"
+									style="width:95% ;">
+									<div [innerHTML]="extractedPendingTasksSearchHTML"></div>
+								</div>
+							</div>
+
+						</div>
+						<div class="d-flex">
+							<div class="col-6">
+								<p *ngIf="generatedInsightsSearchHTML" class="convSearchTitle">Insights</p>
+								<div [innerHTML]="generatedInsightsSearchHTML" class="card convSearchResult"
+									*ngIf="generatedInsightsSearchHTML"></div>
+							</div>
+							<div class="col-6" style="margin-left: 20px;">
+								<p *ngIf="generatedNextBestActionSearchHTML" class="convSearchTitle">Next best action
+								</p>
+								<div [innerHTML]="generatedNextBestActionSearchHTML" class="card convSearchResult"
+									style="width:95% ;" *ngIf="generatedInsightsSearchHTML">
+								</div>
+							</div>
+						</div>
+						<p *ngIf="extractedEntitiesSearch.length > 0" class="convSearchTitle">Entities</p>
+						<div class="card" *ngIf="extractedEntitiesSearch.length > 0" style="padding:10px">
+							<mat-chip-set role="list">
+								<mat-chip *ngFor="let entity of extractedEntitiesSearch" [class]="entity.entity_type"
+									[title]="entity.entity_type">{{entity.name.replaceAll("*","")}}</mat-chip>
+							</mat-chip-set>
+						</div>
+					</div>
+				</div>
+			</mat-tab>
+		</mat-tab-group>
+	</div>
+</div>
+<app-architecture [architecture]="architecture"></app-architecture>

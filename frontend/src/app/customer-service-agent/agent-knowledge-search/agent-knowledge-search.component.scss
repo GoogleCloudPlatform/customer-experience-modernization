@@ -1,0 +1,340 @@
+/**
+ * Copyright 2024 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+.currentCaseButton {
+  background-color: white;
+  border-color: #4D88FF;
+  border-radius: 10px;
+
+  color: #4D88FF;
+  text-align: center;
+  font-feature-settings: 'clig' off, 'liga' off;
+  font-family: Google Sans;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 20px;
+  /* 142.857% */
+  letter-spacing: -0.154px;
+}
+
+.currentCase {
+  background-color: white;
+  border-color: #4D88FF;
+  border-radius: 10px;
+
+  color: #4D88FF;
+  text-align: center;
+  font-feature-settings: 'clig' off, 'liga' off;
+  font-family: Google Sans;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 20px;
+  /* 142.857% */
+  letter-spacing: -0.154px;
+  margin-right: 10px;
+}
+
+.btnActive {
+  background-color: #4D88FF;
+  border-color: #4D88FF;
+  border-radius: 10px;
+
+  color: white;
+  text-align: center;
+  font-feature-settings: 'clig' off, 'liga' off;
+  font-family: Google Sans;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 20px;
+  /* 142.857% */
+  letter-spacing: -0.154px;
+}
+
+.filterButton {
+  color: var(--grey, #575757);
+  text-align: center;
+  font-feature-settings: 'clig' off, 'liga' off;
+  font-family: Google Sans;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
+  letter-spacing: -0.154px;
+
+  border-radius: 10px;
+  border: 1px solid #DFDFDF;
+  width: 113px;
+  height: 28px;
+  flex-shrink: 0;
+}
+
+.star-rating {
+  font-size: 2em;
+  color: #ffc107;
+}
+
+.statusClass {
+  border-radius: 10px;
+  margin-bottom: 2px;
+  background-color: black;
+  color: white;
+  border-radius: 3px;
+  border: 1px solid #E3E3E3;
+  font-family: "Google Sans";
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
+  padding: 0px 4px
+}
+
+.btnSelect {
+  // width: 112px;
+  border-radius: 10px;
+  margin-bottom: 2px;
+  background-color: white;
+  border-radius: 3px;
+  border: 1px solid #E3E3E3;
+  color: #000;
+  font-family: "Google Sans";
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
+  padding: 0px 4px
+}
+
+.statusClassCategory {
+  // width: 131px;
+  border-radius: 10px;
+  margin-bottom: 2px;
+  background-color: black;
+  color: white;
+  border-radius: 3px;
+  border: 1px solid #E3E3E3;
+  margin-right: 2px;
+  font-family: "Google Sans";
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
+}
+
+.btnSelectCategory {
+  //width: 131px;
+  border-radius: 10px;
+  margin-bottom: 2px;
+  background-color: white;
+  border-radius: 3px;
+  border: 1px solid #E3E3E3;
+  margin-right: 2px;
+  color: #000;
+  font-family: "Google Sans";
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
+}
+
+.aiSuggestion {
+  background: linear-gradient(92deg, #7934A7 -15.74%, #A0BBFF 98.63%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.filter-header {
+  color: #000;
+  font-family: "Google Sans";
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
+  background-color: #E3E3E3;
+  border-radius: 3px;
+  padding-top: 1px;
+  padding-bottom: 0px;
+  height: 27px;
+  width: 466px
+}
+
+.copyBtn {
+  border: none;
+  float: right;
+  background: transparent;
+  color: #4D88FF;
+}
+
+.kbResult {
+  color: #000;
+  font-family: "Google Sans";
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 18px;
+  margin-bottom: 10px;
+}
+
+.kbSummary {
+  color: #000;
+  font-family: "Google Sans";
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 19px;
+  margin-bottom: 10px;
+}
+
+.applyBtn {
+  border-radius: 10px;
+  border: 1px solid #DFDFDF;
+  background: #5ACE97;
+  width: 62px;
+  height: 25px;
+  flex-shrink: 0;
+  color: #FFF;
+  text-align: center;
+  font-feature-settings: 'clig' off, 'liga' off;
+  font-family: "Google Sans";
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 20px;
+  letter-spacing: -0.154px;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.clearBtn {
+  border-radius: 10px;
+  border: 1px solid #CCC;
+  background: #FFF;
+  width: 56px;
+  height: 25px;
+  flex-shrink: 0;
+  color: var(--grey, #575757);
+  text-align: center;
+  font-feature-settings: 'clig' off, 'liga' off;
+  font-family: "Google Sans";
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
+  /* 166.667% */
+  letter-spacing: -0.154px;
+}
+
+.actions {
+  border-radius: 3px;
+  background: #EDEDED;
+  height: 33px;
+  flex-shrink: 0;
+}
+
+.searchBtn {
+  background: #4D88FF;
+  color: #FFF;
+  border-radius: 5px;
+  width: 45px;
+  height: 47px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+ // margin-right:15px
+}
+
+.searchInput {
+  max-width: 100%;
+  height: 48px;
+  flex-shrink: 0;
+  fill: var(--Grey-50, #F8F9FA);
+  stroke-width: 1px;
+  stroke: #D0D0D0;
+  background: #F8F9FA;
+  border-radius: 6px;
+  border: 1px solid #D0D0D0;
+  padding-left: 10px;
+  //color: rgba(144, 144, 144, 0.66);
+  font-family: "Google Sans Text";
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
+}
+
+td {
+  vertical-align: top;
+  text-align: left;
+}
+
+.dot-flashing {
+  position: relative;
+  width: 8px;
+  height: 8px;
+  border-radius: 5px;
+  background-color: #9880ff;
+  color: #9880ff;
+  animation: dot-flashing 1s infinite linear alternate;
+  animation-delay: 0.5s;
+  margin-left: 12px;
+  margin-top: 6px;
+
+}
+
+.dot-flashing::before,
+.dot-flashing::after {
+  content: "";
+  display: inline-block;
+  position: absolute;
+  top: 0;
+}
+
+.dot-flashing::before {
+  left: -10px;
+  width: 8px;
+  height: 8px;
+  border-radius: 5px;
+  background-color: #9880ff;
+  color: #9880ff;
+  animation: dot-flashing 1s infinite alternate;
+  animation-delay: 0s;
+}
+
+.dot-flashing::after {
+  left: 10px;
+  width: 8px;
+  height: 8px;
+  border-radius: 5px;
+  background-color: #9880ff;
+  color: #9880ff;
+  animation: dot-flashing 1s infinite alternate;
+  animation-delay: 1s;
+}
+
+@keyframes dot-flashing {
+  0% {
+    background-color: #9880ff;
+  }
+
+  50%,
+  100% {
+    background-color: rgba(152, 128, 255, 0.2);
+  }
+}

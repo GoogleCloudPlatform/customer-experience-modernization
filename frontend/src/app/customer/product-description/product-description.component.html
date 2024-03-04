@@ -1,0 +1,111 @@
+<!--
+ Copyright 2024 Google LLC
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+
+<div class="product-background align-margin" #mainContent>
+    <div>
+        <div class="d-flex mb-4 box-shadow">
+            <div><img data-src="{{product?.image}}" alt="Product image"></div>
+            <div style="padding-left: 40px;" class="d-flex flex-column">
+
+                <div class="d-flex flex-column align-items-start placeholder-glow">
+                    <span class="product-name">{{product?.title | uppercase
+                        }}</span>
+                    <span class="product-category">{{product?.categories?.[0]}}</span>
+
+                    <customer-star-rating [stars]="starsAverage" *ngIf="starsAverage"></customer-star-rating>
+
+                    <span class="price">{{product?.price
+                        | currency}}</span>
+
+                    <button class="addToCart" (click)="addToCart()">
+                        Add to bag
+                    </button>
+                </div>
+                <div>
+                    <div class="row" style="margin-top: 20px; margin-bottom:20px">
+                        <!-- <p>Product Summary</p> -->
+                        <button class="shopping-assi-btn mx-2">
+                            <span class="google-symbols">
+                                spark
+                            </span>Shopping Assistant
+                        </button>
+                    </div>
+
+                    <p [innerHTML]="productSummary"></p>
+                </div>
+            </div>
+
+            <mat-divider style="margin-top: 20px;"></mat-divider>
+
+        </div>
+    </div>
+</div>
+
+<!-- Product tabs -->
+<mat-tab-group dynamicHeight mat-stretch-tabs="false" style="margin-left: 15px;">
+    <mat-tab label="Description">
+        <mat-divider></mat-divider>
+        <br>
+        <!-- Product description -->
+        <div class="row">
+            <div class="col-md-6">
+                <p>Product Description</p>
+                <p>{{product?.description}}</p>
+            </div>
+
+        </div>
+
+    </mat-tab>
+    <mat-tab label="Reviews">
+        <mat-divider></mat-divider>
+        <br>
+        <div class="row">
+            <div class="col-md-6">
+                <p>Product Reviews</p>
+                <ol class="list-group" role="list" [start]="(pageIndexKB * pageSizeKB) + 1">
+                    <li class="list-group-item" *ngFor="let review of slicedProductReviews()">
+                        <customer-star-rating [stars]="review?.stars"></customer-star-rating>
+                        <p>{{review?.review}}</p>
+                    </li>
+                </ol>
+
+                <mat-paginator #paginatorKB (page)="handlePageEventKB($event)" [length]="productReviews?.length"
+                    *ngIf="productReviews?.length > 0" [pageSize]="pageSizeKB" [pageIndex]="pageIndexKB" hidePageSize
+                    aria-label="Select page">
+                </mat-paginator>
+            </div>
+            <div class="col-md-6">
+                <div class="row align-items-center mb-2">
+                    <span class="col-xxl-6">Product Reviews Summary</span>
+                    <button class="shopping-assi-btn mx-2">
+                        <span class="google-symbols">
+                            spark
+                        </span>Shopping Assistant
+                    </button>
+                </div>
+                <p [innerHTML]="reviewsSummary"></p>
+            </div>
+        </div>
+    </mat-tab>
+</mat-tab-group>
+
+<!-- Shopping assistant -->
+<div class="d-flex align-items-center justify-content-center">
+
+    <app-home-product-carousel [categories]="categories"></app-home-product-carousel>
+</div>
+
+<br>

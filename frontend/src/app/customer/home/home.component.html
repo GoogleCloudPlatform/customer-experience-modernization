@@ -1,0 +1,267 @@
+<!--
+ Copyright 2024 Google LLC
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+
+<div class="search">
+  <button (click)="clearHome()" class="mainLogo col-3">
+    <img src="assets/images/cymbal-furniture-logo.svg" alt="Cymbal Furniture Logo">
+  </button>
+
+  <div class="RNNXgb col-6" jsname="RNNXgb">
+    <div class="SDkEP">
+      <div jscontroller="vZr2rb" class="a4bIc" data-hpmde="false" data-mnr="10" jsname="gLFyf"
+        jsaction="h5M12e;input:d3sQLd;blur:jI3wzf;keydown:uYT2Vb">
+        <style data-iml="1698992811581">
+          .gLFyf,
+          .YacQv {
+            line-height: 34px;
+            font-size: 16px;
+            flex: 100%;
+          }
+
+          textarea.gLFyf,
+          .YacQv {
+            font-family: 'Google Sans';
+            line-height: 24px;
+            overflow-x: hidden
+          }
+
+          textarea.gLFyf {}
+
+          .sbfc textarea.gLFyf {
+            white-space: pre-line;
+            overflow-y: auto
+          }
+
+          .gLFyf {
+            resize: none;
+            background-color: transparent;
+            border: none;
+            margin: 0;
+            padding: 0;
+            color: rgba(0, 0, 0, .87);
+            word-wrap: break-word;
+            outline: none;
+            display: flex;
+            -webkit-tap-highlight-color: transparent;
+          }
+
+          .a4bIc {
+            display: flex;
+            flex-wrap: wrap;
+            flex: 1;
+          }
+
+          .YacQv {
+            color: transparent;
+            white-space: pre;
+            position: absolute;
+            pointer-events: none
+          }
+
+          .YacQv span {
+            text-decoration: #d93025 dotted underline
+          }
+        </style>
+        <textarea #searchText jsname="yZiJbe" class="gLFyf" jsaction="paste:puy29d;" id="APjFqb" maxlength="2048"
+          name="q" rows="1" aria-activedescendant="" aria-autocomplete="both" aria-controls="Alh6id"
+          aria-expanded="false" aria-haspopup="both" aria-owns="Alh6id" autocapitalize="off" autocomplete="off"
+          autocorrect="off" autofocus="" role="combobox" spellcheck="false" title="Search" type="search" value=""
+          [(ngModel)]="inputSearch" aria-label="Search" data-ved="0ahUKEwjXwIK4maeCAxXdqVYBHRu7CzEQ39UDCAQ"
+          placeholder="Search or ask a Shopping Assistant"
+          (keydown.enter)="search(searchText.value , $event)"></textarea>
+      </div>
+      <div class="dRYYxd">
+        <div jscontroller="PymCCe" jsname="RP0xob" class="BKRPef1">
+          <div class="M2vV3 vOY7J" tabindex="0" jsname="pkjasb" aria-label="Clear" role="button"
+            jsaction="AVsnlb;rcuQ6b:npT2md" data-ved="0ahUKEwiR67TtvqeCAxWzcmwGHbFKA90Q05YFCA0"
+            *ngIf="searchText.value.length>0">
+            <button jsname="Tg7LZd" class="Tg7LZd google-symbols" style="margin-bottom: 20px;" aria-label="Search"
+              data-ved="0ahUKEwiCr9DzubGCAxWvxjgGHT--C_YQ4dUDCBA" (click)="close()">
+              <div class="zgAlFc"> <span class="z1asCe MZy1Rb"> close </span> </div>
+            </button>
+          </div> <span jsname="s1VaRe" class="ACRAdd M2vV3"></span>
+        </div>
+        <style data-iml="1698992811581">
+          .dRYYxd {
+            display: flex;
+            align-items: center;
+          }
+        </style>
+        <style data-iml="1698992811581">
+          .BKRPef {
+            background: transparent;
+            align-items: center;
+            flex: 1 0 auto;
+            flex-direction: row;
+            display: flex;
+            cursor: pointer
+          }
+
+          .vOY7J {
+            background: transparent;
+            border: 0;
+            align-items: center;
+            flex: 1 0 auto;
+            cursor: pointer;
+            display: none;
+            height: 100%;
+            line-height: 44px;
+            outline: none;
+            padding: 0 12px
+          }
+
+          .M2vV3 {
+            display: flex
+          }
+
+          .ExCKkf {
+            height: 100%;
+            color: #70757a;
+            vertical-align: middle;
+            outline: none
+          }
+        </style>
+        <style data-iml="1698992811581">
+          .BKRPef {
+            padding-right: 4px
+          }
+
+          .ACRAdd {
+            border-left: 1px solid #D2BEDF;
+            height: 65%
+          }
+
+          .ACRAdd {
+            display: none
+          }
+
+          .ACRAdd.M2vV3 {
+            display: block
+          }
+        </style>
+        <div jscontroller="PymCCe" jsname="RP0xob" class="BKRPef">
+          <div class="vOY7J" tabindex="0" jsname="pkjasb" aria-label="Clear" role="button"
+            jsaction="AVsnlb;rcuQ6b:npT2md" data-ved="0ahUKEwjXwIK4maeCAxXdqVYBHRu7CzEQ05YFCAU"> <span
+              class="ExCKkf z1asCe rzyADb" jsname="itVqKe">
+              <svg focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <path
+                  d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z">
+                </path>
+              </svg></span> </div> <span jsname="s1VaRe" class="ACRAdd"></span>
+        </div>
+        <!-- image upload new -->
+        <div class="d-flex flex-md-row align-items-center justify-content-center">
+          <div class="d-flex " style="padding-left: 16px;">
+            <button class="Tg7LZd" style="height: 28px; padding:0px">
+              <label class="image-upload-container">
+                <input #imageInput class="imageUpload" type="file" accept="image/*"
+                  (change)="processFile(imageInput , searchText.value)">
+                <span class="google-symbols">
+                  upload
+                </span>
+              </label>
+            </button>
+          </div>
+          <div class="d-flex " style="padding-left: 16px;">
+            <button jsname="Tg7LZd" class="Tg7LZd" aria-label="Search" style="height: 28px; padding:0px"
+              data-ved="0ahUKEwiCr9DzubGCAxWvxjgGHT--C_YQ4dUDCBA" (click)="search(searchText.value)">
+              <!-- <div class="zgAlFc">  -->
+              <!-- <span class="z1asCe MZy1Rb">  -->
+              <span class="google-symbols">
+                search_spark </span>
+              <!-- </div> -->
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-3 d-flex flex-md-row align-items-center justify-content-center">
+
+    <button *ngIf="!showTranslationForm" mat-icon-button (click)="showTranslationForm=true">
+      <mat-icon>
+        translate
+      </mat-icon>
+    </button>
+    <span *ngIf="!showTranslationForm" style="padding-right: 12px;">{{languageControl.value?.name}}</span>
+
+    <div *ngIf="showTranslationForm" style="width: 160px;border: 1px solid #D5D5D5;padding: 6px;border-radius: 10px;">
+      <span>
+        <mat-select [(ngModel)]="selectedLang" (ngModelChange)="changeLang($event)" name="lang" class="translateLang">
+          @for (option of filteredOptions | async; track option) {
+          <mat-option [value]="option">{{option.name}}</mat-option>
+          }
+        </mat-select>
+      </span>
+    </div>
+    <div class="d-flex gap-2 justify-content-between" style="padding:12px">
+      <span class="login-user" *ngIf="userId"> <img src="{{photoURL}}" class="rounded-circle" alt="User Profile Image"
+          width="24" height="24">
+      </span>
+      <!-- <app-user-photo></app-user-photo> -->
+    </div>
+    <!-- <div class="d-flex gap-2 w-100 justify-content-between">
+      <mat-icon>
+        favorite_outline
+      </mat-icon>
+    </div> -->
+    <div class="d-flex gap-2 justify-content-between">
+      <button mat-icon-button aria-label="Search" (click)="displayCart=true; displayProductDetails=false;">
+        <mat-icon fontSet="material-icons-outlined">shopping_cart_outline</mat-icon>
+      </button>
+    </div>
+    <!-- <div class="d-flex gap-2 w-100 justify-content-between">
+      <span class="material-symbols-outlined">
+        shopping_cart&nbsp;
+      </span>
+    </div> -->
+  </div>
+  <customer-df-messenger [userEmail]="userEmail" [userId]="userId"></customer-df-messenger>
+</div>
+<!-- Assistant logic -->
+<!-- <div *ngIf="loading" class="d-flex align-items-center justify-content-center">
+  <mat-spinner [diameter]="36"> </mat-spinner>
+</div> -->
+<div *ngIf="imageProcessing || !displayCart && !showChatArea">
+  <div class="container-md">
+    <app-assistant-chat *ngIf="imageProcessing || searchVal" class="col-md-8 mx-auto"
+      [imageProcessing]="imageProcessing"> </app-assistant-chat>
+  </div>
+</div>
+<div>
+  <app-architecture [architecture]="architecture"></app-architecture>
+</div>
+
+
+<div [hidden]="!displayCart || displayProductDetails">
+  <app-add-to-cart-details></app-add-to-cart-details>
+</div>
+<div *ngIf="displayProductDetails">
+
+  <div class="container-md">
+    <button mat-button aria-label="Close product description" (click)="displayProductDetails = false">
+      <mat-icon>close</mat-icon> Close product description
+    </button>
+
+    <app-product-description class="col-md-8 mx-auto"></app-product-description>
+  </div>
+
+</div>
+<div class="d-flex align-items-center justify-content-center">
+  <app-product-dashboard [hidden]="displayCart || displayProductDetails"></app-product-dashboard>
+</div>
+
+<customer-home-footer></customer-home-footer>

@@ -1,0 +1,82 @@
+<!--
+ Copyright 2024 Google LLC
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+
+<!-- Customer profile will display here -->
+<mat-card style="border:none ; box-shadow: none;margin-top:15px;margin-bottom:15px">
+	<div style="border-radius: 16px;
+	border: 1px solid #D5D5D5;">
+		<mat-card-header>
+			<img mat-card-avatar [src]="userPhotoURL">
+			<mat-card-title>{{userName}}</mat-card-title>
+			<mat-card-subtitle>{{userEmail}}</mat-card-subtitle>
+
+			<span class="flex-expand"></span>
+			<button *ngIf="!showTranslationForm" mat-icon-button (click)="showTranslationForm=true"
+				class="translate-icon">
+				<mat-icon>
+					translate
+				</mat-icon>
+			</button>
+
+		</mat-card-header>
+		<mat-card-content>
+			<form *ngIf="showTranslationForm">
+				<mat-form-field class="col-10" style="margin:10px 10px 0px 10px">
+					<mat-label>Language</mat-label>
+					<input id="translationLanguage" type="text" matInput [formControl]="languageControl"
+						[matAutocomplete]="auto">
+					<mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+						@for (option of filteredOptions | async; track option) {
+						<mat-option [value]="option">{{option.name}}</mat-option>
+						}
+					</mat-autocomplete>
+				</mat-form-field>
+				<button class="mb-2" style="margin:0px 10px 0px 10px" mat-raised-button type="submit" (click)="changeLanguage()" color="primary">Change
+					Language</button>
+
+				<mat-divider></mat-divider>
+			</form>
+
+			<customer-service-agent-agent-messages *ngIf="messages"
+				[messages]="messages"></customer-service-agent-agent-messages>
+		</mat-card-content>
+	</div>
+	<mat-card-actions style="padding-left: 0px;padding-right: 0px; justify-content:start;">
+		<button class="me-2 googleMeetBtn" (click)="googleMeet()">Google Meet</button>
+		<button class="me-2 rephraseBtn" (click)="rephrase()">Rephrase</button>
+		<button class="me-2 rephraseBtn" (click)="autoSuggestQuery()">Search Company Knowledge</button>
+	</mat-card-actions>
+	<mat-card-footer>
+		<form [formGroup]="msgFormGroup" class="d-flex">
+			<div class="d-flex mb-2 align-items-end col-12 justify-content-between">
+				<textarea type="text" matInput formControlName="msgCtrl" placeholder="Type..." class="searchInput col-10"></textarea>
+				<button (click)="sendMessage($event)" style="border: none;background: transparent;" class="col-2">
+					<svg xmlns="http://www.w3.org/2000/svg" width="45" height="47" viewBox="0 0 45 47" fill="none">
+						<rect width="45" height="47" rx="10" fill="#4D88FF" />
+						<path
+							d="M31.44 23.11L13.44 14.1V14.11C13.31 14.04 13.16 14 13 14C12.45 14 12 14.45 12 15V23V25V33C12 33.55 12.45 34 13 34C13.16 34 13.31 33.95 13.44 33.89V33.9L31.44 24.9V24.89C31.77 24.73 32 24.4 32 24C32 23.6 31.77 23.28 31.44 23.11ZM14 28C14 26.34 15.34 25 17 25H21C21.55 25 22 24.55 22 24C22 23.45 21.55 23 21 23H17C15.34 23 14 21.66 14 20V16.62L28.76 24L14 31.38V28Z"
+							fill="white" />
+					</svg>
+				</button>
+			</div>
+		</form>
+		<div id="rephrase_candidates"></div>
+	</mat-card-footer>
+	<mat-card-actions class="mx-2 d-flex align-items-center justify-content-center">
+		<button class="warnBtn" (click)="endSession()">End Session</button>
+	</mat-card-actions>
+
+</mat-card>

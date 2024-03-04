@@ -1,0 +1,133 @@
+/**
+ * Copyright 2024 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+mat-card {
+    border-radius: 14px;
+}
+
+mat-card-header {
+    border-radius: 14px 14px 0px 0px;
+    background: #CCDDFF;
+}
+
+mat-form-field {
+    width: 90%;
+}
+
+.flex-expand {
+    flex: 1 1 auto;
+}
+
+.translate-icon {
+    border-radius: 8px;
+    background: #4D88FF;
+    color: white;
+    width: 32px;
+    height: 32px;
+    flex-shrink: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2px;
+}
+
+.googleMeetBtn {
+    border-radius: 10px;
+    background: #4D88FF;
+    width: 100px;
+    height: 28px;
+    flex-shrink: 0;
+    color: #FFF;
+    text-align: center;
+    font-feature-settings: 'clig' off, 'liga' off;
+    font-family: "Google Sans";
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 20px;
+    /* 142.857% */
+    letter-spacing: -0.154px;
+    border: none
+}
+
+.rephraseBtn {
+    border-radius: 10px;
+    border: 1px solid #DFDFDF;
+    min-width: 100px;
+    height: 28px;
+    flex-shrink: 0;
+    color: var(--grey, #575757);
+    text-align: center;
+    font-feature-settings: 'clig' off, 'liga' off;
+    font-family: "Google Sans";
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px;
+    /* 142.857% */
+    letter-spacing: -0.154px;
+}
+
+.warnBtn {
+    border-radius: 10px;
+    background: #FF6969;
+    width: 113px;
+    height: 28px;
+    flex-shrink: 0;
+    color: #FFF;
+    text-align: center;
+    font-feature-settings: 'clig' off, 'liga' off;
+    font-family: "Google Sans";
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 20px;
+    /* 142.857% */
+    letter-spacing: -0.154px;
+    border: none
+}
+
+.searchBtn {
+    background: #4D88FF;
+    color: #FFF;
+    border-radius: 5px;
+    width: 45px;
+    height: 47px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    // margin-top: 4px;
+    margin-left: 10px;
+}
+
+.searchInput {
+    max-width: 100%;
+    height: 107px;
+    flex-shrink: 0;
+    fill: var(--Grey-50, #F8F9FA);
+    stroke-width: 1px;
+    stroke: #D0D0D0;
+    background: #F8F9FA;
+    border-radius: 6px;
+    border: 1px solid #F8F9FA;
+    padding-left: 10px;
+   // color: rgba(144, 144, 144, 0.66);
+    font-family: "Google Sans Text";
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px; }
