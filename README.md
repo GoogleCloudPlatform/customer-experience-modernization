@@ -18,7 +18,7 @@ This repository provides a deployment guide showcasing the application of Google
 
 In this repository, the following demonstrations are provided:  
 
-Persona 1 - Customer
+### Persona 1 - Customer - Website
 ![Persona 1 Architecture](/frontend/src/assets/architectures/p1_uj_1_2.svg)
 * **[Customer Search using Vertex AI Search](https://www.youtube.com/watch?v=47jNYuuhbNA)**
 * **[Multimodal Search using Vertex AI Vector Search](https://www.youtube.com/watch?v=8-OZmOZTTr4)**
@@ -26,22 +26,33 @@ Persona 1 - Customer
 * **[Product Recommendations using Vertex AI Recommendations](https://www.youtube.com/watch?v=e5NRvTygZYg)**
 * **[Infobot using Vertex AI Conversation](https://www.youtube.com/watch?v=92ulAdbwUoE)**
 
+***
+
+### Persona 1 - Customer - Email
 ![Persona 1 Architecture](/frontend/src/assets/architectures/p1_uj_3.svg)
 * **[Email answering and hand off using Vertex AI Conversation](https://www.youtube.com/watch?v=lA2s7t3XdV0)**
 
-Persona 2 - Content Creator
+***
+
+### Persona 2 - Content Creator
 ![Persona 2 Architecture](/frontend/src/assets/architectures/p2_uj_1_2.svg)
 * **[Products and services creation using Vertex AI LLMs for Text and Image Generation, Vertex AI Vector Search and Vision API for labeling](https://www.youtube.com/watch?v=4LeV_Ea9RGQ)**
 
-Persona 3 - Customer Experience Analyst
+***
+
+### Persona 3 - Customer Experience Analyst
 ![Persona 3 Architecture](/frontend/src/assets/architectures/p3_uj_csm.svg)
 * **[User Experience analytics using Looker, Firebase Analytics, Firebase Realtime Analytics and Google Analytics](https://www.youtube.com/watch?v=rh5vCWLVdRA)**
 
-Persona 3 - Marketing Integration
+***
+
+### Persona 3 - Marketing Integration
 ![Persona 3 Marketing Architecture](/frontend/src/assets/architectures/p3_uj_marketing.svg)
 * **[Gen AI for Marketing](https://github.com/GoogleCloudPlatform/genai-for-marketing)**
 
-Persona 4 - Customer Service Agent
+***
+
+### Persona 4 - Customer Service Agent
 ![Persona 4 Architecture](/frontend/src/assets/architectures/p4_uj_1.svg)
 * **[Real time translation between user and agent using Translation AI](https://www.youtube.com/watch?v=vaz_KmVxsXc)**
 * **[Message rephrasing using Vertex AI LLM](https://www.youtube.com/watch?v=qyPNGotOJA0)**
@@ -49,14 +60,18 @@ Persona 4 - Customer Service Agent
 * **[Conversation Summary using Vertex AI LLM](https://www.youtube.com/watch?v=6bkEuwrEWOs)**
 * **[Meet conversation with end user](https://www.youtube.com/watch?v=JmLJq5f5L0E)**
 
-Persona 5 - Contact Center Analyst
+***
+
+### Persona 5 - Contact Center Analyst
 ![Persona 5 Architecture](/frontend/src/assets/architectures/p5_uj_1.svg)
 * **[Overall KPIs, Sentiment and Agent Performance using Looker](https://www.youtube.com/watch?v=9R1O-TPEUdU)**
 * **[Insights from Reviews and Conversations using Vertex AI Search, Vertex AI LLM and Natural Language AI](https://www.youtube.com/watch?v=fh7rzDiEzJw)**
 * **[Similarity search using Vertex AI Vector Search](https://www.youtube.com/watch?v=aQO6kb4ja2w)**
 * **[Q&A using Vertex AI Search](https://www.youtube.com/watch?v=i_9FDWWcQsI)**
 
-Persona 6 - Field Service Agent
+***
+
+### Persona 6 - Field Service Agent
 ![Persona 6 Architecture](/frontend/src/assets/architectures/p6_uj_1.svg)
 * **[Scheduling using Vertex AI Conversation](https://www.youtube.com/watch?v=m10qRO1CAVE)**
 * **[Insights from Reviews and Conversations using Vertex AI Search, Vertex AI LLM and Natural Language AI](https://www.youtube.com/watch?v=bu1e0ZIaohQ)**
@@ -76,9 +91,14 @@ Change `PROJECT_ID` to the id of your project.
 
 ```bash
 export PROJECT_ID=<CHANGE TO YOUR PROJECT ID>
- 
+```
+
+
+```bash
 gcloud config set project $PROJECT_ID
- 
+```
+
+```bash
 gcloud services enable \
   cloudapis.googleapis.com \
   cloudbuild.googleapis.com \
@@ -89,8 +109,10 @@ gcloud services enable \
   containerregistry.googleapis.com \
   iam.googleapis.com \
   iamcredentials.googleapis.com \
-  run.googleapis.com \
+  run.googleapis.com
+```
 
+```bash
 gcloud services enable \
   admin.googleapis.com \
   aiplatform.googleapis.com \
@@ -110,7 +132,11 @@ gcloud services enable \
   drive.googleapis.com \
   eventarc.googleapis.com \
   fcm.googleapis.com \
-  fcmregistrations.googleapis.com \
+  fcmregistrations.googleapis.com
+```
+
+```bash
+gcloud services enable \
   firebase.googleapis.com \
   firebaseappdistribution.googleapis.com \
   firebasedynamiclinks.googleapis.com \
@@ -129,7 +155,11 @@ gcloud services enable \
   mobilecrashreporting.googleapis.com \
   monitoring.googleapis.com \
   notebooks.googleapis.com \
-  oslogin.googleapis.com \
+  oslogin.googleapis.com
+```
+
+```bash
+gcloud services enable \
   pubsub.googleapis.com \
   runtimeconfig.googleapis.com \
   secretmanager.googleapis.com \
@@ -142,7 +172,32 @@ gcloud services enable \
   storage-component.googleapis.com \
   storage.googleapis.com \
   translate.googleapis.com \
-  vision.googleapis.com \
+  vision.googleapis.com
+```
+
+## Python environment
+Create a new python environment of your choice and install backend-apis/deployment-scripts/requirements.txt
+
+### Example using python venv with bash
+
+Go to the right folder
+```bash
+cd backend-apis/deployment-scripts
+```
+
+Generate a venv environment
+```bash
+python3 -m venv venv
+```
+
+Activate venv environment
+```bash
+source ./venv/bin/activate
+```
+
+Install required libs
+```bash
+pip install -r requirements.txt
 ```
 
 ## Vertex AI Search and Conversation Setup
