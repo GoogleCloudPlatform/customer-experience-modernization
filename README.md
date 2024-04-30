@@ -225,7 +225,7 @@ cd backend-apis/deployment-scripts
 ```
 
 ```bash
-python vertex_search_operations.py --project_id $PROJECT_ID --location us-central1
+python vertex_search_operations.py --project_id $PROJECT_ID --location global
 ```
 
 This will create the `csm-search-engine` using the generated example dataset [search_products.jsonl](backend-apis/deployment_scripts/dataset/search_products.jsonl)
