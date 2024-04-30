@@ -283,6 +283,14 @@ For Persona 6 Manuals [Create a Search App](https://cloud.google.com/generative-
 ## Firestore Setup
 Firestore datasets are used by Persona 5
 
+### Create a Firestore in Native mode database
+If this is a new project, you need to create a Firestore database instance.
+
+- Go to the [Firestore viewer](https://console.cloud.google.com/firestore/data).
+- From the Select a database service screen, choose Firestore in Native mode.
+- Select a location for your Firestore.
+- Click Create Database.
+
 Go to the right folder
 ```bash
 cd backend-apis/deployment-scripts
