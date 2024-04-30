@@ -35,4 +35,4 @@ proto-plus
 protobuf
 cloud-sql-python-connector[pymysql]
 SQLALchemy==2.0.23
-google-cloud-appengine-logging==1.3.2
+google-cloud-appengine-logging==1.4.3
