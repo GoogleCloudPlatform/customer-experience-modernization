@@ -218,8 +218,14 @@ This demo uses Vertex AI Search and Conversation for Website Search, Website Rec
 ### Persona 1 Search
 
 For Persona 1 Search you can use the script provided to upload the products.
+
+Go to the right folder
 ```bash
-python backend-apis/deployment-scripts/vertex_search_operations.py --project_id PROJECT --location us-central1
+cd backend-apis/deployment-scripts
+```
+
+```bash
+python vertex_search_operations.py --project_id $PROJECT_ID --location us-central1
 ```
 
 This will create the `csm-search-engine` using the generated example dataset [search_products.jsonl](backend-apis/deployment_scripts/dataset/search_products.jsonl)
@@ -277,30 +283,15 @@ For Persona 6 Manuals [Create a Search App](https://cloud.google.com/generative-
 ## Firestore Setup
 Firestore datasets are used by Persona 5
 
-Upload each file like this:
-```python
-import json
-
-with open("./full_conversations.jsonl") as f:
-    lines = f.readlines()
-    lines = [json.loads(i) for i in lines]
-
-from google.cloud import firestore
-db = firestore.Client()
-
-for line in lines:
-    data = json.loads(line["jsonData"])
-    db.collection("p5-conversations").document(line["id"]).set(data)
+Go to the right folder
+```bash
+cd backend-apis/deployment-scripts
 ```
 
-p5-customers
-- gs://csm-solution-dataset/persona5/customer_list.json
+```bash
+python firestore_upload_data.py
+```
 
-p5-reviews
-- gs://csm-solution-dataset/persona5/product_reviews.jsonl
-
-p5-conversations
-- gs://csm-solution-dataset/persona5/full_conversations.jsonl
 
 ## Cloud SQL
 This demo uses Cloud SQL to store product information.

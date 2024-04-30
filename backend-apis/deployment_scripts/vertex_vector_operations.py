@@ -272,6 +272,8 @@ def main(args):
     ParseDict(metadata, struct)
     schema_value = struct_pb2.Value(struct_value=struct)
 
+    print("Creating vector index")
+
     create_vector_index(
         project_id=args.project_id,
         location=args.location,
@@ -279,6 +281,8 @@ def main(args):
         description=args.index_description,
         metadata=schema_value,
     )
+
+    print("Creating index endpoint")
 
     create_index_endpoint(
         project_id=args.project_id,
@@ -304,6 +308,8 @@ def main(args):
         endpoint_display_name=args.endpoint_display_name,
     )
 
+    print("Deploying index to endpoint")
+
     deploy_index_to_endpoint(
         deploy_id=args.deploy_id,
         index=index_resource_name,
@@ -322,35 +328,35 @@ def main(args):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("project_id")
-    parser.add_argument("location")
+    parser.add_argument("--project_id", required=True)
+    parser.add_argument("--location", required=True)
 
     parser.add_argument(
-        "index_display_name",
+        "--index_display_name",
         default="csm-multimodal-vector-search",
         required=False,
     )
     parser.add_argument(
-        "index_description",
+        "--index_description",
         default="CSM Multimodal Vector Search",
         required=False,
     )
 
     parser.add_argument(
-        "endpoint_display_name", default="csm-index-endpoint", required=False
+        "--endpoint_display_name", default="csm-index-endpoint", required=False
     )
     parser.add_argument(
-        "endpoint_description", default="CSM Index Endpoint", required=False
+        "--endpoint_description", default="CSM Index Endpoint", required=False
     )
 
     parser.add_argument(
-        "deploy_display_name", default="csm_deployed_index", required=False
+        "--deploy_display_name", default="csm_deployed_index", required=False
     )
     parser.add_argument(
-        "deploy_id", default="csm_deployed_index", required=False
+        "--deploy_id", default="csm_deployed_index", required=False
     )
     parser.add_argument(
-        "contents_delta_uri",
+        "--contents_delta_uri",
         default="gs://csm-solution-dataset/metadata/vertex-vector-search",
         required=False,
     )

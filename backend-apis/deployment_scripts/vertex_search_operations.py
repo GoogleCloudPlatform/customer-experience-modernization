@@ -177,26 +177,24 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(
         description="Vertex AI search datastores creation"
     )
-    parser.add_argument("project_id", required=True)
-    parser.add_argument("location", required=True)
+    parser.add_argument("--project_id", required=True)
+    parser.add_argument("--location", required=True)
     parser.add_argument(
-        "data_store_id", default="csm-search-datastore", required=False
+        "--data_store_id", default="csm-search-datastore", required=False
     )
     parser.add_argument(
-        "engine_id", default="csm-search-engine", required=False
+        "--engine_id", default="csm-search-engine", required=False
     )
     parser.add_argument(
-        "gcs_uri",
+        "--gcs_uri",
         default="gs://csm-solution-dataset/metadata/search_products.jsonl",
         required=False,
     )
-    parser.add_argument(
-        "engine_id", default="csm-search-engine", required=False
-    )
-    parser.add_argument("company_name", default="CSM", required=False)
+    parser.add_argument("--company_name", default="CSM", required=False)
     args = parser.parse_args()
 
     print("Creating Datastore")
+
     create_datastore(
         project_id=args.project_id,
         location=args.location,
