@@ -281,7 +281,7 @@ For Persona 6 Manuals [Create a Search App](https://cloud.google.com/generative-
 - Dataset: gs://csm-solution-dataset/persona6/argolis_vertexai_search_products_manuals.jsonl
 
 ## Firestore Setup
-Firestore datasets are used by Persona 5
+Firestore datasets are used by Persona 1 (website reviews) and Persona 5 (conversations, reviews and customer information)
 
 ### Create a Firestore in Native mode database
 If this is a new project, you need to create a Firestore database instance.

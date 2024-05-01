@@ -12,64 +12,133 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+"""Upload dataset to Firestore"""
 
-"""Import firestore"""
-
+import asyncio
 import json
+from typing import Literal, TypedDict
 
 from google.cloud import firestore, storage
 
-GCS_BUCKET = "csm-solution-dataset"
-COLLECTIONS_DICT = {
-    "p5-customers": "persona5/customer_list.json",
-    "p5-conversations": "persona5/full_conversations.jsonl",
-    "p5-reviews": "persona5/product_reviews.jsonl",
-}
-db = firestore.Client()
+firestore_client = firestore.AsyncClient()
 gcs_client = storage.Client()
 
+GCS_BUCKET = "csm-solution-dataset"
+COLLECTIONS_DICT = {
+    "website_reviews": "persona5/product_reviews.jsonl",
+    "p5-customers": "persona5/customer_list.json",
+    "p5-conversations": "persona5/conversations_search_dataset.jsonl",
+    "p5-reviews": "persona5/reviews_search_dataset.jsonl",
+}
 
-def get_collection(collection_name: str):
-    """
-    Gets collection count
+
+class ReviewDoc(TypedDict):
+    """A dict representing a review document for Firestore"""
+
+    review: str
+    sentiment: Literal["positive", "negative", "neutral"]
+    stars: int
+
+
+async def review_upload(product_id: str, review: ReviewDoc):
+    """Uploads a single review
 
     Args:
-        collection_name:
-            Collection name
-
-    Returns:
-        Collection count
+        product_id:
+            Product ID
+        review:
+            Review data
     """
-    ref = db.collection(collection_name)
-    result = ref.count().get()
-    count = int(result[0][0].value)
-    return count
+    await firestore_client.collection("website_reviews").document(
+        product_id
+    ).collection("reviews").document().set(review)
 
 
-def firestore_upload():
+async def upload_reviews(review_docs: dict[str, list[ReviewDoc]]):
+    """Upload reviews"""
+    await asyncio.gather(
+        *(
+            review_upload(product_id, review)
+            for product_id, reviews in review_docs.items()
+            for review in reviews
+        )
+    )
+
+
+async def p5_upload(collection_name, document_id: str, data: dict):
+    """Uploads a single p5 Firestore document
+
+    Args:
+        document_id:
+            Document ID
+        data:
+            Document data
+    """
+
+    await firestore_client.collection(collection_name).document(
+        document_id
+    ).set(data)
+
+
+async def upload_p5_documents(collection_name, documents: dict[str, dict]):
+    """Upload p5 documents"""
+    await asyncio.gather(
+        *(
+            p5_upload(collection_name, document_id, data)
+            for document_id, data in documents.items()
+        )
+    )
+
+
+async def main():
     """
     Upload documents to firestore
     """
     bucket = gcs_client.get_bucket(GCS_BUCKET)
+    collection_lines = {}
+
+    # Transform JSONL to Documents
     for collection_name, collection_uri in COLLECTIONS_DICT.items():
         blob = bucket.blob(collection_uri)
         lines = blob.download_as_text().splitlines()
         json_lines = [json.loads(line) for line in lines]
 
+        # Website reviews uses collections of collections
+        if collection_name == "website_reviews":
+            review_docs: dict[str, list[ReviewDoc]] = {}
+            for review_dict in json_lines:
+                review_doc: ReviewDoc = {
+                    "review": review_dict["review"],
+                    "sentiment": review_dict["sentiment"],
+                    "stars": review_dict["stars"],
+                }
+                if review_dict["id"] not in review_docs:
+                    review_docs[review_dict["id"]] = []
+                review_docs[review_dict["id"]].append(review_doc)
+            collection_lines["website_reviews"] = review_docs
+            continue
+
+        # Other collections are flat
+        docs = []
         for line in json_lines:
-            # print(line)
-            if collection_name == "p5-conversations":
+            if collection_name != "p5-customers":
                 data = json.loads(line["jsonData"])
             else:
                 data = line
 
             if collection_name == "p5-customers":
-                db.collection(collection_name).document(
-                    line["customer_id"]
-                ).set(data)
+                docs.append({line["customer_id"]: data})
             else:
-                db.collection(collection_name).document(line["id"]).set(data)
+                docs.append({line["id"]: data})
+        collection_lines[collection_name] = docs
+
+    # Upload collections
+    for name, lines in collection_lines:
+        if name == "website_reviews":
+            await upload_reviews(lines)
+        else:
+            await upload_p5_documents(name, lines)
 
 
 if __name__ == "__main__":
-    firestore_upload()
+    asyncio.run(main())
