@@ -136,6 +136,7 @@ async def main():
 
     # Upload collections
     for name, lines in collection_lines.items():
+        print(f"Uploading collection: {name}")
         if name == "website_reviews":
             await upload_reviews(lines)
         else:
