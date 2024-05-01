@@ -97,8 +97,10 @@ async def main():
     bucket = gcs_client.get_bucket(GCS_BUCKET)
     collection_lines = {}
 
+    print("Downloading documents")
     # Transform JSONL to Documents
     for collection_name, collection_uri in COLLECTIONS_DICT.items():
+        print(f"Downloading {collection_uri}")
         blob = bucket.blob(collection_uri)
         lines = blob.download_as_text().splitlines()
         json_lines = [json.loads(line) for line in lines]
@@ -133,7 +135,7 @@ async def main():
         collection_lines[collection_name] = docs
 
     # Upload collections
-    for name, lines in collection_lines:
+    for name, lines in collection_lines.items():
         if name == "website_reviews":
             await upload_reviews(lines)
         else:
