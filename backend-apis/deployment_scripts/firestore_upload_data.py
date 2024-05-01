@@ -121,7 +121,7 @@ async def main():
             continue
 
         # Other collections are flat
-        docs = []
+        docs = {}
         for line in json_lines:
             if collection_name != "p5-customers":
                 data = json.loads(line["jsonData"])
@@ -129,9 +129,9 @@ async def main():
                 data = line
 
             if collection_name == "p5-customers":
-                docs.append({line["customer_id"]: data})
+                docs[line["customer_id"]] = data
             else:
-                docs.append({line["id"]: data})
+                docs[line["id"]] = data
         collection_lines[collection_name] = docs
 
     # Upload collections
