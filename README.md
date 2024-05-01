@@ -286,19 +286,21 @@ Firestore datasets are used by Persona 5
 ### Create a Firestore in Native mode database
 If this is a new project, you need to create a Firestore database instance.
 
-- Go to the [Firestore viewer](https://console.cloud.google.com/firestore/data).
-- From the Select a database service screen, choose Firestore in Native mode.
-- Select a location for your Firestore.
-- Click Create Database.
+```bash
+gcloud firestore databases create --location=nam5
+```
 
+### Data upload
 Go to the right folder
 ```bash
 cd backend-apis/deployment-scripts
 ```
 
+Upload the collections data
 ```bash
 python firestore_upload_data.py
 ```
+This may take a few minutes.
 
 
 ## Cloud SQL
