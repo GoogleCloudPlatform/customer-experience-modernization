@@ -34,5 +34,5 @@ google-cloud-vision
 proto-plus
 protobuf
 cloud-sql-python-connector[pymysql]
+google-cloud-appengine-logging==1.4.3
 SQLALchemy==2.0.29
-google-cloud-appengine-logging==1.3.2
