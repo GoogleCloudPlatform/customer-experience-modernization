@@ -236,11 +236,17 @@ For Persona 1 Recommendations, upload products and events to Cloud Storage first
 
 The events should be fresh. Use the provided script to generate events.
 
+Go to the right folder
 ```bash
-python backend-apis/deployment-scripts/Persona1/media_event_generation.py
+cd backend-apis/deployment-scripts
 ```
 
-This will generate a file named `full_media_events.jsonl`.
+Run the python script
+```bash
+python media_event_generation.py
+```
+
+This will generate a file named `full_media_events.jsonl` in a few seconds.
 
 Upload full_media_events.jsonl and [recommendations_products.jsonl](backend-apis/deployment_scripts/dataset/recommendation_products.jsonl) to Cloud Storage.
 
