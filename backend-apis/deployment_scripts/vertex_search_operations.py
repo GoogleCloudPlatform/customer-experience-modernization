@@ -12,32 +12,52 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+""" Vertex Search datastores creation """
 
 import argparse
-import time
 from typing import Optional
 
 from google.api_core.client_options import ClientOptions
 from google.cloud import discoveryengine_v1alpha as discoveryengine
-import utils_toml
 
 
 def import_documents(
     project_id: str,
     location: str,
     data_store_id: str,
-    gcs_uri: Optional[str] = None
+    gcs_uri: Optional[str] = None,
 ) -> str:
+    """
+    Import documents to the datastore
+
+    Args:
+        project_id:
+            Id of the Google Cloud project
+        location:
+            Datastore location
+        data_store_id:
+            Datastore id
+        gcs_uri:
+            Google Cloud Storage URI
+
+    Returns:
+        Google Cloud API Operation name
+
+    """
     #  For more information, refer to:
     # https://cloud.google.com/generative-ai-app-builder/docs/locations#specify_a_multi-region_for_your_data_store
     client_options = (
-        ClientOptions(api_endpoint=f"{location}-discoveryengine.googleapis.com")
+        ClientOptions(
+            api_endpoint=f"{location}-discoveryengine.googleapis.com"
+        )
         if location != "global"
         else None
     )
 
     # Create a client
-    client = discoveryengine.DocumentServiceClient(client_options=client_options)
+    client = discoveryengine.DocumentServiceClient(
+        client_options=client_options
+    )
 
     # The full resource name of the search engine branch.
     # e.g. projects/{project}/locations/{location}/dataStores/{data_store_id}/branches/{branch}
@@ -52,7 +72,7 @@ def import_documents(
         parent=parent,
         gcs_source=discoveryengine.GcsSource(
             input_uris=[gcs_uri], data_schema="document"
-        )
+        ),
     )
 
     operation = client.import_documents(request=request)
@@ -60,52 +80,77 @@ def import_documents(
 
 
 def create_datastore(
-        project_id: str,
-        location: str,
-        collection: str,
-        data_store_id: str
+    project_id: str,
+    location: str,
+    data_store_id: str,
 ):
+    """
+    Create a datastore
+
+    Args:
+        project_id:
+            Id of the Google Cloud project
+        location:
+            Datastore location
+        data_store_id:
+            Datastore id
+    """
     client = discoveryengine.DataStoreServiceClient()
 
     # Initialize request argument(s)
     data_store = discoveryengine.DataStore()
     data_store.display_name = data_store_id
     data_store.industry_vertical = discoveryengine.IndustryVertical.GENERIC
-    data_store.content_config = discoveryengine.DataStore.ContentConfig.CONTENT_REQUIRED
-    data_store.solution_types = [discoveryengine.SolutionType.SOLUTION_TYPE_SEARCH]
+    data_store.content_config = (
+        discoveryengine.DataStore.ContentConfig.CONTENT_REQUIRED
+    )
+    data_store.solution_types = [
+        discoveryengine.SolutionType.SOLUTION_TYPE_SEARCH
+    ]
 
     collection = client.collection_path(
-        project=project_id,
-        location=location,
-        collection=collection
+        project=project_id, location=location, collection="default_collection"
     )
 
     request = discoveryengine.CreateDataStoreRequest(
-        parent=collection,
-        data_store=data_store,
-        data_store_id=data_store_id
+        parent=collection, data_store=data_store, data_store_id=data_store_id
     )
 
     # Make the request
     operation = client.create_data_store(request=request)
-    # TODO: Change to `operation.result()` when available
-    while not operation.done():
-        time.sleep(secs=1)
+    print("Waiting for operation to complete...")
+
+    response = operation.result()
+
+    # Handle the response
+    print(response)
 
 
 def create_engine(
-        project_id: str,
-        location: str,
-        collection: str,
-        engine_id: str,
-        data_store_id: str,
-        company_name: str
+    project_id: str,
+    location: str,
+    engine_id: str,
+    data_store_id: str,
+    company_name: str,
 ):
+    """
+    Create a search engine
+
+    Args:
+        project_id:
+            Id of the Google Cloud project
+        engine_id:
+            Id of the search engine
+        data_store_id:
+            Id of the datastore
+        company_name:
+            Company name
+    """
     client = discoveryengine.EngineServiceClient()
     engine = discoveryengine.Engine()
     engine.search_engine_config = discoveryengine.Engine.SearchEngineConfig(
         search_tier=discoveryengine.SearchTier.SEARCH_TIER_ENTERPRISE,
-        search_add_ons=[discoveryengine.SearchAddOn.SEARCH_ADD_ON_LLM]
+        search_add_ons=[discoveryengine.SearchAddOn.SEARCH_ADD_ON_LLM],
     )
     engine.display_name = engine_id
     engine.data_store_ids = [data_store_id]
@@ -116,59 +161,58 @@ def create_engine(
     )
 
     collection = client.collection_path(
-        project=project_id,
-        location=location,
-        collection=collection
+        project=project_id, location=location, collection="default_collection"
     )
 
     request = discoveryengine.CreateEngineRequest(
-        parent=collection,
-        engine=engine,
-        engine_id=engine_id
+        parent=collection, engine=engine, engine_id=engine_id
     )
 
     operation = client.create_engine(request=request)
     response = operation.result()
+    print(response)
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser()
-    parser.add_argument("project_id")
-    parser.add_argument("location")
+    parser = argparse.ArgumentParser(
+        description="Vertex AI search datastores creation"
+    )
+    parser.add_argument("--project_id", required=True)
+    parser.add_argument("--location", required=True)
+    parser.add_argument(
+        "--data_store_id", default="csm-search-datastore", required=False
+    )
+    parser.add_argument(
+        "--engine_id", default="csm-search-engine", required=False
+    )
+    parser.add_argument(
+        "--gcs_uri",
+        default="gs://csm-solution-dataset/metadata/search_products.jsonl",
+        required=False,
+    )
+    parser.add_argument("--company_name", default="CSM", required=False)
     args = parser.parse_args()
 
-    # default_collection
-    data_store_id = "csm-search-datastore"
-    engine_id = "csm-search-engine"
-
-    gcs_uri = "gs://csm-solution-dataset/metadata/search_products.jsonl"
-
-    collection = "default_collection"
-    default_schema_id = "default_schema"
-    company_name = "CSM"
-
     print("Creating Datastore")
+
     create_datastore(
         project_id=args.project_id,
         location=args.location,
-        collection=collection,
-        data_store_id=data_store_id)
+        data_store_id=args.data_store_id,
+    )
 
     print("Creating App")
     import_documents(
         project_id=args.project_id,
         location=args.location,
-        data_store_id=data_store_id,
-        gcs_uri=gcs_uri
+        data_store_id=args.data_store_id,
+        gcs_uri=args.gcs_uri,
     )
 
     create_engine(
-            project_id=args.project_id,
-            location=args.location,
-            collection=collection,
-            engine_id=engine_id,
-            data_store_id=data_store_id,
-            company_name=company_name)
-
-
-    
+        project_id=args.project_id,
+        location=args.location,
+        engine_id=args.engine_id,
+        data_store_id=args.data_store_id,
+        company_name=args.company_name,
+    )
