@@ -31,7 +31,7 @@
     "express": "^4.19.2",
     "lodash": "^4.17.21",
     "ngx-doc-viewer": "^15.0.1",
-    "ngx-editor": "^16.0.1",
+    "ngx-editor": "^17.0.0",
     "ngx-simple-text-editor": "^4.0.3",
     "primeicons": "^6.0.1",
     "primeng": "^17.0.0",
