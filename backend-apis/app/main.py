@@ -36,6 +36,7 @@ from app.routers import (
     p4_customer_service_agent,
     p5_contact_center_analyst,
     p6_field_service_agent,
+    p7_return_agent
 )
 
 client = google.cloud.logging.Client()
@@ -52,6 +53,7 @@ app.include_router(router=p2_content_creator.router)
 app.include_router(router=p4_customer_service_agent.router)
 app.include_router(router=p5_contact_center_analyst.router)
 app.include_router(router=p6_field_service_agent.router)
+app.include_router(router=p7_return_agent.router)
 
 origins = [
     "http://localhost:5000",

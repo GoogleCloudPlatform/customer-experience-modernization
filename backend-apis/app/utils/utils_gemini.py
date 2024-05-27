@@ -19,7 +19,7 @@ Utils module for Vertex AI Gemini
 from vertexai.generative_models._generative_models import GenerationResponse
 from vertexai.preview.generative_models import GenerativeModel
 
-gemini_pro_vision = GenerativeModel("gemini-pro-vision")
+gemini_pro_vision = GenerativeModel("gemini-1.5-pro-001")
 gemini_pro_text = GenerativeModel("gemini-pro")
 
 
@@ -32,9 +32,7 @@ def generate_gemini_pro_vision(contents: list) -> GenerationResponse:
     Returns:
 
     """
-    response = gemini_pro_vision.generate_content(
-        contents=contents
-    )
+    response = gemini_pro_vision.generate_content(contents=contents)
 
     if isinstance(response, GenerationResponse):
         return response
@@ -44,12 +42,12 @@ def generate_gemini_pro_vision(contents: list) -> GenerationResponse:
 
 
 def generate_gemini_pro_text(
-        prompt: str,
-        max_output_tokens: int = 2048,
-        temperature: float = 0.2,
-        top_k: int = 40,
-        top_p: float = 0.9,
-        candidate_count: int = 1
+    prompt: str,
+    max_output_tokens: int = 2048,
+    temperature: float = 0.2,
+    top_k: int = 40,
+    top_p: float = 0.9,
+    candidate_count: int = 1,
 ) -> str:
     """
     Args:
@@ -66,7 +64,8 @@ def generate_gemini_pro_text(
             "top_k": top_k,
             "candidate_count": candidate_count,
             "max_output_tokens": max_output_tokens,
-        }
+        },
     )
-
-    return response.text
+    if isinstance(response, GenerationResponse):
+        return response.text
+    return " ".join(res.text for res in response)
