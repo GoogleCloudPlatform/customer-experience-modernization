@@ -20,7 +20,7 @@
         <mat-divider class="mx-auto mt-3"></mat-divider>
 
         <p-carousel [value]="category?.products" [numVisible]="4" [numScroll]="4" [circular]="false"
-            [responsiveOptions]="responsiveOptions">
+            [responsiveOptions]="responsiveOptions" [showIndicators]="false">
             <ng-template pTemplate="header">
                 <div class="category-title d-flex align-items-center">{{category?.categoryTitle}}
                     <button *ngIf="category?.assistant" class="shopping-assi-btn mx-2">

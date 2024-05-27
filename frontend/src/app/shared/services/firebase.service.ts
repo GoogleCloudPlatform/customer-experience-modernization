@@ -15,7 +15,7 @@
  */
 
 import { Injectable, Injector, inject } from '@angular/core';
-import { Firestore, collection, collectionData, doc, docData, orderBy, query } from '@angular/fire/firestore';
+import { Firestore, collection, collectionData, doc, docData, orderBy, query, updateDoc, where } from '@angular/fire/firestore';
 import { GoogleAuthProvider, signInWithPopup } from '@firebase/auth';
 import { getDownloadURL, ref, uploadBytesResumable, UploadTaskSnapshot, UploadTask } from "firebase/storage";
 import { Auth } from '@angular/fire/auth';
@@ -43,6 +43,11 @@ export class FirebaseService {
     let document = doc(this.firestore, `${collection}/${documentId}`);
     return docData(document);
   }
+
+  getOrdersDocuments() {
+    const orderCollection = collection(this.firestore, `orders`);
+    return collectionData(orderCollection, { idField: 'id' })
+  }
   getSearchResults(documentId: string) {
     return this.getDocument("website_search", documentId);
   }
@@ -65,6 +70,29 @@ export class FirebaseService {
     const userDoc = this.getUserProductsAndServicesDoc(userId);
     const productCollection = collection(this.firestore, `${userDoc.path}/services`);
     return collectionData(productCollection, { idField: 'id' })
+  }
+
+  getUserOrders(userId: string) {
+    const orderCollection = collection(this.firestore, `orders`);
+    const filter = query(orderCollection, where("user_id", "==", userId))
+    return collectionData(filter, { idField: 'id' })
+  }
+  getUserReturnOrders() {
+    const orderCollection = collection(this.firestore, `orders`);
+    const filter = query(orderCollection, where("order_items", "array-contains", { is_returned: true }))
+    return collectionData(filter, { idField: 'id' })
+  }
+
+  getUserOrdersById(documentId: string) {
+    return this.getDocument("orders", documentId);
+  }
+
+  async updateOrderId(orderId: any, doc: any) {
+    const orderCollection = collection(this.firestore, `orders`);
+    const conversationDoc = doc(this.firestore, orderCollection.path, orderId);
+    await updateDoc(conversationDoc, {
+      doc
+    });
   }
 
   getChatMessages(userId: string, conversationId: string) {
@@ -127,6 +155,17 @@ export class FirebaseService {
     return uploadBytesResumable(storageRef, file)
   }
 
+  uploadReturnItemImageToStorage(file: any): UploadTask {
+    const fileUUID = window.crypto.randomUUID();
+    const storageRef = ref(this.storage, "p7/images/" + fileUUID);
+    return uploadBytesResumable(storageRef, file)
+  }
+
+  uploadReturnItemVideoToStorage(file: any): UploadTask {
+    const fileUUID = window.crypto.randomUUID();
+    const storageRef = ref(this.storage, "p7/videos/" + fileUUID);
+    return uploadBytesResumable(storageRef, file)
+  }
   async getDownloadURLFromSnapshot(snapshot: UploadTaskSnapshot): Promise<string> {
     return await getDownloadURL(snapshot.ref);
   }
@@ -139,6 +178,16 @@ export class FirebaseService {
 
   imageNameToDownloadURL(imageName: string) {
     const storageRef = ref(this.storage, "images/" + imageName);
+    return getDownloadURL(storageRef);
+  }
+
+  returnItemImageToDownloadURL(imageName: string) {
+    const storageRef = ref(this.storage, "p7/images/" + imageName);
+    return getDownloadURL(storageRef);
+  }
+
+  returnItemVideoURL(videoName: string) {
+    const storageRef = ref(this.storage, "p7/videos/" + videoName);
     return getDownloadURL(storageRef);
   }
 }

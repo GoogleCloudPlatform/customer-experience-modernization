@@ -1,0 +1,60 @@
+<!--
+ Copyright 2024 Google LLC
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+
+<div class="h-100">
+    <div class="header">
+        <nav>
+            <span style="position: absolute;left:0;z-index:-1">
+                <img src="assets/images/return-service-background.svg" />
+            </span>
+            <span class="returnServiceTitle" style="position: absolute;left:15px;">
+                <img src="assets/images/cymbal-customer-service-logo.svg" alt="Cymbal Customer Service Logo"
+                    height="26px">
+                <img src="assets/images/cymbal-text-logo.svg" alt="Cymbal Text Logo" class="ms-2 me-2" height="26px">
+                Return Service
+            </span>
+            <span style="float:right">
+
+            </span>
+        </nav>
+    </div>
+    <div class="content h-100">
+        <div class="welcome h-100">
+            <p class="reason">
+                <span *ngIf="isValid == 'valid' ">
+                    Thank you, your return is accepted, and refund is initiated!
+                </span>
+                <span *ngIf="isValid == 'invalid' ">
+                    Your returned item seems to be invalid, please wait our customer representive is notifed and will
+                    reach out to you shortly.
+                </span>
+                <span *ngIf="isValid == 'reject' ">
+                    Return is invalidated.
+                </span>
+            </p>
+            <div style="overflow: hidden;">
+                <div class="cloud" style="position: absolute ; top:30%; right: 0px;overflow: hidden;z-index:-1"></div>
+            </div>
+        </div>
+    </div>
+    <footer class="footer d-flex justify-content-start" style="position: relative;">
+        <div class="position-absolute bottom-left">
+            <button type="button" class="border-none" (click)="navigateToHome()"><img src="assets/images/home_btn.svg"
+                    alt="home" class="ms-2 homeBtn"></button>
+        </div>
+    </footer>
+</div>
+<app-architecture [architecture]="architecture"></app-architecture>

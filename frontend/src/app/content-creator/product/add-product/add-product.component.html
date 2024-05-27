@@ -51,7 +51,7 @@
 
 										<div>
 											<div class="dropzone" appFileDragDrop
-												(filesChangeEmiter)="selectFiles($event)" nv-file-drop="">
+												(filesChangeEmiter)="selectFiles($event)">
 												<div class="text-wrapper">
 													<div class="centered" *ngIf="(selectedFiles.length)<=0">
 														<input type="file" id="file" name="file" accept="image/*"
@@ -117,7 +117,7 @@
 									<ng-template matStepLabel>Review generated labels, features and
 										categories</ng-template>
 									<div class="mb-2">
-										<img *ngFor="let preview of previews" [src]="preview" class="preview" />
+										<img *ngFor="let preview of previews" [src]="preview | safe" class="preview" />
 									</div>
 									<mat-label class="title">Labels</mat-label>
 									<mat-form-field class="example-chip-list" appearance="outline">
@@ -291,17 +291,6 @@
 											<div class="col-xl-12">
 												<label class="productLabel">IMAGES</label><br>
 												<img *ngFor="let preview of previews" [src]="preview" class="preview" />
-												<!-- <p-carousel [value]="previews" [numVisible]="3" [numScroll]="1" [circular]="false"
-													>
-													<ng-template let-p pTemplate="item">
-														<div class="col-sm-6 mb-2 product-background-img ">
-															<div class="card flex-md-row mb-4 box-shadow h-md-250 card-border">
-																<img class="card-img-right product-images flex-auto d-md-block"
-																	data-src="{{p}}" alt="Card image">
-															</div>
-														</div>
-													</ng-template>
-												</p-carousel> -->
 											</div>
 										</div>
 									</div>

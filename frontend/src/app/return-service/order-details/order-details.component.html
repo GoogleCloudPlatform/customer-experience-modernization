@@ -1,0 +1,56 @@
+<!--
+ Copyright 2024 Google LLC
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+
+<section class="w-100" *ngIf="!returnItem">
+    <div class="items-title">
+        Returning items
+    </div>
+    <div style="overflow: hidden;">
+        <div class="cloud"></div>
+    </div>
+    <p-carousel [value]="userOrder.order_items" [numVisible]="3" [numScroll]="3" [circular]="false"
+        [responsiveOptions]="responsiveOptions" [showIndicators]="false" [showNavigators]="showNavigation">
+        <ng-template let-product pTemplate="item" let-i="index">
+            <div class="border-round product-item">
+
+                <div class="mb-2 text-center" style="margin-top: 20px;margin-right: 20px;">
+                    <mat-checkbox class="example-margin" (change)="selectProduct($event.checked , product)"
+                        [disabled]="disableSelect && product.id !== selectedItemforReturn">
+                    </mat-checkbox>
+
+                    <img src="{{product.image}}" [alt]="product.name" class="w-6 shadow-2 product-image" />
+                </div>
+                <div class="product-item-content d-flex flex-column">
+                    <span class="orderTitle">{{ product.title }}</span>
+                    <span class="orderPrice mb-3">{{ '$' + product.price }}</span>
+                </div>
+            </div>
+        </ng-template>
+    </p-carousel>
+
+    <footer class="footer d-flex justify-content-start" style="position: relative; top:140px">
+        <div class="position-absolute bottom-left">
+            <button type="button" class="border-none" (click)="navigateToHome()"><img src="assets/images/home_btn.svg"
+                    alt="home" class="ms-2 homeBtn"></button>
+        </div>
+        <div class="position-absolute bottom-center">
+            <button [ngClass]="activateConfirm ? 'activeConfirmBtn' : 'confirmBtn'" [disabled]="!activateConfirm"
+                (click)="confirmReturn()">Confirm</button>
+        </div>
+    </footer>
+</section>
+<app-upload-image *ngIf="returnItem" [returnItem]="returnItem" [userOrder]="userOrder"
+    [documentId]="documentId"></app-upload-image>

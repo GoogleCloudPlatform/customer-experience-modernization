@@ -20,12 +20,8 @@
 
 .welcome {
     padding-left: 75px;
-    /* Applied AI Engineering */
-
-    /* Welcome to */
     margin-top: 1em;
     color: #FFFFFF;
-    // width: 350px;
     height: 30px;
     left: 159px;
     top: 213px;
@@ -35,7 +31,6 @@
     font-weight: 400;
     font-size: 30px;
     line-height: 30px;
-    /* identical to box height, or 62% */
     display: flex;
     align-items: center;
     letter-spacing: 0.5px;
@@ -48,11 +43,9 @@
 }
 
 .csm {
-    /* Customer Service Modernization */
     padding-left: 75px;
     color: #FFFFFF;
     width: 959px;
-    //height: 260px;
     left: 159px;
     top: 280px;
 
@@ -61,16 +54,12 @@
     font-weight: 700;
     font-size: 40px;
     line-height: 40px;
-
-    /* or 102% */
     display: flex;
     align-items: center;
     letter-spacing: 0.5px;
 }
 
 .demo {
-    /* Demo */
-
     padding-left: 75px;
     width: 176px;
     height: 30px;
@@ -82,7 +71,6 @@
     font-weight: 400;
     font-size: 30px;
     line-height: 30px;
-    /* identical to box height, or 62% */
     display: flex;
     align-items: center;
     letter-spacing: 0.5px;
@@ -90,21 +78,15 @@
 }
 
 .userJourney {
-
-    /* User Journey | Architecture Diagram | GCP Console Demo */
-
     padding-left: 75px;
-    // width: 649px;
     height: 40px;
     left: 159px;
     top: 641px;
-
     font-family: 'Google Sans';
     font-style: normal;
     font-weight: 400;
     font-size: 24px;
     line-height: 40px;
-    /* identical to box height, or 167% */
     display: flex;
     align-items: center;
     letter-spacing: 0.5px;
@@ -112,62 +94,36 @@
 }
 
 .desc {
-
-    /* User Journey | Architecture Diagram | GCP Console Demo */
-
-
-    /* This is a functioning solution demo is for CEs/FSRs to present to prospects to demonstrate the capabilities of Google Cloud AI products. It is not an officially supported Google Cloud product or service and is provided without any guarantees of performance or maintenance. Because of the tool's limited and experimental nature, we may need to make modifications to, including potentially taking down, the tool on short, or no, notice. You may provide feedback and suggestions about this tool to Google, and Google and its Affiliates may use any feedback or suggestions provided without restriction and without obligation to you. Your use of the tool must always comply with our Terms of Service (including the Acceptable Use Policy), or the offline variant of the terms that govern your use of the Google Cloud Platform Services. During your use of the tool, information is provided for informational purposes only. The data inputed are dummy data. */
     padding-left: 75px;
     color: #FFFFFF;
     width: 959px;
-    // height: 305px;
     left: 164px;
     top: 714px;
-
-    /* GM3/body/medium */
     font-family: 'Google Sans';
     font-style: normal;
     font-weight: 400;
     font-size: 14px;
     line-height: 20px;
-    /* or 143% */
 }
 
 .check {
-    /* By checking this box, you accept and agree to the above terms and conditions of this tool. */
-
     padding-left: 75px;
-    //   width: 573px;
-    //   height: 20px;
     left: 194px;
     top: 1051px;
-
-    /* GM3/body/medium */
     font-family: 'Google Sans';
     font-style: normal;
     font-weight: 400;
     font-size: 14px;
     line-height: 20px;
-    /* identical to box height, or 143% */
     color: #FFFFFF;
 
 }
 
 .checkboxCss {
-    /* check_box_outline_blank
-            
-            blank, box, button, check, component, control, deselected, empty, form, outline, select, selection, square, tick, toggle, ui
-            */
-    // width: 24px;
-    // height: 24px;
     left: 164px;
     top: 1049px;
 
     padding-left: 75px;
-
-    /* icon */
-
-    // position: absolute;
     left: 0%;
     right: 0%;
     top: 0%;
@@ -178,22 +134,14 @@
     font-weight: 400;
     font-size: 24px;
     line-height: 50px;
-    /* or 208% */
-    // display: flex;
     align-items: center;
     text-align: center;
-
     color: #FFFFFF;
-
 }
 
-
-.acceptButton{
-    /* padding-left: 75px; */
+.acceptButton {
     display: flex;
-    /* flex-direction: column; */
     align-items: center;
-    /* padding: 8px 24px; */
     gap: 10px;
     margin-left: 70px;
     width: 168px;
@@ -220,9 +168,9 @@
     color: #FFFFFF;
     border: none !important;
 }
+
 //sign in background gray
 ::ng-deep .cdk-overlay-backdrop.cdk-overlay-backdrop-showing {
     opacity: 70 !important;
-    background : rgba(0, 0, 0, 0.70)
+    background: rgba(0, 0, 0, 0.70)
 }
-

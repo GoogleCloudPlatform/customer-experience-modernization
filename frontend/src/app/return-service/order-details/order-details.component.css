@@ -1,0 +1,176 @@
+/**
+ * Copyright 2024 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+.orderTitle {
+    color: #000;
+    font-family: "Google Sans";
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    margin: 0px 20px;
+}
+
+.orderPrice {
+    color: #000;
+    font-family: "Google Sans";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin: 0px 20px;
+}
+
+.items-title {
+    color: #041E49;
+    text-align: center;
+    font-family: "Google Sans";
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    display: flex;
+    height: 36px;
+    flex-direction: column;
+    justify-content: center;
+    margin-bottom: 70px;
+    margin-top: 70px
+}
+
+.product-item {
+    border-radius: 20px;
+    background: #FFF;
+    box-shadow: 4px 4px 8px 4px #00000026;
+    width: 295px;
+    height: 404px;
+    overflow-y: auto;
+    margin: 10px 10px;
+
+    .product-item-content {
+        text-align: left;
+    }
+
+    .product-image {
+        width: 200px;
+        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23)
+    }
+}
+
+::ng-deep .p-carousel-content {
+    margin-right: auto !important;
+    margin-left: auto !important;
+}
+
+::ng-deep .p-carousel-items-content {
+    max-width: 979px !important
+}
+
+.return-dropdown {
+    border-radius: 33px;
+    border: 1px solid #041E49;
+    width: 249px;
+    height: 56px;
+    text-align: center;
+}
+
+.confirmBtn {
+    border-radius: 33px;
+    background: #DFE8FF;
+    box-shadow: 4px 4px 10px 0px rgba(0, 0, 0, 0.15);
+    color: #041E49;
+    text-align: center;
+    font-family: "Google Sans";
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    display: flex;
+    width: 266px;
+    height: 66px;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    border: none;
+}
+
+.activeConfirmBtn {
+    border-radius: 33px;
+    background: #A0BBFF;
+    box-shadow: 4px 4px 10px 0px rgba(0, 0, 0, 0.15);
+    color: #041E49;
+    text-align: center;
+    font-family: "Google Sans";
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    display: flex;
+    width: 266px;
+    height: 66px;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    border: none;
+}
+
+.cloud {
+    width: 300px;
+    aspect-ratio: 1;
+    --g: /51.02% 51.02% radial-gradient(#000 calc(71% - 1px), #0000 71%) no-repeat;
+    mask: 99.681% 55.643% var(--g), 59.985% 98.993% var(--g), 6.491% 74.636% var(--g), 13.124% 16.233% var(--g), 70.719% 4.495% var(--g), radial-gradient(100% 100%, #000 25.476%, #0000 calc(25.476% + 1px));
+    background: radial-gradient(#cfdbf8, #FFF);
+    position: absolute;
+    top: 30%;
+    right: 0px;
+    overflow: hidden;
+    z-index: -1;
+}
+
+.confirmBtnPosition {
+    align-items: center;
+    margin-top: 20px;
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 30px;
+    cursor: pointer;
+}
+
+.homeBtn {
+    background: #A0BBFF;
+    border-radius: 100px;
+    padding: 4px 6px 8px 6px;
+    margin-bottom: 6px;
+    cursor: pointer;
+}
+
+.bottom-left {
+    bottom: 0;
+    left: 0;
+}
+
+.bottom-center {
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.border-none {
+    border: none;
+    background: transparent;
+}

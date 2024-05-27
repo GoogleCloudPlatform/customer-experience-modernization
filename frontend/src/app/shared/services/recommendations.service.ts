@@ -120,7 +120,7 @@ export class RecommendationsService {
       'Something bad happened; please try again later.'));
   }
 
-  addOrder(obj : any) :Observable<any>{
+  addOrder(obj: any): Observable<any> {
     const reqBody = obj
     return this.http.post<any>(`https://csm-dev-42fk6qqj5a-uc.a.run.app/p1/add-order`, reqBody).pipe(catchError(this.handleError));
   }

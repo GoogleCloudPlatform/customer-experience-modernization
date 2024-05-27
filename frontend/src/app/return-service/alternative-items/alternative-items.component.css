@@ -1,0 +1,258 @@
+/**
+ * Copyright 2024 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+.orderTitle {
+    color: #000;
+    font-family: "Google Sans";
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    margin: 0px 20px;
+}
+
+.title {
+    color: #041E49;
+    text-align: center;
+    font-family: "Google Sans";
+    font-size: 30px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin-top: 20px;
+}
+
+.orderPrice {
+    color: #000;
+    font-family: "Google Sans";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin: 0px 20px;
+}
+
+.product-item {
+    border-radius: 20px;
+    background: #FFF;
+    box-shadow: 4px 4px 8px 4px #00000026;
+    width: 295px;
+    height: 404px;
+    overflow-y: auto;
+    margin: 10px 10px;
+
+    .product-item-content {
+        text-align: left;
+    }
+
+    .product-image {
+        margin-top: 30px;
+        width: 200px;
+        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23)
+    }
+}
+
+.return-dropdown {
+    border-radius: 33px;
+    border: 1px solid #041E49;
+    width: 249px;
+    height: 56px;
+    text-align: center;
+}
+
+.selectBtn {
+    border-radius: 33px;
+    border: 1px solid #041E49;
+    width: 121px;
+    height: 40px;
+    text-align: center;
+    color: #041E49;
+    text-align: center;
+    font-family: "Google Sans";
+    font-size: 23px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+.activeSelectBtn {
+    border-radius: 33px;
+    border: 1px solid #041E49;
+    width: 121px;
+    height: 40px;
+    text-align: center;
+    color: #FFF;
+    text-align: center;
+    font-family: "Google Sans";
+    font-size: 23px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    border-radius: 33px;
+    border: 1px solid rgba(4, 30, 73, 0.00);
+    background: #4D88FF;
+}
+
+.confirmBtn {
+    border-radius: 33px;
+    background: #DFE8FF;
+    box-shadow: 4px 4px 10px 0px rgba(0, 0, 0, 0.15);
+    color: #041E49;
+    text-align: center;
+    font-family: "Google Sans";
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    display: flex;
+    width: 266px;
+    height: 66px;
+    align-items: center;
+    justify-content: center;
+    border: none;
+}
+
+.activeConfirmBtn {
+    border-radius: 33px;
+    background: #A0BBFF;
+    box-shadow: 4px 4px 10px 0px rgba(0, 0, 0, 0.15);
+    color: #041E49;
+    text-align: center;
+    font-family: "Google Sans";
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    display: flex;
+    width: 266px;
+    height: 66px;
+    align-items: center;
+    justify-content: center;
+    border: none;
+}
+
+::ng-deep .p-carousel-content {
+    margin-right: auto !important;
+    margin-left: auto !important;
+}
+
+::ng-deep .p-carousel-items-content {
+    max-width: 960px !important
+}
+
+.itemBorder {
+    border-radius: 47px;
+    background: #FFF;
+    box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.15);
+    width: 362px;
+    height: 557px;
+}
+
+.itemShadow {
+    width: 295px;
+    height: 404px;
+    margin: auto;
+    border-radius: 20px;
+    background: #FFF;
+    box-shadow: 4px 4px 40px 0px rgba(0, 0, 0, 0.15);
+}
+
+.alternateItemsTitle {
+    color: #041E49;
+    font-family: "Google Sans";
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    margin-left: 40px;
+}
+
+.replaceItemTitle {
+    color: #041E49;
+    font-family: "Google Sans";
+    font-size: 30px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+
+.replace-item {
+    width: 310px;
+    overflow-y: auto;
+    margin: 10px 10px;
+
+    .product-item-content {
+        text-align: left;
+    }
+
+    .product-image {
+        margin-top: 30px;
+        width: 200px;
+        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23)
+    }
+}
+
+.replaceItemShadow {
+    width: 295px;
+    height: 404px;
+    margin: auto;
+    border-radius: 20px;
+    background: #FFF;
+    box-shadow: 1px 1px 8px 0px rgba(0, 0, 0, 0.15);
+}
+
+.refundTitle {
+    color: #041E49;
+    text-align: center;
+    font-family: "Google Sans";
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+
+.cloud {
+    width: 300px;
+    aspect-ratio: 1;
+    --g: /51.02% 51.02% radial-gradient(#000 calc(71% - 1px), #0000 71%) no-repeat;
+    mask: 99.681% 55.643% var(--g), 59.985% 98.993% var(--g), 6.491% 74.636% var(--g), 13.124% 16.233% var(--g), 70.719% 4.495% var(--g), radial-gradient(100% 100%, #000 25.476%, #0000 calc(25.476% + 1px));
+    background: radial-gradient(#cfdbf8, #FFF);
+}
+
+
+.homeBtn {
+    background: #A0BBFF;
+    border-radius: 100px;
+    padding: 4px 6px 8px 6px;
+    margin-bottom: 6px;
+    cursor: pointer;
+}
+
+.bottom-left { 
+    bottom: 0; 
+    left: 0; 
+} 
+  
+.bottom-center { 
+    bottom: 10px; 
+    left: 50%; 
+    transform: translateX(-50%); 
+} 
+
+.border-none{
+    border: none;
+    background: transparent;
+}

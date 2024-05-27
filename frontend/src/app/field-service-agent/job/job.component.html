@@ -60,41 +60,49 @@
 			</mat-card>
 			<div style="margin-bottom: 30px;">
 				<p class="cardTitle" *ngIf="customerConversations.length>0">Past Conversations</p>
-				<p class="pastConvSubTitle" *ngIf="customerConversations.length>0">Select one or more of the
+				<p class="pastConvSubTitle" *ngIf="customerConversations.length>0">Select one or more of
+					the
 					conversations</p>
 				<mat-card *ngIf="customerConversations.length>0" class="col-10 mx-auto mt-2 mb-3" style="border-radius: 10px;
 			border: 1px solid #E0E0E0; overflow:auto ;height: 320px;">
-					<table mat-table [dataSource]="dataSource" style="margin-top: 5px;" class="pastConv mb-2">
+					<table mat-table [dataSource]="dataSource" style="margin-top: 5px;"
+						class="pastConv mb-2">
 						<ng-container matColumnDef="select">
 							<th mat-header-cell *matHeaderCellDef>
 							</th>
 							<td mat-cell *matCellDef="let row ; let ind = index">
-								<mat-checkbox (click)="onSelection(ind, row, select.checked)" #select></mat-checkbox>
+								<mat-checkbox
+									(click)="onSelection(ind, row, select.checked)"
+									#select></mat-checkbox>
 							</td>
 						</ng-container>
 
 						<ng-container matColumnDef="conversation">
-							<th mat-header-cell *matHeaderCellDef class="convHeader"> Conversation
+							<th mat-header-cell *matHeaderCellDef class="convHeader">
+								Conversation
 							</th>
 							<td mat-cell *matCellDef="let element" class="convBody">
 								{{element.title}} </td>
 						</ng-container>
 
 						<ng-container matColumnDef="category">
-							<th mat-header-cell *matHeaderCellDef class="convHeader"> Category </th>
+							<th mat-header-cell *matHeaderCellDef class="convHeader">
+								Category </th>
 							<td mat-cell *matCellDef="let element" class="convBody">
 								{{element.category}} </td>
 						</ng-container>
 
 						<ng-container matColumnDef="sentiment">
-							<th mat-header-cell *matHeaderCellDef class="convHeader"> Sentiment
+							<th mat-header-cell *matHeaderCellDef class="convHeader">
+								Sentiment
 							</th>
 							<td mat-cell *matCellDef="let element" class="convBody">
 								{{element.sentiment | titlecase}} </td>
 						</ng-container>
 
 						<ng-container matColumnDef="rating">
-							<th mat-header-cell *matHeaderCellDef class="convHeader"> Rating </th>
+							<th mat-header-cell *matHeaderCellDef class="convHeader"> Rating
+							</th>
 							<td mat-cell *matCellDef="let element" class="convBody">
 								{{element.rating}} </td>
 						</ng-container>
@@ -153,8 +161,8 @@
 					<div class="main" style="margin: 20px 0.5rem;">
 						<div>
 							<div class="d-flex mb-3 mx-2">
-								<input type="text" matInput [formControl]="kbMsgCtrl" placeholder="Type..."
-									class="searchInput">
+								<input type="text" matInput [formControl]="kbMsgCtrl"
+									placeholder="Type..." class="searchInput">
 								<button (click)="search()" class="searchBtn">
 									<mat-icon fontSet="google-symbols">
 										search_spark </mat-icon>
@@ -163,28 +171,38 @@
 							<div class="d-flex">
 								<button class="file-upload mx-3">
 									<label class="image-upload-container">
-										<input #imageInput class="imageUpload" type="file" accept="image/*"
+										<input #imageInput class="imageUpload"
+											type="file" accept="image/*"
 											(change)="processFile(imageInput)">
 										Image Upload
 									</label>
 								</button>
 								<div class="mx-2">
-									<mat-spinner *ngIf="imageUploading" [diameter]="30"></mat-spinner>
+									<mat-spinner *ngIf="imageUploading"
+										[diameter]="30"></mat-spinner>
 								</div>
 							</div>
 							<div class="d-flex">
 								<div class="mx-2 col-10">
-									<span *ngIf="geminiImageURL" class="upload-success">Image Uploaded Successfully <mat-icon>check_circle</mat-icon></span>
+									<span *ngIf="geminiImageURL"
+										class="upload-success">Image Uploaded
+										Successfully
+										<mat-icon>check_circle</mat-icon></span>
 								</div>
 							</div>
 							<br>
 							<mat-divider></mat-divider>
-							<div *ngIf="geminiImageURL" class="mt-2 mb-2" style="margin-left: 20px;">
-								<p class="geminiTitle" *ngIf="geminiResponse"><span class="google-symbols" style="font-size: 18px !important;">
+							<div *ngIf="geminiImageURL" class="mt-2 mb-2"
+								style="margin-left: 20px;">
+								<p class="geminiTitle" *ngIf="geminiResponse"><span
+										class="google-symbols"
+										style="font-size: 18px !important;">
 										button_magic
 									</span>Gemini Insights</p>
 								<div class="mb-3 mt-2">
-									<img *ngIf="geminiImageURL" [src]="geminiImageURL" class="geminiImage">
+									<img *ngIf="geminiImageURL"
+										[src]="geminiImageURL"
+										class="geminiImage">
 									<button *ngIf="geminiImageName" mat-icon-button
 										(click)="geminiImageName=''; geminiImageURL=''">
 										<mat-icon>cancel</mat-icon>
@@ -195,33 +213,41 @@
 									{{geminiResponse}}</p>
 							</div>
 
-							<div *ngIf="kbSummary" class="mb-2 mt-2" style="margin-left: 20px;">
-								<p class="aiTitle"><span class="google-symbols" style="font-size: 18px !important;">
+							<div *ngIf="kbSummary" class="mb-2 mt-2"
+								style="margin-left: 20px;">
+								<p class="aiTitle"><span class="google-symbols"
+										style="font-size: 18px !important;">
 										button_magic
 									</span>Assistant AI</p>
 								<p *ngIf="kbSummary" class="kbSummary">{{kbSummary}}</p>
 							</div>
 							<ol [start]="(pageIndexKB * pageSizeKB) + 1">
-								<ng-container *ngFor="let kbResult of slicedResultsKB()">
+								<ng-container
+									*ngFor="let kbResult of slicedResultsKB()">
 									<li class="m-2">
 										<a class="kbResultLink"
 											[href]="kbResult.link.replace('gs://', 'https://storage.googleapis.com/')"
 											target="_blank">{{kbResult.title}}</a>
-										<div class="kbResultSnippet" [innerHTML]="kbResult.snippet">
+										<div class="kbResultSnippet"
+											[innerHTML]="kbResult.snippet">
 										</div>
 										<mat-expansion-panel>
-											<mat-expansion-panel-header style="height:38px">
-												<mat-panel-title class="manualPreviewTitle">Manual
+											<mat-expansion-panel-header
+												style="height:38px">
+												<mat-panel-title
+													class="manualPreviewTitle">Manual
 													Preview</mat-panel-title>
 											</mat-expansion-panel-header>
-											<div [innerHTML]="kbResult.manual">
+											<div
+												[innerHTML]="kbResult.manual">
 											</div>
 										</mat-expansion-panel>
 									</li>
 								</ng-container>
 							</ol>
-							<mat-paginator #paginatorKB (page)="handlePageEventKB($event)" [length]="kbResults.length"
-								*ngIf="kbResults.length > 0" [pageSize]="pageSizeKB" [pageIndex]="pageIndexKB"
+							<mat-paginator #paginatorKB (page)="handlePageEventKB($event)"
+								[length]="kbResults.length" *ngIf="kbResults.length > 0"
+								[pageSize]="pageSizeKB" [pageIndex]="pageIndexKB"
 								hidePageSize aria-label="Select page">
 							</mat-paginator>
 						</div>
@@ -230,15 +256,16 @@
 				<mat-tab label="Journey on Google Maps" class="tabLabel">
 					<mat-divider></mat-divider>
 					<div class="main">
-						<google-map *ngIf="directionsResults" height="400px" width="100%" [center]="center"
-							[zoom]="zoom">
+						<google-map *ngIf="directionsResults" height="400px" width="100%"
+							[center]="center" [zoom]="zoom">
 							<map-directions-renderer [directions]="directionsResults"
 								[options]="{panel: routeInstructions}" />
 							<map-traffic-layer [autoRefresh]="false" />
 							<map-info-window></map-info-window>
 						</google-map>
 					</div>
-					<div #routeInstructions style="margin:10px ; font-family: Google Sans !important;"></div>
+					<div #routeInstructions
+						style="margin:10px ; font-family: Google Sans !important;"></div>
 				</mat-tab>
 			</mat-tab-group>
 		</div>

@@ -43,6 +43,8 @@ import { MatDividerModule } from '@angular/material/divider';
 import { CarouselModule } from 'primeng/carousel';
 import { MatTabsModule } from '@angular/material/tabs';
 import { ContentCreatorServiceListComponent } from '../../service/service-list/service-list.component';
+import { FileDragNDropDirective } from '../../../shared/services/file-drag-drop.directive';
+import { SafePipe } from '../../../shared/pipes/safe.pipe';
 
 enum ItemTypes { Labels, Features, Categories };
 @Component({
@@ -68,7 +70,9 @@ enum ItemTypes { Labels, Features, Categories };
     MatDividerModule,
     CarouselModule,
     MatTabsModule,
-    ContentCreatorServiceListComponent
+    ContentCreatorServiceListComponent,
+    FileDragNDropDirective,
+    SafePipe
   ],
   templateUrl: './add-product.component.html',
   styleUrls: ['./add-product.component.scss']
@@ -87,7 +91,7 @@ export class ContentCreatorAddProductComponent {
   });
   showAddProductCompoment: boolean = false
   showAddServiceCompoment: boolean = false;
- 
+
   selectedFiles: any[] = []
   isGenerated: boolean = false;
   isTitleGenerated: boolean = false;
@@ -134,47 +138,12 @@ export class ContentCreatorAddProductComponent {
     });
   }
 
-  responsiveOptions = [
-    {
-      breakpoint: '2300px',
-      numVisible: 2,
-      numScroll: 1
-    },
-
-    {
-      breakpoint: '1540px',
-      numVisible: 1,
-      numScroll: 1
-    },
-
-    {
-      breakpoint: '1399px',
-      numVisible: 2,
-      numScroll: 1
-    },
-    {
-      breakpoint: '991px',
-      numVisible: 3,
-      numScroll: 1
-    },
-    {
-      breakpoint: '767px',
-      numVisible: 2,
-      numScroll: 1
-    },
-    {
-      breakpoint: '576px',
-      numVisible: 1,
-      numScroll: 1
-    }
-
-  ];
   selectFiles(event: any): void {
     this.message = [];
     this.progressInfos = [];
     this.selectedFileNames = [];
 
-    this.selectedFiles = (event.target.files);
+    this.selectedFiles = (event?.target?.files || event);
     this.selectedFiles = Object.keys(this.selectedFiles).map((key: any) => this.selectedFiles[key]);
     this.previews = [];
     if (this.selectedFiles && this.selectedFiles[0]) {
@@ -325,12 +294,12 @@ export class ContentCreatorAddProductComponent {
     this.firstFormGroup.reset()
     this.secondFormGroup.reset()
     this.thirdFormGroup.reset()
-    this.labels =[];
-    this.categories =[];
-    this.features =[];
-    this.previews =[];
-    this.selectedFileNames=[];
-    this.selectedFiles=[];
+    this.labels = [];
+    this.categories = [];
+    this.features = [];
+    this.previews = [];
+    this.selectedFileNames = [];
+    this.selectedFiles = [];
     this.stepper.reset();
   }
 
@@ -346,7 +315,7 @@ export class ContentCreatorAddProductComponent {
   }
 
   deleteFromArray(ind: any) {
-    this.previews=[];
+    this.previews = [];
     this.selectedFiles.splice(ind, 1);
     if (this.selectedFiles && this.selectedFiles[0]) {
       const numberOfFiles = this.selectedFiles.length;
@@ -354,7 +323,7 @@ export class ContentCreatorAddProductComponent {
         const reader = new FileReader();
         reader.onload = (e: any) => {
           this.previews.push(e.target.result);
-          };
+        };
         reader.readAsDataURL(this.selectedFiles[i]);
         this.selectedFileNames.push(this.selectedFiles[i].name);
       }

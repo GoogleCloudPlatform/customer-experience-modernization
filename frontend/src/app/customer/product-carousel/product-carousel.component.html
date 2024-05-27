@@ -16,7 +16,7 @@
 
 <div class="container" *ngIf="products.length>0">
   <p-carousel [value]="products" [numVisible]="3" [numScroll]="3" [circular]="false"
-    [responsiveOptions]="responsiveOptions">
+    [responsiveOptions]="responsiveOptions" [showIndicators]="false">
 
     <ng-template let-p pTemplate="item">
       <div class="row mb-2 product-background">

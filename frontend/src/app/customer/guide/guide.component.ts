@@ -83,14 +83,14 @@ export class CustomerGuideComponent {
         <li>Website email support, extracting metadata and intent from emails, responding with relevant links, integrated with Salesforce.</li>
       </ul>`,
     instructionsHTML: `
-      <a href="https://valentine.corp.google.com/#/show/1701091709267963">Salesforce user and password</a>
+      <a href="">Salesforce user and password</a>
     `,
     salesforceLink: `
       <a href="http://g/csm-salesforce-validation" target="_blank">Group to get your Salesforce token</a>
     `,
     userArchitecture: "/assets/architectures/p1_uj_3.svg",
 
-    links: [{ name: "Email", link: "mailto:renatoleite@1987984870407.altostrat.com" }, { name: "Salesforce", link: "https://google-17b-dev-ed.develop.lightning.force.com/lightning/o/Case/home" }]
+    links: [{ name: "Email", link: "mailto:youremail@example.com" }, { name: "Salesforce", link: "https://YOUR_INSTANCE.develop.lightning.force.com/lightning/o/Case/home" }]
   },
   ];
 

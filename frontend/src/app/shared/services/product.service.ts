@@ -71,8 +71,6 @@ export class ProductService {
       );
   }
 
-
-
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
 

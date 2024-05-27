@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { Component, OnInit, inject } from '@angular/core';
+import { AfterContentInit, AfterViewChecked, Component, OnInit, inject } from '@angular/core';
 import { ObservablesService } from '../../shared/services/observables.service';
 import { NgFor } from '@angular/common';
 import { CarouselModule } from 'primeng/carousel';
@@ -44,7 +44,7 @@ import { RouterOutlet } from '@angular/router';
     RouterOutlet
   ]
 })
-export class AddToCartDetailsComponent implements OnInit {
+export class AddToCartDetailsComponent implements OnInit , AfterContentInit{
   productDetails: any;
   products: any[] = [];
   showCartDetails: boolean = false
@@ -138,7 +138,12 @@ export class AddToCartDetailsComponent implements OnInit {
       });
     });
   }
-
+  //To hide or show the checkout page when Add to cart button is clicked.
+  ngAfterContentInit(){
+    this.observablesService.getIsAddToCart().subscribe((res:any)=>{
+      this.showCheckoutPage = false;
+    })
+  }
   async reloadCartInfo() {
     this.totalPrice = 0;
     this.products.map((product) => {
@@ -157,6 +162,8 @@ export class AddToCartDetailsComponent implements OnInit {
   emptyProductsOnCheckout(products:any){
     this.products = products;
     localStorage.setItem('cart', JSON.stringify(this.products));
+    this.totalPrice = 0;
+    this.showCartDetails = false
   }
   removeProduct(product: any) {
     this.products.splice(this.products.findIndex(item => item.id === product.id), 1);

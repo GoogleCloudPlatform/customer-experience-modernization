@@ -1,0 +1,234 @@
+/**
+ * Copyright 2024 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+
+.uploadBtn {
+    border-radius: 33px;
+    background: #A0BBFF;
+    box-shadow: 4px 4px 10px 0px rgba(0, 0, 0, 0.15);
+    width: 266px;
+    height: 66px;
+    color: #041E49;
+    text-align: center;
+    font-family: "Google Sans";
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+
+/* //upload-image-css */
+
+.imageUpload {
+    display: none;
+}
+
+.image-upload-container {
+    cursor: pointer;
+}
+
+.img-preview-container {
+    background: #F3EDFF;
+    position: relative;
+
+    .img-preview {
+        background: center center no-repeat;
+        background-size: cover;
+        height: 116px;
+        width: 250px;
+
+        :is(-error) {
+            display: none;
+        }
+    }
+}
+
+.img-loading-overlay {
+    background-color: black;
+    bottom: 0;
+    left: 0;
+    opacity: .2;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.img-spinning-circle {
+    display: inline-block;
+    width: 64px;
+    height: 64px;
+    margin: auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+}
+
+.img-spinning-circle:after {
+    content: " ";
+    display: block;
+    width: 46px;
+    height: 46px;
+    margin: 1px;
+    border-radius: 50%;
+    border: 5px solid #fff;
+    border-color: #fff transparent #fff transparent;
+    animation: lds-dual-ring 1.2s linear infinite;
+}
+
+@keyframes lds-dual-ring {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.btn-bwm {
+    color: black;
+    font-size: 40px !important;
+}
+
+
+.dot-flashing {
+    position: relative;
+    width: 10px;
+    height: 10px;
+    border-radius: 5px;
+    background-color: #9880ff;
+    color: #9880ff;
+    animation: dot-flashing 1s infinite linear alternate;
+    animation-delay: 0.5s;
+}
+
+.dot-flashing::before,
+.dot-flashing::after {
+    content: "";
+    display: inline-block;
+    position: absolute;
+    top: 0;
+}
+
+.dot-flashing::before {
+    left: -15px;
+    width: 10px;
+    height: 10px;
+    border-radius: 5px;
+    background-color: #9880ff;
+    color: #9880ff;
+    animation: dot-flashing 1s infinite alternate;
+    animation-delay: 0s;
+}
+
+.dot-flashing::after {
+    left: 15px;
+    width: 10px;
+    height: 10px;
+    border-radius: 5px;
+    background-color: #9880ff;
+    color: #9880ff;
+    animation: dot-flashing 1s infinite alternate;
+    animation-delay: 1s;
+}
+
+@keyframes dot-flashing {
+    0% {
+        background-color: #9880ff;
+    }
+
+    50%,
+    100% {
+        background-color: rgba(152, 128, 255, 0.2);
+    }
+}
+
+.file-upload {
+    border: none !important;
+    width: 60px;
+    height: 60px;
+    background: #A0BBFF;
+    border-radius: 100px;
+    font-family: "Google Sans";
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: 0.1px;
+    color: #FFFFFF;
+}
+
+.uploadimageTitle {
+    color: #041E49;
+    text-align: center;
+    font-family: "Google Sans";
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+
+.imagePreview {
+    width: 300px;
+    height: 300px;
+    border-radius: 39px;
+    border: 5px solid #041E49;
+}
+
+
+.refundTitle {
+    color: #041E49;
+    text-align: center;
+    font-family: "Google Sans";
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+
+.cloud {
+    width: 300px;
+    aspect-ratio: 1;
+    --g: /51.02% 51.02% radial-gradient(#000 calc(71% - 1px), #0000 71%) no-repeat;
+    mask: 99.681% 55.643% var(--g), 59.985% 98.993% var(--g), 6.491% 74.636% var(--g), 13.124% 16.233% var(--g), 70.719% 4.495% var(--g), radial-gradient(100% 100%, #000 25.476%, #0000 calc(25.476% + 1px));
+    background: radial-gradient(#cfdbf8, #FFF);
+}
+
+.homeBtn {
+    background: #A0BBFF;
+    border-radius: 100px;
+    padding: 4px 6px 8px 6px;
+    margin-bottom: 6px;
+    cursor: pointer;
+}
+
+.bottom-left { 
+    bottom: 0; 
+    left: 0; 
+} 
+  
+.bottom-center { 
+    bottom: 10px; 
+    left: 50%; 
+    transform: translateX(-50%); 
+} 
+
+.border-none{
+    border: none;
+    background: transparent;
+}

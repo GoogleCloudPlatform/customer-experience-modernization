@@ -38,41 +38,22 @@ export class ContentCreatorProductPreviewComponent implements OnChanges {
   @Input()
   imageSrc!: string;
   imageDisplay: string = "";
-
   responsiveOptions = [
     {
-      breakpoint: '2300px',
-      numVisible: 2,
-      numScroll: 1
-    },
-
-    {
-      breakpoint: '1540px',
-      numVisible: 1,
-      numScroll: 1
-    },
-
-    {
-      breakpoint: '1399px',
+      breakpoint: '1024px',
       numVisible: 2,
       numScroll: 1
     },
     {
-      breakpoint: '991px',
-      numVisible: 3,
-      numScroll: 1
-    },
-    {
-      breakpoint: '767px',
+      breakpoint: '768px',
       numVisible: 2,
       numScroll: 1
     },
     {
-      breakpoint: '576px',
+      breakpoint: '560px',
       numVisible: 1,
       numScroll: 1
     }
-
   ];
   ngOnChanges(_changes: SimpleChanges): void {
     this.imageDisplay = this.imageSrc;

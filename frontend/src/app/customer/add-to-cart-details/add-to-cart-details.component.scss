@@ -389,12 +389,3 @@ button[disabled] {
     border: none !important;
     width: 50%;
 }
-
-
-::ng-deep .p-carousel .p-carousel-indicators {
-    display: none !important;
-}
-
-// ::ng-deep .p-carousel-container {
-//     margin-left: -32px;
-// }

@@ -1,0 +1,259 @@
+<!--
+ Copyright 2024 Google LLC
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+
+<div class="grid-container mb-3" style="padding-bottom: 30px;">
+	<mat-toolbar style="height:53px;padding-right:0px ;background: #FFF;
+	box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.15); align-items: center;">
+		<img src="assets/images/cymbal-customer-service-logo.svg" alt="Cymbal Customer Service Logo">
+		<img src="assets/images/cymbal-text-logo.svg" alt="Cymbal Text Logo" class="ms-2">
+		<span class="title ms-2">Fulfillment Service</span>
+		<span class="flex-expand"></span>
+		<app-user-photo></app-user-photo>
+	</mat-toolbar>
+	<div class="col-lg-10 mx-auto content">
+		<div *ngIf="activities.length>0">
+			<p class="todayTasks">Your Tasks</p>
+			<div class="d-flex detailedViewtasksAlignment justify-content-between">
+				<div class="col-4 openJobs" style="width:31.333%">
+					<mat-label class="jobsTitle">Open Jobs ({{orders.length}})</mat-label>
+					<div *ngFor="let order of orders">
+						<div *ngIf="order.order_status === 'Initiated'" style="margin:10px">
+							<div class="d-flex openJobsHeader align-items-center"
+								(click)="showOrderDetailedView(order.id)">
+								<span class="col-4"
+									style="width:98px ; font-weight: 400;">Order
+									ID</span>
+								<span class="col-8">{{order.id}}</span>
+							</div>
+							<div class="d-flex openJobsBody">
+								<div class="d-flex flex-column"
+									style="margin: 5px 0px;">
+									<div class="d-flex" style="margin: 5px 0px;">
+										<span class="titles">Items</span>
+										<span
+											class="values">{{order.order_items.length}}</span>
+									</div>
+
+									<div class="d-flex" style="margin: 5px 0px;">
+										<span class="titles">Pick Up Time</span>
+										<span class="values">{{order.pickup_datetime}}
+										</span>
+									</div>
+								</div>
+								<!-- <button mat-icon-button (click)="changeActivityStatus(activity, 'In progress')"
+									class="col-2">
+									<mat-icon fontIcon="arrow_forward">
+									</mat-icon>
+								</button> -->
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-4 inProgress" style="width:31.333%">
+					<mat-label class="jobsTitle">In Progress</mat-label>
+					<div *ngFor="let order of inProgressOrder">
+						<div *ngIf="order.order_status === 'Initiated'" style="margin:10px">
+							<div class="d-flex inprogressHeader align-items-center"
+								(click)="showInprogressOrderDetailedView(order.id)">
+								<span class="col-4"
+									style="width:98px ; font-weight: 400;">Order
+									ID</span>
+								<span class="col-8">{{order.id}}</span>
+							</div>
+							<div class="d-flex openJobsBody">
+								<div class="d-flex flex-column"
+									style="margin: 5px 0px;">
+									<div class="d-flex" style="margin: 5px 0px;">
+										<span class="titles">Items</span>
+										<span
+											class="values">{{order.order_items.length}}</span>
+									</div>
+
+									<div class="d-flex" style="margin: 5px 0px;">
+										<span class="titles">Pick Up Time</span>
+										<span class="values">{{order.pickup_datetime}}
+										</span>
+									</div>
+								</div>
+								<!-- <button mat-icon-button (click)="changeActivityStatus(activity, 'In progress')"
+									class="col-2">
+									<mat-icon fontIcon="arrow_forward">
+									</mat-icon>
+								</button> -->
+							</div>
+						</div>
+					</div>
+
+				</div>
+				<div class="col-4 completed" style="width:31.333%">
+					<mat-label class="jobsTitle">Completed</mat-label>
+					<div *ngFor="let activity of activities">
+
+						<div *ngIf="activity.status === 'Completed'" style="margin:10px">
+							<div class="d-flex completedJobsHeader align-items-center">
+								<span class="col-4" style="width:98px">Order ID</span>
+								<span class="col-8">{{activity.customer_id}}</span>
+							</div>
+							<div class="d-flex openJobsBody">
+								<div class="d-flex flex-column">
+									<div class="d-flex" style="margin-top: 10px;">
+										<span class="titles">Task</span>
+										<span
+											class="values">{{activity.title}}</span>
+									</div>
+									<div class="d-flex" style="margin-top: 10px;">
+										<span class="titles">Pick up Time</span>
+										<span class="values">{{activity.timestamp.toDate().toLocaleString()}}
+										</span>
+									</div>
+								</div>
+								<!-- <button mat-icon-button (click)="changeActivityStatus(activity, 'Open')">
+									<mat-icon fontIcon="replay">
+									</mat-icon>
+								</button> -->
+
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+		<div style="margin-bottom: 30px;">
+			<div class="detailedViewTitle">Detailed View</div>
+
+			<div class="detailedViewOpenJobs">
+				<div style="margin:10px" *ngIf='selectedOrderDetails'>
+					<div class="d-flex align-items-center" style="background: #EEF2FC;">
+						<div class="detailedOpenJobsHeader">
+							<span style="width:98px">Order ID</span>
+							<span>{{selectedOrderDetails.id}}</span>
+						</div>
+						<div class="detailedOpenJobsHeader">
+							<span style="width:80px">Items</span>
+							<span>{{selectedOrderDetails.order_items.length}}</span>
+						</div>
+						<div class="detailedOpenJobsHeader">
+							<span style="width:98px">Customer Id</span>
+							<span>{{selectedOrderDetails.user_id}}
+							</span>
+						</div>
+						<div class="detailedOpenJobsHeader">
+							<span style="width:98px">Pick up time</span>
+							<span>{{selectedOrderDetails.pickup_datetime}}</span>
+						</div>
+					</div>
+					<div class="d-flex openJobsBody" style="margin-bottom:12px;padding:10px 0px"
+						*ngFor="let item of selectedOrderDetails.order_items">
+						<div class="d-flex col-2"
+							style="padding: 0px 10px;align-items: center;justify-content: center;">
+							<span><img src="{{item.image}}"
+									style="width: 90px;height: 57px;flex-shrink: 0;border-radius: 7px;"></span>
+						</div>
+						<div class="d-flex col-2"
+							style="padding:0px 10px; align-items: center;justify-content: center;">
+							<span class="values">{{item.title}}</span>
+						</div>
+						<div class="d-flex flex-column col-2 align-items-center">
+							<span class="detailedViewTitles">Product ID</span>
+							<span class="values">{{item.id}}</span>
+						</div>
+						<div class="d-flex flex-column col-2 align-items-center">
+							<span class="detailedViewTitles">Category</span>
+							<span class="values">{{item.categories.join(" ")}}</span>
+						</div>
+						<div class="d-flex flex-column col-2 align-items-center">
+							<span class="detailedViewTitles">Price</span>
+							<span class="values">{{item.price}}</span>
+						</div>
+						<div class="d-flex flex-column col-2 align-items-center">
+							<select class="custom-select openJobsDropdown"
+								[(ngModel)]="item.status"
+								(ngModelChange)="onItemStatusChange($event , selectedOrderDetails , item)">
+								<option selected value="Open">Open</option>
+								<option value="In Progress">In Progress</option>
+								<option value="Completed">Completed</option>
+							</select>
+						</div>
+						<!-- <div>
+							<mat-select   name="food" class="openJobsDropdown" [(ngModel)]="selectedOrderItemStatus"> 
+								<mat-option *ngFor="let item of itemStatus" [value]="item">
+								  {{item}}
+								</mat-option>
+							  </mat-select>
+						</div> -->
+					</div>
+				</div>
+			</div>
+
+			<div class="detailedViewInprogressJobs" *ngIf='selectedInprogressOrderView'>
+				<div style="margin:10px">
+					<div class="d-flex align-items-center" style="background: #FFF6EB;">
+						<div class="detailedInprogressJobsHeader">
+							<span style="width:98px">Order ID</span>
+							<span>{{selectedInprogressOrderView.id}}</span>
+						</div>
+						<div class="detailedInprogressJobsHeader">
+							<span style="width:80px">Items</span>
+							<span>{{selectedInprogressOrderView.order_items?.length}}</span>
+						</div>
+						<div class="detailedInprogressJobsHeader">
+							<span style="width:98px">Customer Id</span>
+							<span>{{selectedInprogressOrderView.user_id}}
+							</span>
+						</div>
+						<div class="detailedInprogressJobsHeader">
+							<span style="width:98px">Pick up time</span>
+							<span>{{selectedInprogressOrderView.pickup_datetime}}</span>
+						</div>
+					</div>
+					<div class="d-flex openJobsBody" style="margin-bottom:12px;padding:10px 0px"
+						*ngFor="let item of selectedInprogressOrderView.order_items">
+						<div class="d-flex col-2"
+							style="padding: 0px 10px;align-items: center;justify-content: center;">
+							<span><img src="{{item.image}}"
+									style="width: 90px;height: 57px;flex-shrink: 0;border-radius: 7px;"></span>
+						</div>
+						<div class="d-flex col-2"
+							style="padding:0px 10px; align-items: center;justify-content: center;">
+							<span class="values">{{item.title}}</span>
+						</div>
+						<div class="d-flex flex-column col-2 align-items-center">
+							<span class="detailedViewTitles">Product ID</span>
+							<span class="values">{{item.id}}</span>
+						</div>
+						<div class="d-flex flex-column col-2 align-items-center">
+							<span class="detailedViewTitles">Category</span>
+							<span class="values">{{item.categories.join(" ")}}</span>
+						</div>
+						<div class="d-flex flex-column col-2 align-items-center">
+							<span class="detailedViewTitles">Price</span>
+							<span class="values">{{item.price}}</span>
+						</div>
+						<div class="d-flex flex-column col-2 align-items-center">
+							<select class="custom-select inprogressJobsDropdown">
+								<option selected value="Open">Open</option>
+								<option value="In Progress">In Progress</option>
+								<option value="Completed">Completed</option>
+							</select>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<app-architecture [architecture]="architecture"></app-architecture>

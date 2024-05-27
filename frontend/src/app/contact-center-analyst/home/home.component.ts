@@ -146,13 +146,8 @@ export class ContactCenterAnalystHomeComponent {
     this.customerInfo = customer.customer_info;
     this.customerConversations = customer.conversations;
     this.dataSource = new MatTableDataSource(this.customerConversations);
-    console.log('dataSource', this.dataSource)
-    console.log('customerConversations', this.customerConversations)
     this.customerReviews = customer.reviews;
     this.dataSourceReview = new MatTableDataSource(this.customerReviews);
-
-
-
   }
 
   updateInsights(generatedInsights: GeneratedInsights, isCustomer: boolean) {
@@ -325,9 +320,6 @@ export class ContactCenterAnalystHomeComponent {
   }
 
   onSelection(i: any, product: any, checked: any) {
-    console.log(i);
-    console.log(product);
-    console.log(checked)
     if (checked) {
       this.selectedConversations.push(product);
     } else {
@@ -335,9 +327,6 @@ export class ContactCenterAnalystHomeComponent {
     }
   }
   onSelectionSearchReview(i: any, product: any, checked: any) {
-    console.log(i);
-    console.log(product);
-    console.log(checked)
     if (checked) {
       this.selectedReviewData.push(product);
     } else {
@@ -345,9 +334,6 @@ export class ContactCenterAnalystHomeComponent {
     }
   }
   onSelectionSimilarSearchReview(i: any, product: any, checked: any) {
-    console.log(i);
-    console.log(product);
-    console.log(checked)
     if (checked) {
       this.selectedsimilarSearchReviewData.push(product);
     } else {
@@ -355,9 +341,6 @@ export class ContactCenterAnalystHomeComponent {
     }
   }
   onSelectionReview(i: any, product: any, checked: any) {
-    console.log(i);
-    console.log(product);
-    console.log(checked)
     if (checked) {
       this.selectedConversationsReview.push(product);
     } else {
@@ -366,9 +349,6 @@ export class ContactCenterAnalystHomeComponent {
   }
 
   onSelectionSearchConversation(i: any, product: any, checked: any) {
-    console.log(i);
-    console.log(product);
-    console.log(checked)
     if (product.length > 0) {
       this.disableButton = false
     }
@@ -380,9 +360,6 @@ export class ContactCenterAnalystHomeComponent {
   }
 
   // onSelectionSimilarSearchConversation(i: any, product: any, checked: any){
-  //   console.log(i);
-  //   console.log(product);
-  //   console.log(checked)
   //   if (checked) {
   //     this.selectedConversationsSimilarSearch.push(product);
   //     } else {

@@ -1,0 +1,116 @@
+/**
+ * Copyright 2024 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+.welcome {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #041E49;
+    text-align: center;
+    font-family: "Google Sans";
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+
+.placed-order {
+    margin-top: 100px;
+    width: 772px;
+    text-align: center;
+}
+
+.returnServiceTitle {
+    color: #041E49;
+    font-family: "Google Sans";
+    font-size: 28px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.homeBtn {
+    background: #A0BBFF;
+    border-radius: 100px;
+    padding: 4px 6px 8px 6px;
+    margin-bottom: 6px;
+    cursor: pointer;
+}
+
+.receiptId {
+    border-radius: 33px;
+    border: 1px solid #000;
+    background: #FFF;
+    width: 479px;
+    height: 66px;
+    flex-shrink: 0;
+    padding: 0px 20px;
+    margin-bottom: 100px;
+}
+
+.content {
+    padding: 3px 5px;
+}
+
+.footer {
+    flex-shrink: 0;
+    flex-grow: 0;
+    padding: 3px 15px;
+}
+
+.errorMsg {
+    margin-top: 20px;
+    color: #FFA0A0;
+    font-family: Google Sans;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    display: flex;
+    justify-content: center;
+}
+
+.cloud {
+    width: 300px;
+    aspect-ratio: 1;
+    --g: /51.02% 51.02% radial-gradient(#000 calc(71% - 1px), #0000 71%) no-repeat;
+    mask: 99.681% 55.643% var(--g), 59.985% 98.993% var(--g), 6.491% 74.636% var(--g), 13.124% 16.233% var(--g), 70.719% 4.495% var(--g), radial-gradient(100% 100%, #000 25.476%, #0000 calc(25.476% + 1px));
+    background: radial-gradient(#cfdbf8, #FFF);
+}
+
+.reason {
+    display: flex;
+    width: 772px;
+    height: 36px;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.bottom-left { 
+    bottom: 0; 
+    left: 0; 
+} 
+  
+.bottom-center { 
+    bottom: 10px; 
+    left: 50%; 
+    transform: translateX(-50%); 
+} 
+
+.border-none{
+    border: none;
+    background: transparent;
+}

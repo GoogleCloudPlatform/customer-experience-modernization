@@ -52,8 +52,8 @@
 				<div class="col-xl-12" *ngIf="service.image_urls.length>0">
 					<label class="productLabel">IMAGES</label>
 					<div class="col-12 product-background-img mt-2">
-						<p-carousel [value]="service.image_urls" [numVisible]="3" [numScroll]="1" [circular]="false"
-							[responsiveOptions]="responsiveOptions">
+						<p-carousel [value]="service.image_urls" [numVisible]="2" [numScroll]="1" [circular]="false"
+							[responsiveOptions]="responsiveOptions" [showIndicators]="false" [showNavigators]="service.image_urls.length>2">
 							<ng-template let-p pTemplate="item">
 								<div class="col-sm-6 mb-2 product-background-img">
 									<div class="card flex-md-row mb-4 box-shadow h-md-250 card-border">
