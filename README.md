@@ -62,6 +62,12 @@ Persona 6 - Field Service Agent
 * **[Insights from Reviews and Conversations using Vertex AI Search, Vertex AI LLM and Natural Language AI](https://www.youtube.com/watch?v=bu1e0ZIaohQ)**
 * **[Q&A using Vertex AI Search and Multimodal Q&A using Gemini](https://www.youtube.com/watch?v=jFBFknOrVac)**
 
+Persona 7 - Return Service Agent
+![Persona 7 Architecture](/frontend/src/assets/architectures/p7_uj_1.svg)
+* **[Image and video comparison using Gemini]**
+* **[Product recommendations]**
+* **[Multiple surfaces]**
+
 
 ## Select a Google Cloud project
 
