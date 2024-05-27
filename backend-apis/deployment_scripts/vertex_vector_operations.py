@@ -13,25 +13,45 @@
 # limitations under the License.
 #
 
+""" Create Vector Search Index """
+
 import argparse
-import json
-import time
 
 from google.cloud import aiplatform_v1beta1 as aiplatform
 from google.protobuf import struct_pb2
 from google.protobuf.json_format import ParseDict
-import utils_toml
+
+# pylint: disable-next = line-too-long
+METADATA_SCHEMA_URI = "gs://google-cloud-aiplatform/schema/matchingengine/metadata/nearest_neighbor_search_1.0.0.yaml"
+INDEX_UPDATE_METHOD = aiplatform.Index.IndexUpdateMethod(2)
 
 
 def create_vector_index(
-        project_id: str,
-        location: str,
-        display_name: str,
-        description: str,
-        metadata_schema_uri: str,
-        metadata: struct_pb2.Value,
-        index_update_method: aiplatform.Index.IndexUpdateMethod
+    project_id: str,
+    location: str,
+    display_name: str,
+    description: str,
+    metadata: struct_pb2.Value,
 ):
+    """
+    Create vector index
+
+    Args:
+        project_id:
+            Project id
+        location:
+            Index location
+        display_name:
+            Display name
+        description:
+            Index description
+        metadata:
+            Index Metadata
+
+    Returns:
+        Creation response
+
+    """
     index_client = aiplatform.IndexServiceClient(
         client_options={
             "api_endpoint": "us-central1-aiplatform.googleapis.com"
@@ -40,13 +60,12 @@ def create_vector_index(
     index = aiplatform.Index()
     index.display_name = display_name
     index.description = description
-    index.metadata_schema_uri = metadata_schema_uri
+    index.metadata_schema_uri = METADATA_SCHEMA_URI
     index.metadata = metadata
-    index.index_update_method = index_update_method
-    
+    index.index_update_method = INDEX_UPDATE_METHOD
+
     request = aiplatform.CreateIndexRequest(
-        parent=f"projects/{project_id}/locations/{location}",
-        index=index
+        parent=f"projects/{project_id}/locations/{location}", index=index
     )
 
     operation = index_client.create_index(request=request)
@@ -56,12 +75,31 @@ def create_vector_index(
 
 
 def create_index_endpoint(
-        project_id: str,
-        location: str,
-        display_name: str,
-        description: str,
-        public_endpoint_enabled: bool
+    project_id: str,
+    location: str,
+    display_name: str,
+    description: str,
+    public_endpoint_enabled: bool,
 ):
+    """
+    Create index endpoint
+
+    Args:
+        project_id:
+            Project id
+        location:
+            Index endpoint location
+        display_name:
+            Index endpoint display name
+        description:
+            Index endpoint description
+        public_endpoint_enabled:
+            Whether to enable public endpoint
+
+    Returns:
+        Creation response
+
+    """
     index_endpoint_client = aiplatform.IndexEndpointServiceClient(
         client_options={
             "api_endpoint": "us-central1-aiplatform.googleapis.com"
@@ -75,25 +113,38 @@ def create_index_endpoint(
 
     request = aiplatform.CreateIndexEndpointRequest(
         parent=f"projects/{project_id}/locations/{location}",
-        index_endpoint=index_endpoint
+        index_endpoint=index_endpoint,
     )
 
-    operation = index_endpoint_client.create_index_endpoint(
-        request=request
-    )
+    operation = index_endpoint_client.create_index_endpoint(request=request)
     response = operation.result(timeout=None)
-    
+
     return response
 
 
 def deploy_index_to_endpoint(
-        project_id: str,
-        location: str,
-        id: str,
-        index: str,
-        display_name: str,
-        index_endpoint: str
+    deploy_id: str,
+    index: str,
+    display_name: str,
+    index_endpoint: str,
 ):
+    """
+    Deploy index to endpoint
+
+    Args:
+        deploy_id:
+            Deploy id
+        index:
+            Index
+        display_name:
+            Display name
+        index_endpoint:
+            Index endpoint
+
+    Returns:
+        Deployment response
+
+    """
     index_endpoint_client = aiplatform.IndexEndpointServiceClient(
         client_options={
             "api_endpoint": "us-central1-aiplatform.googleapis.com"
@@ -101,13 +152,12 @@ def deploy_index_to_endpoint(
     )
 
     deploy = aiplatform.DeployedIndex()
-    deploy.id = id
+    deploy.id = deploy_id
     deploy.index = index
     deploy.display_name = display_name
 
     request = aiplatform.DeployIndexRequest(
-        index_endpoint = index_endpoint,
-        deployed_index = deploy
+        index_endpoint=index_endpoint, deployed_index=deploy
     )
 
     operation = index_endpoint_client.deploy_index(request=request)
@@ -117,10 +167,23 @@ def deploy_index_to_endpoint(
 
 
 def get_index_resource_name(
-        project_id: str,
-        location: str,
-        index_display_name: str
+    project_id: str, location: str, index_display_name: str
 ) -> str:
+    """
+    Get index resource name
+
+    Args:
+        project_id:
+            Project id
+        location:
+            Index location
+        index_display_name:
+            Index display name
+
+    Returns:
+        Resource name
+
+    """
     client = aiplatform.IndexServiceClient(
         client_options={
             "api_endpoint": "us-central1-aiplatform.googleapis.com"
@@ -141,10 +204,23 @@ def get_index_resource_name(
 
 
 def get_endpoint_info(
-        project_id: str,
-        location: str,
-        endpoint_display_name: str
+    project_id: str, location: str, endpoint_display_name: str
 ) -> tuple:
+    """
+    Get endpoint info
+
+    Args:
+        project_id:
+            Project id
+        location:
+            Endpoint location
+        endpoint_display_name:
+            Endpoint display name
+
+    Returns:
+        Tuple with Endpoint name, Deployed index id and Public Endpoint domain name
+
+    """
     client = aiplatform.IndexEndpointServiceClient(
         client_options={
             "api_endpoint": "us-central1-aiplatform.googleapis.com"
@@ -152,7 +228,7 @@ def get_endpoint_info(
     )
 
     request = aiplatform.ListIndexEndpointsRequest(
-        parent = f"projects/{project_id}/locations/{location}",
+        parent=f"projects/{project_id}/locations/{location}",
     )
 
     results = client.list_index_endpoints(request=request)
@@ -164,94 +240,127 @@ def get_endpoint_info(
             endpoint_name = i.name
             deployed_index_id = i.deployed_indexes[0].id
             public_endpoint_domain_name = i.public_endpoint_domain_name
-    
+
     return endpoint_name, deployed_index_id, public_endpoint_domain_name
 
 
-if __name__ == "__main__":
-    parser = argparse.ArgumentParser()
-    parser.add_argument("project_id")
-    parser.add_argument("location")
-    args = parser.parse_args()
+def main(args):
+    """
+    Main creation function
 
-    index_display_name = "csm-multimodal-vector-search"
-    index_description = "CSM Multimodal Vector Search"
-    index_update_method = aiplatform.Index.IndexUpdateMethod(2)
-
-    endpoint_display_name = "csm-index-endpoint"
-    endpoint_description = "CSM Index Endpoint"
-
-    deploy_display_name = "csm_deployed_index"
-    deploy_id = "csm_deployed_index"
-
-    
+    Args:
+        args:
+            Command line args
+    """
     metadata = {
-        "contentsDeltaUri": "gs://csm-solution-dataset/metadata/vertex-vector-search",
-        "config":{
+        "contentsDeltaUri": args.contents_delta_uri,
+        "config": {
             "dimensions": 1408,
             "approximateNeighborsCount": 150,
             "distanceMeasureType": "DOT_PRODUCT_DISTANCE",
             "featureNormType": "UNIT_L2_NORM",
             "algorithmConfig": {
                 "treeAhConfig": {
-                    "leafNodeEmbeddingCount": 1000, 
-                    "fractionLeafNodesToSearch": 0.05
+                    "leafNodeEmbeddingCount": 1000,
+                    "fractionLeafNodesToSearch": 0.05,
                 }
-            }
-        }
+            },
+        },
     }
 
     struct = struct_pb2.Struct()
     ParseDict(metadata, struct)
     schema_value = struct_pb2.Value(struct_value=struct)
-    metadata_schema_uri = "gs://google-cloud-aiplatform/schema/matchingengine/metadata/nearest_neighbor_search_1.0.0.yaml"
+
+    print("Creating vector index")
 
     create_vector_index(
         project_id=args.project_id,
         location=args.location,
-        display_name=index_display_name,
-        description=index_description,
-        metadata_schema_uri=metadata_schema_uri,
+        display_name=args.index_display_name,
+        description=args.index_description,
         metadata=schema_value,
-        index_update_method=index_update_method
     )
+
+    print("Creating index endpoint")
 
     create_index_endpoint(
         project_id=args.project_id,
         location=args.location,
-        display_name=endpoint_display_name,
-        description=endpoint_description,
-        public_endpoint_enabled=True
+        display_name=args.endpoint_display_name,
+        description=args.endpoint_description,
+        public_endpoint_enabled=True,
     )
 
     index_resource_name = get_index_resource_name(
         project_id=args.project_id,
         location=args.location,
-        index_display_name=index_display_name
+        index_display_name=args.index_display_name,
     )
 
-    (endpoint_name, 
-     deployed_index_id, 
-     public_endpoint_domain_name) = get_endpoint_info(
+    (
+        endpoint_name,
+        deployed_index_id,
+        public_endpoint_domain_name,
+    ) = get_endpoint_info(
         project_id=args.project_id,
         location=args.location,
-        endpoint_display_name=endpoint_display_name
+        endpoint_display_name=args.endpoint_display_name,
     )
+
+    print("Deploying index to endpoint")
 
     deploy_index_to_endpoint(
-        project_id=args.project_id,
-        location=args.location,
-        id=deploy_id,
+        deploy_id=args.deploy_id,
         index=index_resource_name,
-        display_name=deploy_display_name,
-        index_endpoint=endpoint_name
+        display_name=args.deploy_display_name,
+        index_endpoint=endpoint_name,
+    )
+    print("Index endpoint id:")
+    print(endpoint_name.split(sep="/")[-1])
+
+    print("Deployed index id:")
+    print(deployed_index_id)
+
+    print("Vector API endpoint")
+    print(public_endpoint_domain_name)
+
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--project_id", required=True)
+    parser.add_argument("--location", required=True)
+
+    parser.add_argument(
+        "--index_display_name",
+        default="csm-multimodal-vector-search",
+        required=False,
+    )
+    parser.add_argument(
+        "--index_description",
+        default="CSM Multimodal Vector Search",
+        required=False,
     )
 
-    utils_toml.update_toml(
-        toml_path="config.toml",
-        new_values={
-            "$$index_endpoint_id$$": f'"{endpoint_name.split(sep="/")[-1]}"',
-            "$$deployed_index_id$$": f'"{deployed_index_id}"',
-            "$$vector_api_endpoint$$": f'"{public_endpoint_domain_name}"'
-        })
+    parser.add_argument(
+        "--endpoint_display_name", default="csm-index-endpoint", required=False
+    )
+    parser.add_argument(
+        "--endpoint_description", default="CSM Index Endpoint", required=False
+    )
 
+    parser.add_argument(
+        "--deploy_display_name", default="csm_deployed_index", required=False
+    )
+    parser.add_argument(
+        "--deploy_id", default="csm_deployed_index", required=False
+    )
+    parser.add_argument(
+        "--contents_delta_uri",
+        default="gs://csm-solution-dataset/metadata/vertex-vector-search",
+        required=False,
+    )
+
+    parsed_args = parser.parse_args()
+
+    main(parsed_args)
