@@ -33,8 +33,6 @@
     line-height: normal;
 }
 
-
-
 .orderOptionsTitle {
     color: #344054;
     font-family: Roboto;
@@ -88,7 +86,6 @@
     font-style: normal;
     font-weight: 500;
     line-height: 20px;
-    /* 111.111% */
     letter-spacing: 0.1px;
 }
 
@@ -98,14 +95,12 @@
     font-weight: 600;
     line-height: 24px;
     text-align: left;
-    width: 200px;
     color: #000;
     font-family: "Google Sans";
     font-size: 16px;
     font-style: normal;
     font-weight: 500;
     line-height: 24px;
-    /* 150% */
     letter-spacing: 0.5px;
 }
 
@@ -126,7 +121,6 @@
     font-style: normal;
     font-weight: 500;
     line-height: 24px;
-    /* 150% */
     letter-spacing: 0.5px;
     margin-top: 11px;
 }
@@ -138,19 +132,11 @@
     flex-shrink: 0;
 }
 
-.carousel-image {
+.email-images {
     border-radius: 10px;
-    width: 200px;
-    height: 200px;
-    flex-shrink: 0;
+    width: 389px;
+    height: 371px;
 }
-
-/* ::ng-deep.p-carousel-item {
-    width: 200px !important;
-    flex: none !important;
-    margin-left: 10px;
-    margin-right: 10px
-} */
 
 .orderTitle {
     color: var(--Gray-700, #344054);
@@ -173,14 +159,11 @@
     flex-shrink: 0;
     color: var(--M3-sys-light-on-primary, #FFF);
     text-align: center;
-
-    /* M3/label/large */
     font-family: Roboto;
     font-size: 14px;
     font-style: normal;
     font-weight: 500;
     line-height: 20px;
-    /* 142.857% */
     letter-spacing: 0.1px;
     border-radius: 100px;
     background: var(--M3-sys-light-primary, #6750A4);
@@ -198,14 +181,11 @@
     flex-shrink: 0;
     color: var(--grey, #575757);
     text-align: center;
-
-    /* M3/label/large */
     font-family: Roboto;
     font-size: 14px;
     font-style: normal;
     font-weight: 500;
     line-height: 20px;
-    /* 142.857% */
     letter-spacing: 0.1px;
     border-radius: 100px;
     background: var(--M3-sys-light-primary, #F2F2F2);
@@ -221,14 +201,11 @@
     align-self: stretch;
     color: #000;
     text-align: center;
-
-    /* M3/label/large */
     font-family: Roboto;
     font-size: 14px;
     font-style: normal;
     font-weight: 500;
     line-height: 20px;
-    /* 142.857% */
     letter-spacing: 0.1px;
     background: #FFF;
     border: none;
@@ -243,7 +220,7 @@
     gap: 8px;
     flex-shrink: 0;
     margin-top: 10px;
-    margin-bottom:10px
+    margin-bottom: 10px
 }
 
 .subtotal {
@@ -255,39 +232,6 @@
     line-height: normal;
 }
 
-.shopping-assi-btn {
-    border: none !important;
-    padding: 0px;
-    gap: 8px;
-
-    width: 204px;
-    height: 40px;
-    left: 1067px;
-    top: 687px;
-    background: #ECE6F0;
-    border-radius: 100px;
-
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    padding: 10px 24px;
-    gap: 8px;
-    flex: none;
-    order: 0;
-    flex-grow: 0;
-    font-family: 'Roboto';
-    font-style: normal;
-    font-weight: 500;
-    font-size: 14px;
-    line-height: 20px;
-    letter-spacing: 0.1px;
-    color: black;
-    flex: none;
-    order: 1;
-    flex-grow: 0;
-}
-
 .category-title {
     color: var(--Gray-700, #344054);
     font-family: Roboto;
@@ -295,7 +239,6 @@
     font-style: normal;
     font-weight: 700;
     line-height: 38px;
-    /* 126.667% */
 }
 
 .pickup-label {
@@ -305,17 +248,54 @@
     font-style: normal;
     font-weight: 700;
     line-height: 20px;
-    /* 111.111% */
     letter-spacing: 0.1px;
-    margin-bottom : 12px
 }
 
 .example-radio-group {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-  }
-/*   
-  .example-radio-button {
-    margin: 5px;
-  } */
+}
+
+.email-section {
+
+    .product-name {
+        color: #000;
+        font-family: Roboto;
+        font-size: 24px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 24px;
+        letter-spacing: 0.5px;
+    }
+
+    .product-description {
+        color: #000;
+        font-family: Roboto;
+        font-size: 24px;
+        font-style: normal;
+        font-weight: 300;
+        line-height: 24px;
+        letter-spacing: 0.5px;
+    }
+
+    .price {
+        color: #000;
+        font-family: Roboto;
+        font-size: 24px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 24px;
+        letter-spacing: 0.5px;
+    }
+
+    .product-category {
+        color: #000;
+        font-family: Roboto;
+        font-size: 24px;
+        font-style: normal;
+        font-weight: 300;
+        line-height: 24px;
+        letter-spacing: 0.5px;
+    }
+}

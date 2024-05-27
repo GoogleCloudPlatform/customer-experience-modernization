@@ -19,7 +19,7 @@ import { ActivatedRoute } from '@angular/router';
 import { UserPhotoComponent } from '../../shared/user-photo/user-photo.component';
 import { FirebaseService } from '../../shared/services/firebase.service';
 import { Observable, Subscription, firstValueFrom } from 'rxjs';
-import { AgentActivity, Conversation, Customer, CustomerInfo, FieldServiceAgentService, GeneratedInsights, SearchResponseKB, SearchResultKB } from '../../shared/services/field-service-agent.service';
+import { AgentActivity, Customer, CustomerInfo, FieldServiceAgentService, GeneratedInsights, SearchResponseKB, SearchResultKB } from '../../shared/services/field-service-agent.service';
 import { Auth, User, user } from '@angular/fire/auth';
 import { marked } from 'marked';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -87,7 +87,7 @@ export class FieldServiceAgentJobComponent implements AfterViewInit {
   geminiImageURL: string = "";
 
   customerInfo: CustomerInfo | undefined;
-  customerConversations: any[]  = [];
+  customerConversations: any[] = [];
 
   geminiResponse: string = "";
   kbSummary: string = "";
@@ -262,6 +262,8 @@ export class FieldServiceAgentJobComponent implements AfterViewInit {
         this.geminiImageName = snapshot.metadata.name;
         this.firebaseService.imageNameToDownloadURL(snapshot.metadata.name).then(
           (url) => {
+            console.log(snapshot)
+            console.log(url)
             this.geminiImageURL = url;
             this.imageUploading = false;
           }

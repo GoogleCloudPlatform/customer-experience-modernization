@@ -164,8 +164,6 @@ export class CustomerHomeComponent implements OnInit {
       }),
     );
     this.selectedLang = this.languageControl?.value?.name;
-    
-    //console.log(this.languageControl)
   }
 
   displayFn(language: TranslationLanguage): string {
@@ -235,7 +233,6 @@ export class CustomerHomeComponent implements OnInit {
     this.displayCart = false;
     this.showChatArea = !this.showChatArea;
     this.close();
-
   }
 
   translateHome(lang: any) {
@@ -244,5 +241,10 @@ export class CustomerHomeComponent implements OnInit {
       this.translationService.translatePage(this.sourceLanguage, targetLanguage);
       this.sourceLanguage = targetLanguage;
     }
+  }
+  addTocart() {
+    this.displayCart = true;
+    this.displayProductDetails = false;
+    this.observablesService.sendIsAddToCart(true);
   }
 }

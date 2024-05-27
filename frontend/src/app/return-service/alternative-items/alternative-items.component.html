@@ -1,0 +1,190 @@
+<!--
+ Copyright 2024 Google LLC
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+
+<div style="position: relative;z-index: 1;">
+    <div *ngIf="!showComparison && !showRefundSection">
+        <div style="position: relative;top:100px" class="d-flex justify-content-center">
+            <div class="border-round product-item itemBorder">
+                <p class="text-center title">Returning Item</p>
+                <div class="itemShadow">
+                    <div class="mb-2 text-center" style="margin-top: 20px;">
+                        <img src="{{returnItem.image}}" [alt]="returnItem.name" class="w-6 shadow-2 product-image" />
+                    </div>
+                    <div class="product-item-content d-flex flex-column">
+                        <span class="orderTitle">{{ returnItem.title }}</span>
+                        <span class="orderPrice mb-3">{{ '$' + returnItem.price }}</span>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-center mb-3 mt-3">
+                    <select ngModel (ngModelChange)="onReasonChange($event , returnItem)"
+                        [(ngModel)]="returnItem.return_metadata.return_type" class="form-select return-dropdown">
+                        <option *ngFor="let res of return_reason" [value]="res">{{res}}</option>
+                    </select>
+                </div>
+            </div>
+            <div *ngIf="isRecommendationsLoading" class="d-flex justify-content-center align-items-center mx-auto">
+                <mat-progress-spinner mode="indeterminate" color="primary" [diameter]="40"></mat-progress-spinner>
+            </div>
+            <div *ngIf="recommendations && !isRecommendationsLoading">
+                <p class="alternateItemsTitle">Alternative Product Options</p>
+                <p-carousel [value]="recommendations" [numVisible]="3" [numScroll]="3" [circular]="false"
+                    [responsiveOptions]="responsiveOptions" [showIndicators]="false" [showNavigators]="showNavigation">
+                    <ng-template let-product pTemplate="item" let-i="index">
+                        <div class="border-round product-item">
+                            <div class="mb-2 text-center" style="margin-top: 20px;">
+                                <img src="{{product.snapshot.image}}" [alt]="product.snapshot.name"
+                                    class="w-6 shadow-2 product-image" />
+                            </div>
+                            <div class="product-item-content d-flex flex-column">
+                                <span class="orderTitle">{{ product.snapshot.title }}</span>
+                                <span class="orderPrice mb-3">{{ '$' + product.snapshot.price }}</span>
+                            </div>
+                            <div class="d-flex justify-content-center mb-4">
+                                <button (click)="selectAlternateProduct(product)"
+                                    [ngClass]="product.isAlternateProductSelected ? 'activeSelectBtn': 'selectBtn' "
+                                    [disabled]="product.isAlternateProductSelected != undefined && !product.isAlternateProductSelected">
+                                    <span *ngIf="!product.isAlternateProductSelected">Select</span>
+                                    <span *ngIf="product.isAlternateProductSelected">Selected</span>
+                                </button>
+                            </div>
+                        </div>
+                    </ng-template>
+                </p-carousel>
+            </div>
+        </div>
+        <footer class="footer d-flex justify-content-start mt-4 mt-2" style="position: relative; top:200px">
+            <div class="position-absolute bottom-left">
+                <button type="button" class="border-none" (click)="navigateToHome()"><img
+                        src="assets/images/home_btn.svg" alt="home" class="ms-2 homeBtn"></button>
+            </div>
+            <div class="position-absolute bottom-center" style="margin-top: 100px;">
+                <button class='activeConfirmBtn' (click)="next()">
+                    <span style="margin-right: 20px">Next</span>
+
+                    <svg xmlns="http://www.w3.org/2000/svg" width="33" height="33" viewBox="0 0 33 33" fill="none">
+                        <path
+                            d="M11.0344 30.25L8.59375 27.8094L19.9031 16.5L8.59375 5.19062L11.0344 2.75L24.7844 16.5L11.0344 30.25Z"
+                            fill="#041E49" />
+                    </svg>
+                </button>
+            </div>
+        </footer>
+    </div>
+    <div *ngIf="showComparison && !showRefundSection">
+        <div style="position: relative;top:100px" class="d-flex justify-content-center">
+            <div class="border-round replace-item">
+                <p class="text-center title">Returning Item</p>
+                <div class="replaceItemShadow">
+                    <div class="mb-2 text-center" style="margin-top: 20px;">
+                        <img src="{{returnItem.image}}" [alt]="returnItem.name" class="w-6 shadow-2 product-image" />
+                    </div>
+                    <div class="product-item-content d-flex flex-column">
+                        <span class="orderTitle">{{ returnItem.title }}</span>
+                        <span class="orderPrice mb-3">{{ '$' + returnItem.price }}</span>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-center mb-3 mt-3">
+                    <select ngModel (ngModelChange)="onReasonChange($event , returnItem)"
+                        [(ngModel)]="returnItem.return_metadata.return_type" class="form-select return-dropdown">
+                        <option *ngFor="let res of return_reason" [value]="res">{{res}}</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="border-round replace-item">
+                <span class="text-center replaceItemTitle">Replace & Refund Difference</span>
+                <div class="replaceItemShadow">
+                    <div class="mb-2 text-center">
+                        <img src="{{alternateProductSelectedDetails.snapshot.image}}"
+                            [alt]="alternateProductSelectedDetails.snapshot.title" class="w-6 shadow-2 product-image" />
+                    </div>
+                    <div class="product-item-content d-flex flex-column">
+                        <span class="orderTitle">{{ alternateProductSelectedDetails.snapshot.title }}</span>
+                        <div class="d-flex justify-content-between align-items-baseline">
+                            <span class="orderPrice mb-3">{{ '$' + alternateProductSelectedDetails.snapshot.price
+                                }}</span>
+                            <div class="d-flex justify-content-center mb-3 mt-3 me-3">
+                                <button class="activeSelectBtn">Selected</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer class="footer d-flex justify-content-start mt-4 mt-2" style="position: relative; top:200px">
+            <div class="position-absolute bottom-left">
+                <button type="button" class="border-none" (click)="navigateToHome()"><img
+                        src="assets/images/home_btn.svg" alt="home" class="ms-2 homeBtn"></button>
+            </div>
+            <div class="position-absolute bottom-center" style="margin-top: 100px;">
+                <button class="activeConfirmBtn" (click)="nextBtn()">
+                    <span style="margin-right: 20px">Next</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="33" height="33" viewBox="0 0 33 33" fill="none">
+                        <path
+                            d="M11.0344 30.25L8.59375 27.8094L19.9031 16.5L8.59375 5.19062L11.0344 2.75L24.7844 16.5L11.0344 30.25Z"
+                            fill="#041E49" />
+                    </svg>
+                </button>
+            </div>
+        </footer>
+
+    </div>
+
+    <div *ngIf="showRefundSection">
+        <div class="d-flex justify-content-center">
+            <div class="border-round replace-item replaceItemShadow" style="margin:0px">
+                <div>
+                    <div class="mb-2 text-center">
+                        <img src="{{alternateProductSelectedDetails.snapshot.image}}"
+                            [alt]="alternateProductSelectedDetails.snapshot.title" class="w-6 shadow-2 product-image" />
+                    </div>
+                    <div class="product-item-content d-flex flex-column">
+                        <span class="orderTitle">{{ alternateProductSelectedDetails.snapshot.title }}</span>
+                        <div class="d-flex justify-content-between align-items-baseline">
+                            <span class="orderPrice mb-3">{{ '$' + alternateProductSelectedDetails.snapshot.price
+                                }}</span>
+                            <div class="d-flex justify-content-center mb-3 mt-3 me-3">
+                                <button class="activeSelectBtn">Selected</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div style="margin-left:100px" class="d-flex flex-column">
+                <span class="refundTitle">Refund Difference</span>
+                <span class="refundTitle mb-3">${{ differenceAmount }}</span>
+            </div>
+        </div>
+
+        <footer class="footer d-flex justify-content-start mt-4 mt-2" style="position: relative; top:100px">
+            <div class="position-absolute bottom-left">
+                <button type="button" class="border-none" (click)="navigateToHome()"><img
+                        src="assets/images/home_btn.svg" alt="home" class="ms-2 homeBtn"></button>
+            </div>
+            <div class="position-absolute bottom-center">
+                <div class="d-flex justify-content-center" style="margin-top: 150px;">
+                    <button class="activeConfirmBtn" (click)="refundBtn()">
+                        <span>Refund</span>
+                    </button>
+                </div>
+            </div>
+        </footer>
+    </div>
+</div>
+
+<div style="overflow: hidden;">
+    <div class="cloud" style="position: absolute ; top:30%; right: 0px;overflow: hidden;"></div>
+</div>

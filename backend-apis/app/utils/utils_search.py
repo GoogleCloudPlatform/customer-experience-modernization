@@ -432,6 +432,9 @@ def vertexai_search_oneturn(  # pylint: disable=too-many-arguments, too-many-loc
             discoveryengine.SearchRequest.ContentSearchSpec.SummarySpec(
                 summary_result_count=summary_result_count,
                 include_citations=include_citations,
+                model_spec=discoveryengine.SearchRequest.ContentSearchSpec.SummarySpec.ModelSpec(
+                version="preview",
+                ),
             )
         )
         content_spec = discoveryengine.SearchRequest.ContentSearchSpec(
@@ -516,6 +519,9 @@ def vertexai_search_multiturn(  # pylint: disable=too-many-arguments
     summary_spec = discoveryengine.SearchRequest.ContentSearchSpec.SummarySpec(
         include_citations=include_citations,
         summary_result_count=summary_result_count,
+        model_spec=discoveryengine.SearchRequest.ContentSearchSpec.SummarySpec.ModelSpec(
+                version="preview",
+            ),
     )
 
     request = discoveryengine.ConverseConversationRequest(

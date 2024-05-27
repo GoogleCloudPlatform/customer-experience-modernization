@@ -35,6 +35,17 @@ export class ObservablesService {
         return this.userDetails$;
     }
 
+    private showAddToCart = new ReplaySubject<any>(1);
+    showAddToCart$: Observable<any> = this.showAddToCart.asObservable();
+
+    sendIsAddToCart(message: boolean) {
+        this.showAddToCart.next(message);
+    }
+
+    getIsAddToCart(): Observable<any> {
+        return this.showAddToCart$;
+    }
+
     private loading = new ReplaySubject<any>(1);
     loading$: Observable<any> = this.loading.asObservable();
     private updatedDocumentID = new ReplaySubject<any>(1);
@@ -95,7 +106,6 @@ export class ObservablesService {
         return this.cartDisplay$;
     }
 
-
     setProductDescription(message: any) {
         this.productDescription.next(message);
     }
@@ -103,8 +113,6 @@ export class ObservablesService {
     getProductDescription(): Observable<any> {
         return this.productDescription;
     }
-
-
 
     setProductDetails(message: any) {
         this.productDetails.next(message);

@@ -99,7 +99,7 @@ export class SearchService {
           'imageSrc': event.target.result
         })
         this.uploadImage(assistantChat, this.documentId, snapshot.metadata.name).subscribe(() => {
-          this.firebaseService.getSearchResults(this.documentId).subscribe((res)=>{
+          this.firebaseService.getSearchResults(this.documentId).subscribe((res) => {
             observer.next(res)
           })
         });
@@ -136,7 +136,6 @@ export class SearchService {
       'Something bad happened; please try again later.'));
   }
 
-
   getDocumentId(query: string) {
     const reqBody = {
       "query": query,
@@ -146,7 +145,6 @@ export class SearchService {
     }
     return this.http.post<any>(`${environment.apiURL}/p1/initiate-vertexai-search`, reqBody)
       .pipe(catchError(this.handleError));
-
   }
 
   continueConversation(query: string, docId: string) {
@@ -158,8 +156,8 @@ export class SearchService {
     }
     return this.http.post<any>(`${environment.apiURL}/p1/initiate-vertexai-search`, reqBody)
       .pipe(catchError(this.handleError));
-
   }
+
   uploadImage(query: string, docId: string, image: string) {
     const reqBody = {
       "query": query,
@@ -169,7 +167,6 @@ export class SearchService {
     }
     return this.http.post<any>(`${environment.apiURL}/p1/initiate-vertexai-search`, reqBody)
       .pipe(catchError(this.handleError));
-
   }
 
   uploadImageOnInitialSearch(query: string, image: string) {
@@ -181,8 +178,5 @@ export class SearchService {
     }
     return this.http.post<any>(`${environment.apiURL}/p1/initiate-vertexai-search`, reqBody)
       .pipe(catchError(this.handleError));
-
   }
-
-
 }

@@ -1,0 +1,105 @@
+/**
+ * Copyright 2024 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+.orderInput {
+    color: #041E49;
+    text-align: center;
+    font-family: "Google Sans";
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+
+.returnServiceTitle {
+    color: #041E49;
+    font-family: "Google Sans";
+    font-size: 28px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.receiptId {
+    border-radius: 33px;
+    border: 1px solid #000;
+    background: #FFF;
+    width: 479px;
+    height: 66px;
+    flex-shrink: 0;
+    padding: 0px 20px;
+}
+
+.content {
+    padding: 3px 5px;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    width: 100%
+}
+
+.footer {
+    padding: 3px 15px;
+}
+
+.errorMsg {
+    margin-top: 30px;
+    color: #FFA0A0;
+    font-family: Google Sans;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    display: flex;
+    justify-content: center;
+}
+
+.cloud {
+    width: 300px;
+    aspect-ratio: 1;
+    --g: /51.02% 51.02% radial-gradient(#000 calc(71% - 1px), #0000 71%) no-repeat;
+    mask: 99.681% 55.643% var(--g), 59.985% 98.993% var(--g), 6.491% 74.636% var(--g), 13.124% 16.233% var(--g), 70.719% 4.495% var(--g), radial-gradient(100% 100%, #000 25.476%, #0000 calc(25.476% + 1px));
+    background: radial-gradient(#cfdbf8, #FFF);
+    position: absolute;
+    top: 30%;
+    right: 0px;
+    overflow: hidden;
+    z-index: -1;
+}
+
+.homeBtn {
+    background: #A0BBFF;
+    border-radius: 100px;
+    padding: 4px 6px 8px 6px;
+    margin-bottom: 6px;
+    cursor: pointer;
+}
+
+app-order-details {
+    width: 100%;
+}
+
+.bottom-left {
+    bottom: 0;
+    left: 0;
+}
+
+.border-none {
+    border: none;
+    background: transparent;
+}

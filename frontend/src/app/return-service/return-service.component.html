@@ -1,0 +1,48 @@
+<!--
+ Copyright 2024 Google LLC
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+
+<div class="body d-flex h-100 w-100 justify-content-center align-items-center">
+    <div style="position: absolute ; top: 0 ; left : 0px ; z-index: -1;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="363" height="343" viewBox="0 0 363 343" fill="none">
+            <path
+                d="M-48.5139 -54.0938C-42.9812 -106.745 9.76383 -140.982 60.1064 -124.601C83.591 -116.959 109.553 -120.108 130.273 -133.112C174.688 -160.988 234.771 -140.437 254.003 -90.7904C262.976 -67.6305 281.904 -49.1265 305.16 -40.7809C355.012 -22.8907 377.189 36.9736 350.829 82.5007C338.533 103.739 336.174 129.962 344.454 153.373C362.203 203.558 329.774 257.656 277.672 264.781C253.366 268.104 231.496 282.301 218.565 303.148C190.846 347.837 128.232 355.432 89.6203 318.789C71.6082 301.696 46.6959 293.175 22.2913 295.76C-30.0234 301.301 -75.6738 256.674 -71.7187 203.857C-69.8737 179.218 -79.0689 154.396 -96.5701 136.772C-134.086 98.9936 -128.397 35.749 -84.8537 6.52949C-64.5409 -7.10129 -51.0949 -29.5324 -48.5139 -54.0938Z"
+                fill="url(#paint0_linear_2739_2904)" />
+            <defs>
+                <linearGradient id="paint0_linear_2739_2904" x1="-11.0074" y1="-115.234" x2="252.378" y2="290.527"
+                    gradientUnits="userSpaceOnUse">
+                    <stop stop-color="#CBD9FF" />
+                    <stop offset="1" stop-color="#FAFBFF" />
+                </linearGradient>
+            </defs>
+        </svg>
+    </div>
+    <div class="d-flex flex-column justify-content-center align-items-center">
+        <div class="title">
+            <img src="assets/images/cymbal-customer-service-logo.svg" alt="Cymbal Customer Service Logo" height="41px">
+            <img src="assets/images/cymbal-text-logo.svg" alt="Cymbal Text Logo" class="ms-2 me-2 mt-1" height="41px">
+            Return Service
+        </div>
+        <div class="welcome">
+            Welcome!
+        </div>
+        <div>
+            <button class="startBtn" (click)="start()">Start</button>
+        </div>
+        <div style="overflow: hidden;">
+            <div class="cloud" style="position: absolute ; top:30%; right: 0px;overflow: hidden;z-index:-1"></div>
+        </div>
+    </div>
+</div><app-architecture [architecture]="architecture"></app-architecture>

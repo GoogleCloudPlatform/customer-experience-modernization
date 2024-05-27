@@ -37,15 +37,15 @@ from app.models.p1_model import (
     InitiateVertexAIRecommendationsResponse,
     InitiateVertexAISearchRequest,
     InitiateVertexAISearchResponse,
+    OrderRequest,
     SalesforceEmailSupportRequest,
     SalesforceEmailSupportResponse,
     SendEmailFromDocsRequest,
     TranslateTextRequest,
     TranslateTextResponse,
+    TriggerRecommendationEmailRequest,
     TriggerUnstructuredRecommendationsRequest,
     TriggerUnstructuredSearchRequest,
-    OrderRequest,
-    TriggerRecommendationEmailRequest
 )
 from app.utils import (
     utils_cloud_sql,
@@ -80,8 +80,15 @@ website_topic_path = publisher.topic_path(project_id, website_topic_id)
 recommendations_topic_id = config["recommendations"][
     "recommendations_topic_id"
 ]
+email_recommendation_topic_id = config["recommendations"][
+    "email_recommendation_topic_id"
+]
+email_template = config["recommendations"]["email_template"]
 recommendations_topic_path = publisher.topic_path(
     project_id, recommendations_topic_id
+)
+email_recommendation_topic_path = publisher.topic_path(
+    project_id, email_recommendation_topic_id
 )
 # ----------------------------------------------------------------------------#
 
@@ -419,11 +426,11 @@ def compare_products(data: CompareProductsRequest) -> HTMLResponse:
                 product_title_1=product_1["title"],
                 product_description_1=product_1["description"],
                 product_title_2=product_2["title"],
-                product_description_2=product_2["description"]
+                product_description_2=product_2["description"],
             ),
             temperature=0.2,
             top_k=40,
-            top_p=0.8
+            top_p=0.8,
         )
         return HTMLResponse(content=comparison)
     except GoogleAPICallError as e:
@@ -957,6 +964,7 @@ def trigger_unstructured_search(
 
     return "ok"
 
+
 # ---------------------------------POST---------------------------------------#
 @router.post(path="/add-order")
 def add_order(order: OrderRequest) -> str:
@@ -979,7 +987,7 @@ def add_order(order: OrderRequest) -> str:
     - user email
 
     **total_amount**: *float*
-    - Amount of order 
+    - Amount of order
 
     **is_delivery**: *boolean*
     - Home delivery
@@ -991,7 +999,7 @@ def add_order(order: OrderRequest) -> str:
     - scheduled pickup time
 
     ## Returns
-    - ok
+    - orderid
 
     ## Raises
     **HTTPException** - *400* - Error setting in Firestore
@@ -999,13 +1007,30 @@ def add_order(order: OrderRequest) -> str:
 
     """
     try:
-        db.collection("orders").document().set(order.model_dump())
+        doc = db.collection("orders").document()
+        doc.set(order.model_dump())
     except GoogleAPICallError as e:
         raise HTTPException(
             status_code=400, detail="Error setting in Firestore" + str(e)
         ) from e
+    try:
+        payload = json.dumps(
+            {
+                "email": order.email,
+                "user_id": order.user_id,
+                "documents": order.order_items,
+            }
+        ).encode("utf-8")
+        future = publisher.publish(email_recommendation_topic_path, payload)
+        future.result()
+    except GoogleAPICallError as e:
+        raise HTTPException(
+            status_code=400,
+            detail="Error publishing the message to pubsub. " + str(e),
+        ) from e
 
-    return "ok"
+    return str(doc.id)
+
 
 @router.post(path="/trigger-recommendation-email")
 def trigger_recommendation_email(
@@ -1030,50 +1055,60 @@ def trigger_recommendation_email(
     try:
         message = base64.b64decode(data.message["data"]).decode("utf-8")
         message_dict = json.loads(message)
-        print(message_dict)
+
     except Exception as e:
         raise HTTPException(
             status_code=400, detail="Could not load pubsub message. " + str(e)
         ) from e
 
-    if (
-        message_dict["event_type"] == "view-item"
-        and not message_dict["documents"]
-    ):
-        return "ok"
-
     results = []
-    if 1 == 1:
-        print("if 1=1")
-    else:
-        try:
-            documents = utils_recommendations.get_recommendations(
-                recommendations_type="others-you-may-like",
-                event_type='purchase',
-                user_pseudo_id=message_dict["user_id"],
-                documents=message_dict["documents"],
-                optional_user_event_fields=message_dict[
-                    "optional_user_event_fields"
-                ],
-            )
-            documents_dict = Message.to_dict(documents).get("results")
-
-            if not documents_dict:
-                raise FileNotFoundError("No documents returned")
-        except (FileNotFoundError, GoogleAPICallError) as e:
-            print(e)
-            results = utils_cloud_sql.get_random_products(size=3)
-        else:
-            results = utils_cloud_sql.get_products(
-                [doc["id"] for doc in documents_dict]
-            )
 
     try:
-        utils_workspace.send_email_single_thread("body email",message_dict['email'],"Thank you for ordering from Cymbal!")
+        documents = utils_recommendations.get_recommendations(
+            recommendations_type="others-you-may-like",
+            event_type="add-to-cart",
+            user_pseudo_id=message_dict["user_id"],
+            documents=[str(message_dict["documents"][0]["id"])],
+        )
+        documents_dict = Message.to_dict(documents).get("results")
+
+        if not documents_dict:
+            raise FileNotFoundError("No documents returned")
+    except (FileNotFoundError, GoogleAPICallError) as e:
+        print(e)
+        results = utils_cloud_sql.get_random_products(size=3)
+    else:
+        results = utils_cloud_sql.get_products(
+            [doc["id"] for doc in documents_dict]
+        )
+    try:
+        recommendation_email = email_template
+        i = 1
+        for record in results:
+            recommendation_email = recommendation_email.replace(
+                "{PRODUCT_TITLE_" + str(i) + "}", record["title"]
+            )
+            recommendation_email = recommendation_email.replace(
+                "{PRODUCT_CATEGORY_" + str(i) + "}", record["categories"][0]
+            )
+            recommendation_email = recommendation_email.replace(
+                "{PRODUCT_DESC_" + str(i) + "}", record["description"]
+            )
+            recommendation_email = recommendation_email.replace(
+                "{PRODUCT_IMG_" + str(i) + "}", record["image"]
+            )
+            i += 1
+
+        utils_workspace.send_email_single_thread(
+            recommendation_email,
+            message_dict["email"],
+            "Thank you for ordering from Cymbal!",
+        )
+
     except Exception as e:
         raise HTTPException(
             status_code=400,
-            detail="Error writing document to Firestore. " + str(e),
+            detail="Error sending email, " + str(e),
         ) from e
 
     return "ok"

@@ -209,9 +209,6 @@ export class ContentCreatorAddServiceComponent {
           thirdCtrl: this.title,
           fourthCtrl: this.description,
         })
-        console.log(this.secondFormGroup.value.thirdCtrl);
-
-
       });
     }
   }

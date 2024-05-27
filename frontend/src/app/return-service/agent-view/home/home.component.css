@@ -1,0 +1,312 @@
+/**
+ * Copyright 2024 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+.image {
+    width: 380px;
+    height: 308px;
+    border-radius: 25px;
+    border: 1px solid #000;
+    /* background: lightgray 50% / cover no-repeat; */
+}
+
+.welcome {
+    color: #041E49;
+    text-align: center;
+    font-family: "Google Sans";
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+
+.placed-order {
+    margin-top: 100px;
+    width: 772px;
+    text-align: center;
+}
+
+.returnServiceTitle {
+    color: #041E49;
+    font-family: "Google Sans";
+    font-size: 28px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.homeBtn {
+    background: #A0BBFF;
+    border-radius: 100px;
+    padding: 4px 6px 8px 6px;
+    margin-bottom: 6px;
+    cursor: pointer;
+}
+
+.receiptId {
+    border-radius: 33px;
+    border: 1px solid #000;
+    background: #FFF;
+    width: 479px;
+    height: 66px;
+    flex-shrink: 0;
+    padding: 0px 20px;
+    margin-bottom: 100px;
+}
+
+.content {
+    padding: 3px 5px;
+    height: 100%;
+}
+
+.footer {
+    padding: 3px 15px;
+    margin-top: -60px;
+}
+
+.errorMsg {
+    margin-top: 20px;
+    color: #FFA0A0;
+    font-family: Google Sans;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    display: flex;
+    justify-content: center;
+}
+
+.cloud {
+    width: 300px;
+    aspect-ratio: 1;
+    --g: /51.02% 51.02% radial-gradient(#000 calc(71% - 1px), #0000 71%) no-repeat;
+    mask: 99.681% 55.643% var(--g), 59.985% 98.993% var(--g), 6.491% 74.636% var(--g), 13.124% 16.233% var(--g), 70.719% 4.495% var(--g), radial-gradient(100% 100%, #000 25.476%, #0000 calc(25.476% + 1px));
+    background: radial-gradient(#cfdbf8, #FFF);
+}
+
+
+.container {
+    position: relative;
+    /* width: 100%; */
+    max-width: 400px;
+}
+
+.container img {
+    width: 380px;
+    height: 308px;
+    border-radius: 25px;
+    border: 1px solid #000;
+}
+
+.container video {
+    width: 380px;
+    height: 308px;
+    border-radius: 25px;
+    border: 1px solid #000;
+}
+
+.container .btn {
+    position: absolute;
+    top: 85%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    text-align: center;
+    color: #202020;
+    text-align: center;
+    font-family: "Google Sans";
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 20px;
+    border-radius: 12px;
+    border: 2px solid #000;
+    background: #FFD55D;
+    display: flex;
+    width: 156px;
+    height: 31px;
+    justify-content: center;
+    align-items: center;
+}
+
+/* .container .btn:hover {
+    background-color: black;
+} */
+
+.container p {
+    position: absolute;
+    top: 25%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    color: white;
+    font-size: 16px;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.container div {
+    position: absolute;
+    top: 60%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    color: white;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.itemBorder {
+    border-radius: 47px;
+    background: #FFF;
+    box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.15);
+    width: 362px;
+    height: 557px;
+}
+
+.itemShadow {
+    width: 314px;
+    height: 404px;
+    margin: auto;
+    border-radius: 20px;
+    background: #FFF;
+    /* box-shadow: 4px 4px 40px 0px rgba(0, 0, 0, 0.15); */
+}
+
+.orderTitle {
+    color: #000;
+    font-family: "Google Sans";
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    margin: 0px 20px;
+}
+
+.title {
+    color: #041E49;
+    text-align: center;
+    font-family: "Google Sans";
+    font-size: 30px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin-top: 20px;
+}
+
+.orderPrice {
+    color: #000;
+    font-family: "Google Sans";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin: 0px 20px;
+}
+
+.product-item {
+    border-radius: 20px;
+    background: #FFF;
+    box-shadow: 4px 4px 8px 4px #00000026;
+    width: 295px;
+    height: 404px;
+    overflow-y: auto;
+    margin: 10px 30px 20px 0;
+
+    .product-item-content {
+        text-align: left;
+    }
+
+    .product-image {
+        margin-top: 30px;
+        width: 200px;
+        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23)
+    }
+}
+
+.return-dropdown {
+    border-radius: 33px;
+    border: 1px solid #041E49;
+    width: 249px;
+    height: 56px;
+    text-align: center;
+}
+
+.aiSuggestion {
+    border-radius: 25px;
+    border: 1px solid #000;
+    background: #FFF;
+    width: 574px;
+    height: 316px;
+    overflow: auto;
+    color: #041E49;
+    font-family: "Google Sans";
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    text-align: left;
+    padding: 20px;
+
+}
+
+.item-value {
+    color: #041E49;
+    font-family: "Google Sans";
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.item-title {
+    color: #041E49;
+    font-family: "Google Sans";
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+
+.resolveBtn {
+    border-radius: 12px;
+    border: 2px solid #000;
+    background: #A0BBFF;
+    width: 161px;
+    height: 40.588px;
+    color: #041E49;
+    text-align: center;
+    font-family: "Google Sans";
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+.orderTitle {
+    color: #041E49;
+    font-family: "Google Sans";
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}

@@ -78,10 +78,6 @@ mat-toolbar {
     border-radius: 17px;
 }
 
-::ng-deep .p-carousel .p-carousel-indicators {
-    display: none !important;
-}
-
 ::ng-deep .mat-step-header .mat-step-icon {
     background-color: rgba(77, 136, 255, 0.50);
 
@@ -196,10 +192,6 @@ mat-toolbar {
     height: 691px;
     border: 1px solid #EDF0F8;
     border-radius: 17px;
-}
-
-::ng-deep .p-carousel .p-carousel-indicators {
-    display: none !important;
 }
 
 .productLabel {

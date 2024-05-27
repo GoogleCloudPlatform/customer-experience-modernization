@@ -1,0 +1,89 @@
+/**
+ * Copyright 2024 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+.welcome {
+    color: #041E49;
+    text-align: center;
+    font-family: "Google Sans";
+    font-size: 100px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    height: 167px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.title {
+    color: #041E49;
+    font-family: "Google Sans";
+    font-size: 43px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.startBtn {
+    border-radius: 33px;
+    background: #A0BBFF;
+    box-shadow: 4px 4px 10px 0px rgba(0, 0, 0, 0.15);
+    color: #041E49;
+    text-align: center;
+    font-family: "Google Sans";
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 266px;
+    height: 66px;
+    border: none;
+}
+
+.container {
+    width: 400px;
+    margin: 0 auto;
+    margin-top: 150px;
+}
+
+/* .body {
+    height: 100%;
+    background-image: url(../../assets/images/cloud.svg);
+    background-repeat: no-repeat, no-repeat;
+    background-position: right 3em bottom 10px;
+} */
+
+.cloud {
+    width: 300px;
+    aspect-ratio: 1;
+    --g: /51.02% 51.02% radial-gradient(#000 calc(71% - 1px), #0000 71%) no-repeat;
+    mask: 99.681% 55.643% var(--g), 59.985% 98.993% var(--g), 6.491% 74.636% var(--g), 13.124% 16.233% var(--g), 70.719% 4.495% var(--g), radial-gradient(100% 100%, #000 25.476%, #0000 calc(25.476% + 1px));
+    background: radial-gradient(#cfdbf8, #FFF);
+}
+
+.footer {
+    float: right;
+    width: 20%;
+    z-index: 1;
+    padding: 3px 15px;
+}

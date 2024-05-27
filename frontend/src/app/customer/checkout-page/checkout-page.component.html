@@ -14,7 +14,7 @@
  limitations under the License.
 -->
 
-<div style="margin:20px">
+<div style="margin:20px" *ngIf="!showOrderSuccess">
     <mat-divider></mat-divider>
     <div class="d-flex justify-content-center">
         <div class="d-flex flex-column col-md-4">
@@ -61,18 +61,18 @@
                 <div *ngIf="pickUpInStore" class="d-flex flex-column">
                     <div>
                         <span class="pickup-label">Pick up at Cymbal Furniture</span>
-                        <div class="d-flex justify-content-between">
+                        <div class="d-flex justify-content-between" style="margin-top: 10px;">
                             <span>5 Lionel Street, Brooklyn, 11224</span>
                         </div>
                     </div>
-                    <div style="margin-top: 30px;">
+                    <div style="margin-top: 20px;">
                         <span class="pickup-label">Pick up date and time</span>
-                        <div class="d-flex flex-column justify-content-between" *ngIf="!isPickUpDateChange">
+                        <div class="d-flex flex-column justify-content-between" *ngIf="!isPickUpDateChange" style="margin-top: 10px;">
                             <span> {{purchaseStartDate | date : "fullDate"}}</span>
                             <span style="margin-top:10px">{{defaultPickUpTime}}</span>
                         </div>
                     </div>
-                    <div *ngIf="isPickUpDateChange">
+                    <div *ngIf="isPickUpDateChange" style="margin-top: 10px;">
                         <mat-form-field appearance="outline">
                             <input matInput [matDatepicker]="dobPicker" (click)="dobPicker.open()"
                                 (dateChange)="addEvent('change', $event)" [min]="minDate"
@@ -95,14 +95,15 @@
                             }
                         </mat-radio-group>
                     </div>
-                    <div>
+                    <div *ngIf="!isPickUpDateChange" style="margin-top: 20px;">
                         <button class="changeBtn" type="submit" (click)="changePickUpDate()">Change</button>
                     </div>
-                    <div style="margin-bottom:40px">
+                    <div style="margin-bottom:40px ; margin-top: 20px;">
                         <label class="delivery-form-title">Need help with assembly?</label>
-                        <div class="custom-control custom-checkbox">
+                        <div class="custom-control custom-checkbox" style="margin-top: 10px;">
                             <input type="checkbox" class="custom-control-input" id="email-quote"
-                                style="margin-right:10px">
+                                style="margin-right:10px" [(ngModel)]="isPickUpStoreEmailQuote"
+                                (change)="pickUpStoreEmailQuote(isPickUpStoreEmailQuote)" />
                             <label class="custom-control-label" for="email-quote"> Email me a quote and booking
                                 information</label>
                         </div>
@@ -153,83 +154,85 @@
                                 </div>
                             </div>
                         </div>
-                            <div class="col-md-12 mb-3">
-                                <label for="streetAddress" class="form-labels">Street address *</label>
-                                <input type="text" class="form-control" id="streetAddress" placeholder="" value=""
-                                    formControlName="streetAddress" required>
-                                <div *ngIf="purchaseDeliveryForm.controls['streetAddress'].invalid && purchaseDeliveryForm.controls['streetAddress'].touched"
-                                    class="alert alert-danger">
-                                    <div
-                                        *ngIf="purchaseDeliveryForm.controls['streetAddress'].invalid && purchaseDeliveryForm.controls['streetAddress'].touched">
-                                        streetAddress is required.
-                                    </div>
-                                </div>
-
-                                <div class="col-md-12 mb-3">
-                                    <label for="streetAddress2" class="form-labels">Street address 2</label>
-                                    <input type="text" class="form-control" id="streetAddress2" placeholder="" value=""
-                                        formControlName="streetAddress2">
+                        <div class="col-md-12 mb-3">
+                            <label for="streetAddress" class="form-labels">Street address *</label>
+                            <input type="text" class="form-control" id="streetAddress" placeholder="" value=""
+                                formControlName="streetAddress" required>
+                            <div *ngIf="purchaseDeliveryForm.controls['streetAddress'].invalid && purchaseDeliveryForm.controls['streetAddress'].touched"
+                                class="alert alert-danger">
+                                <div
+                                    *ngIf="purchaseDeliveryForm.controls['streetAddress'].invalid && purchaseDeliveryForm.controls['streetAddress'].touched">
+                                    streetAddress is required.
                                 </div>
                             </div>
-                            <div class="d-flex">
-                                <div class="col-md-6 mb-3" style="padding-right:20px">
-                                    <label for="city" class="form-labels">City *</label>
-                                    <input type="text" class="form-control" id="city" placeholder=""
-                                        formControlName="city" required>
-                                    <div *ngIf="purchaseDeliveryForm.controls['city'].invalid && purchaseDeliveryForm.controls['city'].touched"
-                                        class="alert alert-danger">
-                                        <div
-                                            *ngIf="purchaseDeliveryForm.controls['city'].invalid && purchaseDeliveryForm.controls['city'].touched">
-                                            city is required.
-                                        </div>
-                                    </div>
-                                    </div>
-                                    <div class="col-md-6 mb-3">
-                                        <label for="zip" class="form-labels">Zip *</label>
-                                        <input type="text" class="form-control" id="zip" placeholder=""
-                                            formControlName="zip" required>
-                                        <div *ngIf="purchaseDeliveryForm.controls['zip'].invalid && purchaseDeliveryForm.controls['zip'].touched"
-                                            class="alert alert-danger">
-                                            <div
-                                                *ngIf="purchaseDeliveryForm.controls['zip'].invalid && purchaseDeliveryForm.controls['zip'].touched">
-                                                zip is required.
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
 
-                                <div>
-                                    <label class="deliveryBtw">Delivery between</label>
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <label class="custom-control-label" for="date">{{purchaseStartDate | date :
-                                            "fullDate"}} - {{purchaseEndDate | date :
-                                            "fullDate"}}</label>
-                                        <button class="changeBtn" type="submit">Change</button>
+                            <div class="col-md-12 mb-3">
+                                <label for="streetAddress2" class="form-labels">Street address 2</label>
+                                <input type="text" class="form-control" id="streetAddress2" placeholder="" value=""
+                                    formControlName="streetAddress2">
+                            </div>
+                        </div>
+                        <div class="d-flex">
+                            <div class="col-md-6 mb-3" style="padding-right:20px">
+                                <label for="city" class="form-labels">City *</label>
+                                <input type="text" class="form-control" id="city" placeholder="" formControlName="city"
+                                    required>
+                                <div *ngIf="purchaseDeliveryForm.controls['city'].invalid && purchaseDeliveryForm.controls['city'].touched"
+                                    class="alert alert-danger">
+                                    <div
+                                        *ngIf="purchaseDeliveryForm.controls['city'].invalid && purchaseDeliveryForm.controls['city'].touched">
+                                        city is required.
                                     </div>
                                 </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="zip" class="form-labels">Zip *</label>
+                                <input type="text" class="form-control" id="zip" placeholder="" formControlName="zip"
+                                    required>
+                                <div *ngIf="purchaseDeliveryForm.controls['zip'].invalid && purchaseDeliveryForm.controls['zip'].touched"
+                                    class="alert alert-danger">
+                                    <div
+                                        *ngIf="purchaseDeliveryForm.controls['zip'].invalid && purchaseDeliveryForm.controls['zip'].touched">
+                                        zip is required.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
-                                <div style="margin-bottom:40px">
-                                    <label class="delivery-form-title">Need help with assembly?</label>
-                                    <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" class="custom-control-input" id="email-quote"
-                                            style="margin-right:10px" formControlName="emailQuote">
-                                        <label class="custom-control-label" for="email-quote"> Email me a quote and
-                                            booking
-                                            information</label>
-                                    </div>
-                                </div>
+                        <div style="margin-top: 20px;">
+                            <label class="deliveryBtw">Delivery between</label>
+                            <div class="d-flex justify-content-between align-items-center" style="margin-top: 10px;">
+                                <label class="custom-control-label" for="date">{{purchaseStartDate | date :
+                                    "fullDate"}} - {{purchaseEndDate | date :
+                                    "fullDate"}}</label>
+                                <!-- <button class="changeBtn" type="submit">Change</button> -->
+                            </div>
+                        </div>
+
+                        <div style="margin-bottom:40px ; margin-top: 20px;">
+                            <label class="delivery-form-title">Need help with assembly?</label>
+                            <div class="custom-control custom-checkbox" style="margin-top: 10px;">
+                                <input type="checkbox" class="custom-control-input" id="email-quote"
+                                    style="margin-right:10px" formControlName="emailQuote"
+                                    (change)="checkIsDeliveryEmailQuote(purchaseDeliveryForm.controls['emailQuote'].value)">
+                                <label class="custom-control-label" for="email-quote"> Email me a quote and
+                                    booking
+                                    information</label>
+                            </div>
+                        </div>
                     </form>
                 </div>
                 <div *ngIf="!isHomeDelivery && !pickUpInStore">
                     <label class="delivery-form-title">Need help with assembly?</label>
-                    <div class="custom-control custom-checkbox">
+                    <div class="custom-control custom-checkbox" style="margin-top: 10px;">
                         <input type="checkbox" class="custom-control-input" id="email-quote" style="margin-right:10px">
                         <label class="custom-control-label" for="email-quote"> Email me a quote and booking
                             information</label>
                     </div>
                 </div>
                 <div style="margin-top: 40px;" *ngIf="!isHomeDelivery">
-                    <button [ngClass]="pickUpInStore ? 'continueBtn' : 'continueBtnDisabled'" type="submit" (click)="continuePurchase()" [disabled]="!pickUpInStore">Continue</button>
+                    <button [ngClass]="pickUpInStore ? 'continueBtn' : 'continueBtnDisabled'" type="submit"
+                        (click)="continuePurchase()" [disabled]="!pickUpInStore">Continue</button>
                 </div>
                 <div style="margin-top: 40px;" *ngIf="isHomeDelivery">
                     <button [ngClass]="purchaseDeliveryForm.valid ? 'continueBtn' : 'continueBtnDisabled'" type="submit"
@@ -240,52 +243,14 @@
     </div>
     <div class="d-flex align-items-center justify-content-center">
         <app-home-product-carousel [categories]="categories"></app-home-product-carousel>
-
-        <!-- <div *ngIf="categories.length>0">
-
-            <div *ngFor="let category of categories" style="width:1382px">
-                <mat-divider class="mx-auto mt-3 mb-3"></mat-divider>
-
-                <p-carousel [value]="category?.products" [numVisible]="5" [numScroll]="1" [circular]="false"
-                    [responsiveOptions]="responsiveOptions">
-                    <ng-template pTemplate="header">
-                        <div class="category-title d-flex align-items-center mb-3" style="margin-left:40px">
-                            {{category?.categoryTitle}}
-                            <button *ngIf="category?.assistant" class="shopping-assi-btn mx-2">
-                                <span class="google-symbols">
-                                    spark
-                                </span>Shopping Assistant
-                            </button>
-                        </div>
-                    </ng-template>
-                    <ng-template let-product pTemplate="item">
-                        <div>
-                            <div style="width:200px">
-                                <img *ngIf="!category?.placeholder" class="flex-auto d-md-block carousel-image"
-                                    data-src="{{product?.image}}" alt="image">
-                                <svg *ngIf="category?.placeholder" class="product-images flex-auto d-none d-md-block"
-                                    width="100%" height="180" xmlns="http://www.w3.org/2000/svg" role="img"
-                                    aria-label="Placeholder" preserveAspectRatio="xMidYMid slice" focusable="false">
-                                    <title>Placeholder</title>
-                                    <rect width="100%" height="100%" fill="#868e96"></rect>
-                                </svg>
-                            </div>
-                            <div class="d-flex flex-column align-items-start placeholder-glow">
-                                <span class="product-name"
-                                    [ngClass]="{'placeholder col-md-6':category?.placeholder}">{{product?.title |
-                                    uppercase
-                                    }}</span>
-                                <span class="product-category"
-                                    [ngClass]="{'placeholder col-md-6':category?.placeholder}">{{product?.categories}}</span>
-                                <span class="price"
-                                    [ngClass]="{'placeholder col-md-6':category?.placeholder}">{{product?.price
-                                    | currency}}</span>
-                            </div>
-                        </div>
-                    </ng-template>
-                </p-carousel>
-            </div>
-        </div> -->
-
     </div>
+</div>
+
+<div *ngIf="showOrderSuccess" class="text-center">
+    <br>
+    <h5 class="m-3">Order Placed Successfully</h5>
+    <br>
+    <h5 class="m-3">Your Order ID : <b>{{orderId}}</b></h5>
+    <br>
+    <h5 class="m-3">Thank you for shopping with us!</h5>
 </div>

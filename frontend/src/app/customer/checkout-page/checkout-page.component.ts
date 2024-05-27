@@ -15,12 +15,12 @@
  */
 
 import { CurrencyPipe, DatePipe, NgClass, NgFor, NgIf, UpperCasePipe } from '@angular/common';
-import { Component, EventEmitter, Input, OnInit, Output, inject } from '@angular/core';
+import { AfterContentChecked, Component, EventEmitter, Input, OnInit, Output, inject } from '@angular/core';
 import { FormGroup, FormControl, ReactiveFormsModule, Validators, FormsModule } from '@angular/forms';
 import { MatDividerModule } from '@angular/material/divider';
 import { RecommendationsService } from '../../shared/services/recommendations.service';
 import { Auth, user, User } from '@angular/fire/auth';
-import { Subscription, async, of } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { HomeProductCarouselComponent } from '../home-product-carousel/home-product-carousel.component';
 import { CarouselModule } from 'primeng/carousel';
 import { TruncatePipe } from '../../shared/pipes/truncate.pipe';
@@ -56,7 +56,7 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
   styleUrl: './checkout-page.component.css',
   providers: [DatePipe]
 })
-export class CheckoutPageComponent implements OnInit {
+export class CheckoutPageComponent implements OnInit , AfterContentChecked{
   @Input() products: any;
   totalPrice = 0;
   isHomeDelivery: boolean = false;
@@ -65,7 +65,7 @@ export class CheckoutPageComponent implements OnInit {
   purchaseStartDate: any;
   defaultPickUpTime: string = '6:00 PM - 7:00 PM';
   pickupTimeSlots: string[] = ['6:00 PM - 7:00 PM', '7:00 PM - 8:00 PM', '8:00 PM - 9:00 PM'];
-
+  isPickUpStoreEmailQuote: boolean = false;
   purchaseDeliveryForm = new FormGroup({
     firstName: new FormControl('John', [Validators.required]),
     lastName: new FormControl('Doe', [Validators.required]),
@@ -73,7 +73,7 @@ export class CheckoutPageComponent implements OnInit {
     streetAddress2: new FormControl(''),
     city: new FormControl('New York', [Validators.required]),
     zip: new FormControl('90000', [Validators.required]),
-    emailQuote: new FormControl('')
+    emailQuote: new FormControl()
   });
   purchaseEndDate!: Date;
   private auth: Auth = inject(Auth);
@@ -97,13 +97,15 @@ export class CheckoutPageComponent implements OnInit {
   isPickUpDateChange: boolean = false;
   isPickUpAddressChange: boolean = false;
   @Output() emptyProducts = new EventEmitter<string>();
+  showEmailTemplate: boolean = false;
+  showOrderSuccess: boolean = false;
+  orderId!: string;
 
-  constructor(public recommendationsService: RecommendationsService, public datepipe: DatePipe, private snackBar: MatSnackBar) { }
+  constructor(public recommendationsService: RecommendationsService, public datepipe: DatePipe, private snackBar: MatSnackBar) {}
   ngOnInit() {
     this.userSubscription = this.user$.subscribe((aUser: User | null) => {
       //handle user state changes here. Note, that user will be null if there is no currently logged in user
       if (aUser) {
-        console.log(aUser);
         this.userId = aUser.uid;
         this.userEmail = aUser.email;
         if (this.products.length > 0 && this.userId) {
@@ -123,7 +125,9 @@ export class CheckoutPageComponent implements OnInit {
     this.purchaseEndDate = new Date(this.today.setDate(this.today.getDate() + 4));
     this.purchaseStartDate = futureDate;
     this.minDate = futureDate
-
+    if (this.products.length > 0) {
+      this.showOrderSuccess = false;
+    }
     this.products!.map((product: any) => {
       this.totalPrice += product.price;
     });
@@ -152,6 +156,11 @@ export class CheckoutPageComponent implements OnInit {
       }
     ];
   }
+  ngAfterContentChecked(){
+    if (this.products.length > 0) {
+      this.showOrderSuccess = false;
+    }
+  }
   homeDelivery() {
     this.isHomeDelivery = !this.isHomeDelivery;
     this.pickUpInStore = false;
@@ -169,7 +178,7 @@ export class CheckoutPageComponent implements OnInit {
     if (this.isHomeDelivery) {
       obj = {
         "order_date": this.datepipe.transform(today, 'YYYY-MM-dd'),
-        "order_status": "Inititated",
+        "order_status": "Initiated",
         "order_items": this.products,
         "user_id": this.userId,
         "email": this.userEmail,
@@ -182,7 +191,7 @@ export class CheckoutPageComponent implements OnInit {
     } else {
       obj = {
         "order_date": this.datepipe.transform(today, 'YYYY-MM-dd'),
-        "order_status": "Inititated",
+        "order_status": "Initiated",
         "order_items": this.products,
         "user_id": this.userId,
         "email": this.userEmail,
@@ -193,9 +202,11 @@ export class CheckoutPageComponent implements OnInit {
       }
     }
     this.recommendationsService.addOrder(obj).subscribe((res: any) => {
+      this.orderId = res
       this.products = [];
       this.totalPrice = 0
       this.emptyProducts.emit(this.products);
+      this.showOrderSuccess = true;
       this.showSnackbar("Order placed", 'Close', '4000')
     })
   }
@@ -214,7 +225,6 @@ export class CheckoutPageComponent implements OnInit {
     for (var item of this.products) {
       productIds.push(String(item.id));
     }
-    console.log(this.userId)
     await this.recommendationsService.getPurchaseRecommendationsDocumentId(
       "others-you-may-like",
       this.userId,
@@ -235,5 +245,14 @@ export class CheckoutPageComponent implements OnInit {
   }
   addEvent(type: string, event: MatDatepickerInputEvent<Date>) {
     this.purchaseStartDate = event.value
+  }
+
+  checkIsDeliveryEmailQuote(val: any) {
+    // if(val){
+    //   this.showEmailTemplate = true;
+    // }
+  }
+  pickUpStoreEmailQuote(isPickUpStoreEmailQuote: any) {
+    console.log(isPickUpStoreEmailQuote)
   }
 }

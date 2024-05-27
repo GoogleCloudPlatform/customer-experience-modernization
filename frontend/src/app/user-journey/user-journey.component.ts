@@ -67,7 +67,6 @@ export class UserJourneyComponent {
       "Marketing assets generation (text and image)",
       "Campaign Activation"
     ],
-
     userHome: "/customer-experience-analyst/home",
     userArchitecture: "/assets/architectures/p3_uj_csm.svg",
   },
@@ -80,10 +79,8 @@ export class UserJourneyComponent {
       "Response for customers inquiries with citations (grounding)",
       "Summarize historical conversations to enhance customer experience"
     ],
-
     userHome: "/customer-service-agent/home",
     userArchitecture: "/assets/architectures/p4_uj_1.svg",
-
   },
   {
     userId: "User journey 5",
@@ -98,8 +95,6 @@ export class UserJourneyComponent {
 
     userHome: "/contact-center-analyst/home",
     userArchitecture: "/assets/architectures/p5_uj_1.svg",
-
-
   },
 
   {
@@ -112,14 +107,21 @@ export class UserJourneyComponent {
 
     userHome: "/field-service-agent/home",
     userArchitecture: "/assets/architectures/p6_uj_1.svg",
+  },
+  {
+    userId: "User journey 7",
+    userImg: "/assets/persona-headshots/Field_Service_Agent.thumbnail",
+    userTitle: "Return Service",
+    userContent: [
+      "Image and video comparison using Gemini", 
+      "Audio understanding using Gemini",
+      "Product recommendations",
+      "User journey across multiple surfaces e.g. PoS, Tablet, mobile",
+    ],
+    userHome: "/return-service/guide",
+    userArchitecture: "/assets/architectures/p7_uj_1.svg",
   }
-
-
   ];
-
-  /*   greyOutUserJourneyList = [
-  
-    ] */
 
   constructor(public dialog: MatDialog) { }
 

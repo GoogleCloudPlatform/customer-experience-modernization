@@ -46,7 +46,7 @@ export class ContentCreatorServicePreviewComponent implements OnChanges {
 
     {
       breakpoint: '1540px',
-      numVisible: 1,
+      numVisible: 2,
       numScroll: 1
     },
 
@@ -57,7 +57,7 @@ export class ContentCreatorServicePreviewComponent implements OnChanges {
     },
     {
       breakpoint: '991px',
-      numVisible: 3,
+      numVisible: 2,
       numScroll: 1
     },
     {

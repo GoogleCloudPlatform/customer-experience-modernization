@@ -21,10 +21,6 @@
 }
 
 .search {
-    // display: flex;
-    // justify-content: start;
-    // align-items: start;
-    // padding: 10px;
     color: #FFFFFF;
 }
 
@@ -61,7 +57,7 @@
     height: 20px;
     top: 788px;
     left: 485px;
-    font-family: Google Sans;
+    font-family: "Google Sans";
     font-size: 20px;
     font-weight: 700;
     line-height: 20px;
@@ -89,21 +85,12 @@
     height: 108px;
     top: 218px;
     left: 700px;
-
-    font-family: Google Sans;
-    font-size: 20px;
-    font-weight: 700;
-    line-height: 27px;
-    letter-spacing: 0.10000000149011612px;
-    text-align: left;
-
     font-family: Google Sans;
     font-size: 20px;
     font-weight: 400;
     line-height: 27px;
     letter-spacing: 0.10000000149011612px;
     text-align: left;
-
     color: white;
 }
 
@@ -133,7 +120,6 @@
     letter-spacing: 0.10000000149011612px;
     text-align: left;
     color: #FFFFFF;
-
 }
 
 .user-text {
@@ -190,13 +176,6 @@
 }
 
 .login-user {
-    // position: absolute;
-    // display: flex;
-    // flex-direction: column;
-    // justify-content: center;
-    // align-items: center;
-    // left: 1450px;
-    // align-items: baseline;
     float: right;
     padding-right: 20px;
 }
@@ -213,7 +192,6 @@
 }
 
 .greyuserJourney{
-
     font-family: Google Sans;
     font-size: 20px;
     font-weight: 400;
@@ -258,7 +236,6 @@
     letter-spacing: 0.10000000149011612px;
     text-align: left;
     color: #B4B1B9
-
 }
 
 .greyuser-text {

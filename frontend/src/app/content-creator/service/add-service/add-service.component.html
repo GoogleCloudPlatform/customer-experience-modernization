@@ -84,18 +84,11 @@
 									<mat-label class="title">Image</mat-label>
 									<div *ngIf="imageDisplay">
 										<div class="col-12 product-background-img d-flex">
-											<!-- <p-carousel [value]="previews" [numVisible]="2" [numScroll]="1" [circular]="false"
-												[responsiveOptions]="responsiveOptions">
-												<ng-template let-p pTemplate="item">
-													<div class="col-sm-6 mb-2 product-background-img align-margin"> -->
 											<span class="card flex-md-row mb-4 me-2 card-border"
 												*ngFor="let p of previews">
 												<img class=" card-img-right product-images m-2 flex-auto d-none d-md-block"
 													data-src="{{p}}" alt="Card image wrong">
 											</span>
-											<!-- </div>
-												</ng-template>
-											</p-carousel>  -->
 										</div>
 									</div>
 									<div>
