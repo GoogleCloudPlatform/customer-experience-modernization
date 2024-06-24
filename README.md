@@ -254,12 +254,13 @@ python media_event_generation.py
 
 This will generate a file named `full_media_events.jsonl` in a few seconds.
 
-Upload full_media_events.jsonl and [recommendations_products.jsonl](backend-apis/deployment_scripts/dataset/recommendation_products.jsonl) to Cloud Storage.
+Upload full_media_events.jsonl to Cloud Storage.
 
 [Create a recommendations app](https://cloud.google.com/generative-ai-app-builder/docs/create-app-data-store-media-recommendations) in Vertex AI Search and Conversations using the Console.
 Create 1 App for each model, but use the same datastore for all of them.
 
 - csm-media-rec-datastore - Datastore name.
+- Dataset: gs://csm-solution-dataset/metadata/media_recommendations_products.jsonl
 
 Apps Name
 
