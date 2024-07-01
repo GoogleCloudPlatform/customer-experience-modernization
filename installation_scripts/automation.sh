@@ -191,7 +191,7 @@ fi
 
 workspace_calendar_sa_secret=`cat sa_credentials.json`
 
-sed -i 's|terraform/state/secretmanager/|terraform/state/secretmanager/workspace-calendar-user|' terraform/secretManager/backend.tf
+# sed -i 's|terraform/state/secretmanager/|terraform/state/secretmanager/workspace-calendar-user|' terraform/secretManager/backend.tf
 
 ## Instead of having a single terraform for 2 secret versions, use 2 different terraform resources.
 ## Because if you re-run the script again, the creation fails, and terraform out always gives you previous value.
@@ -263,16 +263,17 @@ else
     echo "No firebase found"
 fi
 # Create a directory for global installations in your home folder
-mkdir -p ~/.npm-global
+# mkdir -p ~/.npm-global
 
 # Configure npm to use the new directory
-npm config set prefix '~/.npm-global'
+# npm config set prefix '~/.npm-global'
 
 # Add the following line to your profile or rc file (e.g., ~/.bashrc, ~/.zshrc)
-export PATH=~/.npm-global/bin:$PATH
-source ~/.bashrc
+# export PATH=~/.npm-global/bin:$PATH
+# source ~/.bashrc
 
 # End
+echo "Installing Firebase-tools"
 npm install -g firebase-tools --no-cache
 
 firebase login --no-localhost
