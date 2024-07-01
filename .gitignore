@@ -109,6 +109,8 @@ venv/
 ENV/
 env.bak/
 venv.bak/
+csm_automation_venv/
+installation_scripts/customer-services-modernization/
 
 # Spyder project settings
 .spyderproject
@@ -132,5 +134,17 @@ dmypy.json
 credential.json
 **/.firebase
 **/.firebaserc
+firebase.json
 
+# Secrets
+api_credentials.json
+sa_credentials.json
 token.json
+
+# Terraform
+terraform.tfstate
+terraform.tfstate.*
+.terraform
+
+# Generated files
+full_media_events.jsonl

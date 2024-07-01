@@ -1,0 +1,152 @@
+# Steps
+
+## Environment
+* NodeJS 18.19+
+* Python 3.11+
+
+## Google Cloud Project
+* Create a new GCP project
+```shell
+export WEB_HOST=localhost
+export GOOGLE_CLOUD_PROJECT=<YOUR PROJECT ID>
+
+gcloud config set project $GOOGLE_CLOUD_PROJECT
+
+gcloud services enable \
+  cloudapis.googleapis.com \
+  cloudbuild.googleapis.com \
+  cloudresourcemanager.googleapis.com \
+  cloudtrace.googleapis.com \
+  compute.googleapis.com \
+  container.googleapis.com \
+  containerregistry.googleapis.com \
+  iam.googleapis.com \
+  iamcredentials.googleapis.com \
+  run.googleapis.com
+
+gcloud services enable \
+  admin.googleapis.com \
+  aiplatform.googleapis.com \
+  appengine.googleapis.com \
+  appenginereporting.googleapis.com \
+  artifactregistry.googleapis.com \
+  bigquery.googleapis.com \
+  bigquerydatatransfer.googleapis.com \
+  bigquerymigration.googleapis.com \
+  bigquerystorage.googleapis.com \
+  containerfilesystem.googleapis.com \
+  datacatalog.googleapis.com \
+  datastore.googleapis.com \
+  dialogflow.googleapis.com \
+  discoveryengine.googleapis.com \
+  docs.googleapis.com \
+  drive.googleapis.com \
+  eventarc.googleapis.com \
+  fcm.googleapis.com \
+  fcmregistrations.googleapis.com
+
+gcloud services enable \
+  firebase.googleapis.com \
+  firebaseappdistribution.googleapis.com \
+  firebasedynamiclinks.googleapis.com \
+  firebasehosting.googleapis.com \
+  firebaseinstallations.googleapis.com \
+  firebaseremoteconfig.googleapis.com \
+  firebaseremoteconfigrealtime.googleapis.com \
+  firebaserules.googleapis.com \
+  firebasestorage.googleapis.com \
+  firestore.googleapis.com \
+  iap.googleapis.com \
+  identitytoolkit.googleapis.com \
+  language.googleapis.com \
+  logging.googleapis.com \
+  looker.googleapis.com \
+  mobilecrashreporting.googleapis.com \
+  monitoring.googleapis.com \
+  notebooks.googleapis.com \
+  oslogin.googleapis.com
+
+gcloud services enable \
+  pubsub.googleapis.com \
+  runtimeconfig.googleapis.com \
+  secretmanager.googleapis.com \
+  securetoken.googleapis.com \
+  servicemanagement.googleapis.com \
+  serviceusage.googleapis.com \
+  sourcerepo.googleapis.com \
+  sqladmin.googleapis.com \
+  storage-api.googleapis.com \
+  storage-component.googleapis.com \
+  storage.googleapis.com \
+  translate.googleapis.com \
+  vision.googleapis.com
+```
+
+* For Googlers only
+  - Disable `Disable Service Key Creation` Org policy.
+  - Set `Domain Restricted Sharing` Org policy to `Allow All`.
+* Configure Consent Screen
+    - Add the user email to `Test Users`
+* Create an OAuth 2.0 Client Credential and download the key as `api_credentials.json`
+    - Application Type: Desktop app
+
+* Service Account Role Assignment - Default Compute Engine Service Account (`$PROJECT_NUMBER-compute@developer.gserviceaccount.com`)
+  - Cloud Build
+    - Artifacts Registry Writer
+    - Artifacts Registry Admin
+    - Storage Object Viewer
+    - Storage Object Admin
+    - Storage Admin
+  - Cloud Run
+    - Discovery Engine Admin
+    - Secret Manager Secret Accessor
+
+## Firebase
+* Register the Google Cloud Project to Firebase.
+  - Enable Firebase analytics.
+
+* Register Web App
+  - Goto [Firebase console](https://firebase.corp.google.com).
+  - On the left panel, `Project Overview`, `Project Settings`.
+  - On the middle panel, scroll down to `Your Apps`. Create a new Web App.
+    - App nickname: Your project Id.
+    - Check `Also set up Firebase Hosting for this app`. 
+
+* Add Authentication Method
+  - Go to [Firebase console](https://firebase.corp.google.com).
+  - Select your project.
+  - Scroll down to `Accelerate app development`, `Authentication`, `Get Started`.
+  - In `Sign-in providers`, Enable `Google` Authentication method and Save.
+
+* Add Authorized Domain.
+   - Go to Firebase console -> Authentication -> Settings -> Authorized domains tab.
+   - Scroll down to `Authorized Domains`, add `<PROJECT_ID>.web.app`.
+
+* Add Analytics
+  - On the left panel, expend `Analytics`.
+
+## Deployment
+* Create Python environment
+```shell
+cd installation_scripts
+
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+```
+* Generate Media Events
+This will take several minutes.
+```shell
+python3 media_event_generation.py 
+```
+
+* Create a Firestore database
+```shell
+gcloud firestore databases create --location=nam5 --type=firestore-native --project=$GOOGLE_CLOUD_PROJECT
+```
+
+* Run `automation.sh`
+```shell
+
+. automation.sh
+```

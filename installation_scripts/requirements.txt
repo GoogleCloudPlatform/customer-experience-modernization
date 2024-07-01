@@ -1,0 +1,9 @@
+google-cloud-pubsub
+google-auth
+google-auth-oauthlib
+google-api-python-client
+google-cloud-aiplatform
+google-cloud-discoveryengine
+google-cloud-storage
+google-cloud-firestore
+pandas==2.2.2
