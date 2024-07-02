@@ -15,7 +15,7 @@ gcloud config set project $PROJECT_ID
 
 if [ -e api_credentials.json ]; then
     echo "creating user credentials..."
-    python create_user_credentails.py --file_name="api_credentials.json"
+    python3 create_user_credentails.py --file_name="api_credentials.json"
 else
     echo "required api_credentials.json file is not found, so Please add the file with credentials"
     exit
@@ -31,26 +31,18 @@ fi
 
 ### Persona 1
 
-# if [ ! -d "customer-services-modernization" ]; then
-#     gcloud source repos clone customer-services-modernization --project=rl-llm-dev
-# else
-#     rm -rf customer-services-modernization
-#     gcloud source repos clone customer-services-modernization --project=rl-llm-dev
-# fi
 rm -rf customer-services-modernization
 mkdir -p customer-services-modernization
 cp -r ../backend-apis ./customer-services-modernization
 cp -r ../frontend ./customer-services-modernization
 
-if [ ! -d "csm_automation_venv" ]; then   # Checking the Virtualenv folder exists or not
-   python3 -m venv csm_automation_venv    # Creating virtualenv  
-fi
+# if [ ! -d "csm_automation_venv" ]; then   # Checking the Virtualenv folder exists or not
+#    python3 -m venv csm_automation_venv    # Creating virtualenv  
+# fi
 
-source csm_automation_venv/bin/activate   # activate Virtualenv
+# source csm_automation_venv/bin/activate   # activate Virtualenv
 
-pip install -U google-cloud-datacatalog google-cloud-storage google-cloud-bigquery numpy google-api-python-client google.cloud google.auth google-cloud-discoveryengine google-cloud-dialogflow-cx pandas google-cloud-firestore google-cloud-pubsub google-cloud-aiplatform google_auth_oauthlib
-
-
+# pip install -U google-cloud-datacatalog google-cloud-storage google-cloud-bigquery numpy google-api-python-client google.cloud google.auth google-cloud-discoveryengine google-cloud-dialogflow-cx pandas google-cloud-firestore google-cloud-pubsub google-cloud-aiplatform google_auth_oauthlib
 
 PROJECT_NUMBER=`gcloud projects describe $PROJECT_ID --format="value(projectNumber)"` 
 
@@ -59,41 +51,38 @@ sed -i "s|images_bucket_name = \"\"|images_bucket_name = '${PROJECT_ID}.appspot.
 sed -i "s|project_number = \"\"|project_number = '${PROJECT_NUMBER}'|" customer-services-modernization/backend-apis/app/config.toml
 
 
-python vertex_search.py --project_id="${PROJECT_ID}" --location="${LOCATION}" --data_store_id="csm-search-datastore" --engine_id="csm-search-engine" --gcs_uri="gs://csm-solution-dataset/metadata/search_products.jsonl"
+python3 vertex_search.py --project_id="${PROJECT_ID}" --location="${LOCATION}" --data_store_id="csm-search-datastore" --engine_id="csm-search-engine" --gcs_uri="gs://csm-solution-dataset/metadata/search_products.jsonl"
 
-python media_event_generation.py
+python3 media_event_generation.py
 
-python vertex_recommendation_search.py --project_id="${PROJECT_ID}" --location="${LOCATION}" --recommendatation_type="more-like-this" --data_store_id="csm-media-rec-datastore" --engine_id="csm-media-more-like-this"
+python3 vertex_recommendation_search.py --project_id="${PROJECT_ID}" --location="${LOCATION}" --recommendatation_type="more-like-this" --data_store_id="csm-media-rec-datastore" --engine_id="csm-media-more-like-this"
 
-python vertex_recommendation_search.py --project_id="${PROJECT_ID}" --location="${LOCATION}" --recommendatation_type="most-popular-items" --data_store_id="csm-media-rec-datastore" --engine_id="csm-media-most-popular"
+python3 vertex_recommendation_search.py --project_id="${PROJECT_ID}" --location="${LOCATION}" --recommendatation_type="most-popular-items" --data_store_id="csm-media-rec-datastore" --engine_id="csm-media-most-popular"
 
-python vertex_recommendation_search.py --project_id="${PROJECT_ID}" --location="${LOCATION}" --recommendatation_type="others-you-may-like" --data_store_id="csm-media-rec-datastore" --engine_id="csm-media-others-you-maylike"
+python3 vertex_recommendation_search.py --project_id="${PROJECT_ID}" --location="${LOCATION}" --recommendatation_type="others-you-may-like" --data_store_id="csm-media-rec-datastore" --engine_id="csm-media-others-you-maylike"
 
-python vertex_recommendation_search.py --project_id="${PROJECT_ID}" --location="${LOCATION}" --recommendatation_type="recommended-for-you" --data_store_id="csm-media-rec-datastore" --engine_id="csm-media-rec-for-you"
+python3 vertex_recommendation_search.py --project_id="${PROJECT_ID}" --location="${LOCATION}" --recommendatation_type="recommended-for-you" --data_store_id="csm-media-rec-datastore" --engine_id="csm-media-rec-for-you"
 
 
 ### persona 5
 
 #### Vertex AI search
-python vertex_search.py --project_id="${PROJECT_ID}" --location="${LOCATION}" --data_store_id="p5-conversations-search-datastore" --engine_id="p5-conversations-search" --gcs_uri="gs://csm-solution-dataset/persona5/conversations_search_dataset.jsonl"
+python3 vertex_search.py --project_id="${PROJECT_ID}" --location="${LOCATION}" --data_store_id="p5-conversations-search-datastore" --engine_id="p5-conversations-search" --gcs_uri="gs://csm-solution-dataset/persona5/conversations_search_dataset.jsonl"
 
-python vertex_search.py --project_id="${PROJECT_ID}" --location="${LOCATION}" --data_store_id="p5-reviews-search-datastore" --engine_id="p5-reviews-search" --gcs_uri="gs://csm-solution-dataset/persona5/reviews_search_dataset.jsonl"
+python3 vertex_search.py --project_id="${PROJECT_ID}" --location="${LOCATION}" --data_store_id="p5-reviews-search-datastore" --engine_id="p5-reviews-search" --gcs_uri="gs://csm-solution-dataset/persona5/reviews_search_dataset.jsonl"
 
 #### Vertex AI Conversation
-python vertex_conversation.py --project="${PROJECT_ID}" --location="${LOCATION}" --app-name="p6-manuals-infobot" --company-name="CSM" --uris="" --datastore-storage-folder="gs://csm-solution-dataset/persona6/argolis_vertexai_search_products_manuals.jsonl"
+python3 vertex_conversation.py --project="${PROJECT_ID}" --location="${LOCATION}" --app-name="p6-manuals-infobot" --company-name="CSM" --uris="" --datastore-storage-folder="gs://csm-solution-dataset/persona6/argolis_vertexai_search_products_manuals.jsonl"
 
 
 ### persona 6
 
-python vertex_search.py --project_id="${PROJECT_ID}" --location="${LOCATION}" --data_store_id="p6-search-manuals-datastore" --engine_id="p6-search-manuals" --gcs_uri="gs://csm-solution-dataset/persona6/argolis_vertexai_search_products_manuals.jsonl"
+python3 vertex_search.py --project_id="${PROJECT_ID}" --location="${LOCATION}" --data_store_id="p6-search-manuals-datastore" --engine_id="p6-search-manuals" --gcs_uri="gs://csm-solution-dataset/persona6/argolis_vertexai_search_products_manuals.jsonl"
 
 ###### Firestore ####
 gcloud alpha firestore databases update --type=firestore-native --project=${PROJECT_ID}
 
-python firestore_upload_data.py
-# python Firestore_upload_data.py --file="full_conversations.jsonl" --collection_name="p5-conversations" --project_id="${PROJECT_ID}"
-# python Firestore_upload_data.py --file="customer_list.json" --collection_name="p5-customers" --project_id="${PROJECT_ID}"
-# python Firestore_upload_data.py --file="product_reviews.jsonl" --collection_name="p5-reviews" --project_id="${PROJECT_ID}"
+python3 firestore_upload_data.py
 
 #### Cloud SQL 
 cd terraform/cloudSql && terraform init && terraform apply --var "project_id=${PROJECT_ID}" --var "region=us-central1" --var "service_account_email=240348665850-compute@developer.gserviceaccount.com" --var "sql_instance_name=csm-instance" --var "gcs_bucket=csm_automation" --auto-approve
@@ -101,17 +90,17 @@ cd ../../
 gcloud sql import sql csm-instance gs://csm-solution-dataset/persona1/Cloud_SQL_Export.sql --project=${PROJECT_ID} --quiet
 
 ### Vector store setup
-python vertex_vector_store.py  --project_id="${PROJECT_ID}" --location="us-central1" --index_display_name="p5-conversations-index" --endpoint_display_name="p5-conversations-index-endpoint" --deploy_display_name="p5_conversations_index" --gcs_url="gs://csm-solution-dataset/persona5/conversations-embeddings/vertexai_conversations_embeddings.json"
+python3 vertex_vector_store.py  --project_id="${PROJECT_ID}" --location="us-central1" --index_display_name="p5-conversations-index" --endpoint_display_name="p5-conversations-index-endpoint" --deploy_display_name="p5_conversations_index" --gcs_url="gs://csm-solution-dataset/persona5/conversations-embeddings/vertexai_conversations_embeddings.json"
 
-python vertex_vector_store.py  --project_id="${PROJECT_ID}" --location="us-central1" --index_display_name="p5-reviews-index" --endpoint_display_name="p5-reviews-index-endpoint" --deploy_display_name="p5_reviews_index" --gcs_url="gs://csm-solution-dataset/persona5/reviews-embeddings/vertexai_reviews_embeddings.json"
+python3 vertex_vector_store.py  --project_id="${PROJECT_ID}" --location="us-central1" --index_display_name="p5-reviews-index" --endpoint_display_name="p5-reviews-index-endpoint" --deploy_display_name="p5_reviews_index" --gcs_url="gs://csm-solution-dataset/persona5/reviews-embeddings/vertexai_reviews_embeddings.json"
 
-python vertex_vector_store.py  --project_id="${PROJECT_ID}" --location="us-central1" --index_display_name="csm-multimodal-vector-search-index" --endpoint_display_name="csm-multimodal-vector-search-index-endpoint" --deploy_display_name="csm_multimodal_vector_search" --gcs_url="gs://csm-solution-dataset/persona1/vector_search_website/vector_website_products.jsonl"
+python3 vertex_vector_store.py  --project_id="${PROJECT_ID}" --location="us-central1" --index_display_name="csm-multimodal-vector-search-index" --endpoint_display_name="csm-multimodal-vector-search-index-endpoint" --deploy_display_name="csm_multimodal_vector_search" --gcs_url="gs://csm-solution-dataset/persona1/vector_search_website/vector_website_products.jsonl"
 
 ### creating pubsub topics
 
-python create_pubsub_topics.py --project_id="${PROJECT_ID}" --topic_id="website-recommendations"
+python3 create_pubsub_topics.py --project_id="${PROJECT_ID}" --topic_id="website-recommendations"
 
-python create_pubsub_topics.py --project_id="${PROJECT_ID}" --topic_id="website-search"
+python3 create_pubsub_topics.py --project_id="${PROJECT_ID}" --topic_id="website-search"
 
 
 sed -i "s|website_datastore_id = \"\"|website_datastore_id = 'csm-search-datastore'|" customer-services-modernization/backend-apis/app/config.toml
@@ -166,7 +155,7 @@ sed -i "s|project = \"\"|project = '${PROJECT_ID}'|" customer-services-moderniza
 sed -i "s|instance_name = \"csm-database\"|instance_name = 'csm-instance'|" customer-services-modernization/backend-apis/app/config.toml
 
 ######## Docs file in Gdrive
-python Create_GDrive_folder.py --folder_name="${GDRIVE_FOLDER_NAME}" --service_account_email="${SERVICE_ACCOUNT_EMAIL}"
+python3 Create_GDrive_folder.py --folder_name="${GDRIVE_FOLDER_NAME}" --service_account_email="${SERVICE_ACCOUNT_EMAIL}"
 
 GDRIVE_FOLDER_ID=`jq -r '.GDRIVE_FOLDER_ID' < marketingEnvValue.json`
 CSMDocID=`jq -r '.CSMDocID' < marketingEnvValue.json`
@@ -249,19 +238,21 @@ fi
 
 if [ ! -f "$(npm root -g)/firebase-tools" ]; then
     echo "Deleting exising firebase-tools"
-    NPM_PAGKAGE_ROOT_FOLDER=$(npm root -g)
-    FIREBASE_TOOL_PACKAGE_FOLDER="${NPM_PAGKAGE_ROOT_FOLDER}/firebase-tools"
-    rm -rf $FIREBASE_TOOL_PACKAGE_FOLDER
+    npm uninstall -g firebase-tools --force
+
+    # NPM_PAGKAGE_ROOT_FOLDER=$(npm root -g)
+    # FIREBASE_TOOL_PACKAGE_FOLDER="${NPM_PAGKAGE_ROOT_FOLDER}/firebase-tools"
+    # rm -rf $FIREBASE_TOOL_PACKAGE_FOLDER
 else
     echo "No firebase-tools found"
 fi
 
-if [ ! -f "$(which firebase)"]; then
-    echo "Deleting exising firebase"
-    rm -rf $(which firebase)
-else
-    echo "No firebase found"
-fi
+# if [ ! -f "$(which firebase)"]; then
+#     echo "Deleting exising firebase"
+#     rm -rf $(which firebase)
+# else
+#     echo "No firebase found"
+# fi
 # Create a directory for global installations in your home folder
 # mkdir -p ~/.npm-global
 
@@ -273,6 +264,7 @@ fi
 # source ~/.bashrc
 
 # End
+
 echo "Installing Firebase-tools"
 npm install -g firebase-tools --no-cache
 
@@ -314,17 +306,33 @@ sed -i "s|dfAgent: \"\"|dfAgent: '${CHAT_AGENT_ID}'|" customer-services-moderniz
 
 echo "Installing Firebase Cli"
 cd customer-services-modernization/frontend
-pwd
-npm install -g @angular/cli --no-cache
+rm -rf node_modules
+npm install -g @angular/cli@17.3.8 --no-cache
+npm install --save-dev @angular-devkit/build-angular@17.3.8 --no-cache
 
-rm -rf csm_automation_venv
-rm -rf ~/.npm/_cacache/
-npm uninstall @angular-devkit/build-angular --force --no-cache
-rm -rf ~/.npm/_cacache/
-npm install @angular-devkit/build-angular --force --no-cache
-rm -rf ~/.npm/_cacache/
+# rm -rf ~/.npm/_cacache/
+# npm uninstall @angular-devkit/build-angular --force --no-cache
+# rm -rf ~/.npm/_cacache/
+# npm install @angular-devkit/build-angular --force --no-cache
+# rm -rf ~/.npm/_cacache/
+
+# Package                         Version
+# ---------------------------------------------------------
+# @angular-devkit/architect       0.1703.8
+# @angular-devkit/build-angular   17.3.8
+# @angular-devkit/core            17.3.8
+# @angular-devkit/schematics      17.3.8
+# @angular/cdk                    17.3.10
+# @angular/cli                    17.3.8
+# @angular/fire                   17.1.0
+# @angular/google-maps            17.3.10
+# @angular/material               17.3.10
+# @schematics/angular             17.3.8
+# rxjs                            7.8.1
+# typescript                      5.4.5
+# zone.js                         0.14.7
 
 ng build
 cd dist/genai-csm-proj
 echo "Deploying Firebase web app"
-firebase deploy --only hosting -p browser --project ${PROJECT_ID} --force
+firebase deploy --only hosting -p customer-services-modernization/frontend/dist/genai-csm-proj/browser --project ${PROJECT_ID} --force

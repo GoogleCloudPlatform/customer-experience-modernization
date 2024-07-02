@@ -7,8 +7,9 @@
 ## Google Cloud Project
 * Create a new GCP project
 ```shell
-export WEB_HOST=localhost
+# export WEB_HOST=localhost
 export GOOGLE_CLOUD_PROJECT=<YOUR PROJECT ID>
+# export PATH=$PATH:$(dirname $(which npm))
 
 gcloud config set project $GOOGLE_CLOUD_PROJECT
 
@@ -115,17 +116,19 @@ gcloud services enable \
 * Add Authentication Method
   - Go to [Firebase console](https://firebase.corp.google.com).
   - Select your project.
-  - Scroll down to `Accelerate app development`, `Authentication`, `Get Started`.
+  - On the left panel, go to `Build`, `Authentication`, `Get Started`.
   - In `Sign-in providers`, Enable `Google` Authentication method and Save.
 
 * Add Authorized Domain.
    - Go to Firebase console -> Authentication -> Settings -> Authorized domains tab.
    - Scroll down to `Authorized Domains`, add `<PROJECT_ID>.web.app`.
 
-* Add Analytics
-  - On the left panel, expend `Analytics`.
-
 ## Deployment
+* If you use `nvm` to manage your NodeJS environment, ensure you have install and activate NodeJS 18.19+
+```shell
+nvm install 20.15.0
+nvm use 20.15.0
+```
 * Create Python environment
 ```shell
 cd installation_scripts
@@ -148,5 +151,5 @@ gcloud firestore databases create --location=nam5 --type=firestore-native --proj
 * Run `automation.sh`
 ```shell
 
-. automation.sh
+. automation.sh 2>&1 | tee run.log
 ```
