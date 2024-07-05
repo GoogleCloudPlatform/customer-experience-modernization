@@ -102,6 +102,10 @@ gcloud services enable \
     - Discovery Engine Admin
     - Secret Manager Secret Accessor
 
+* User IAM Role Assignmnet
+  - Users who will use the solution
+    - Firebase Viewer
+
 ## Firebase
 * Register the Google Cloud Project to Firebase.
   - Enable Firebase analytics.
@@ -152,4 +156,25 @@ gcloud firestore databases create --location=nam5 --type=firestore-native --proj
 ```shell
 
 . automation.sh 2>&1 | tee run.log
+```
+
+* Update Firebase database rule
+
+```
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /{document=**} {
+      allow write: if false;
+      allow read: if true;
+    }
+  }
+}
+```
+
+* Update Cloud SQL Permissions
+
+```sql
+grant select on csm.products to "<<PROJECT_NUMBER>>-compute";
 ```

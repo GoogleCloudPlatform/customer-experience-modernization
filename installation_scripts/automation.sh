@@ -10,6 +10,8 @@ read -p "Enter Project ID: " PROJECT_ID
 read -p "Enter your email id: " USER_EMAIL
 
 SERVICE_ACCOUNT_EMAIL="${SERVICE_ACCOUNT}@${PROJECT_ID}.iam.gserviceaccount.com"   # Do not modify this
+PROJECT_NUMBER=$(gcloud projects describe $PROJECT_ID  --format="value(projectNumber)")
+echo "* Project Number=${PROJECT_NUMBER}"
 
 gcloud config set project $PROJECT_ID 
 
@@ -85,7 +87,7 @@ gcloud alpha firestore databases update --type=firestore-native --project=${PROJ
 python3 firestore_upload_data.py
 
 #### Cloud SQL 
-cd terraform/cloudSql && terraform init && terraform apply --var "project_id=${PROJECT_ID}" --var "region=us-central1" --var "service_account_email=240348665850-compute@developer.gserviceaccount.com" --var "sql_instance_name=csm-instance" --var "gcs_bucket=csm_automation" --auto-approve
+cd terraform/cloudSql && terraform init && terraform apply --var "project_id=${PROJECT_ID}" --var "region=us-central1" --var "service_account_email=${PROJECT_NUMBER}-compute@developer.gserviceaccount.com" --var "sql_instance_name=csm-instance" --var "gcs_bucket=csm_automation" --auto-approve
 cd ../../
 gcloud sql import sql csm-instance gs://csm-solution-dataset/persona1/Cloud_SQL_Export.sql --project=${PROJECT_ID} --quiet
 
@@ -185,6 +187,7 @@ workspace_calendar_sa_secret=`cat sa_credentials.json`
 ## Instead of having a single terraform for 2 secret versions, use 2 different terraform resources.
 ## Because if you re-run the script again, the creation fails, and terraform out always gives you previous value.
 cd terraform/GWSsecretManager
+echo "*** terraform apply=>PROJECT_ID=${PROJECT_ID}"
 terraform init && terraform apply --var "project_id=${PROJECT_ID}" --var "gws_user_secret_name=workspace-calendar-user" --var "gws_user_secret_data=${workspace_calendar_secret}" --var "gws_sa_secret_name=workspace-calendar-sa" --var "gws_sa_secret_data=${workspace_calendar_sa_secret}" --auto-approve
 workspace_calendar_user_version="$(terraform output -raw gws_user_secret_version_id)"
 workspace_calendar_sa_version="$(terraform output -raw gws_sa_secret_version_id)"
@@ -224,14 +227,14 @@ if [[ $search_trigger_check > 0 ]]; then
     echo "trigger-unstructured-search trigger already exists"
 else
     echo "creating trigger-unstructured-search trigger"
-    gcloud eventarc triggers create trigger-unstructured-search --destination-run-service=csm-demo --destination-run-path=trigger-unstructured-search --destination-run-region=us-central1 --location=us-central1 --project=${PROJECT_ID} --event-filters="type=google.cloud.pubsub.topic.v1.messagePublished" --transport-topic=projects/${PROJECT_ID}/topics/website-search
+    gcloud eventarc triggers create trigger-unstructured-search --destination-run-service=csm-demo --destination-run-path=p1/trigger-unstructured-search --destination-run-region=us-central1 --location=us-central1 --project=${PROJECT_ID} --event-filters="type=google.cloud.pubsub.topic.v1.messagePublished" --transport-topic=projects/${PROJECT_ID}/topics/website-search
 fi
 
 recommendations_trigger_check=`echo "${triggers}" | sed 's|"||g' | cut -d'/' -f6 | grep -w "trigger-unstructured-recommendations" | wc -l`
 if [[ $recommendations_trigger_check > 0 ]]; then
     echo "trigger-unstructured-recommendations trigger already exists"
 else
-    gcloud eventarc triggers create trigger-unstructured-recommendations --destination-run-service=csm-demo --destination-run-path=trigger-unstructured-recommendations --destination-run-region=us-central1 --location=us-central1 --project=${PROJECT_ID} --event-filters="type=google.cloud.pubsub.topic.v1.messagePublished" --transport-topic=projects/${PROJECT_ID}/topics/website-recommendations
+    gcloud eventarc triggers create trigger-unstructured-recommendations --destination-run-service=csm-demo --destination-run-path=p1/trigger-unstructured-recommendations --destination-run-region=us-central1 --location=us-central1 --project=${PROJECT_ID} --event-filters="type=google.cloud.pubsub.topic.v1.messagePublished" --transport-topic=projects/${PROJECT_ID}/topics/website-recommendations
 fi
 
 # Fix permission denied when running `firebase login`

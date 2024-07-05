@@ -56,11 +56,16 @@ app.include_router(router=p6_field_service_agent.router)
 app.include_router(router=p7_return_agent.router)
 
 origins = [
-    "http://localhost:5000",
-    "http://localhost:8080",
-    "https://csm-frontend-nightly.web.app",
+    "*",
+    "https://kalschi-csm-5.web.app"
 ]
 
+
+@app.middleware("http")
+async def add_cors_headers(request, call_next):
+    response = await call_next(request)
+    response.headers["Access-Control-Allow-Origin"] = "*"
+    return response
 
 app.add_middleware(
     middleware_class=CORSMiddleware,
@@ -69,7 +74,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
 
 @app.get("/")
 @app.get("/customer/{path}")
