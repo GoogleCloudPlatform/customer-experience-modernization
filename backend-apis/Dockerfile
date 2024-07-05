@@ -15,7 +15,7 @@
 
 FROM python:3.12-slim
 
-ARG PROJECT_ID=<YOUR-PROJECT-ID>
+ARG PROJECT_ID=kalschi-csm-5
 # Allow statements and log messages to immediately appear in the Knative logs
 ENV PYTHONUNBUFFERED True
 ENV GOOGLE_CLOUD_PROJECT $PROJECT_ID

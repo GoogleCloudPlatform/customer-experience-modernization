@@ -1,0 +1,652 @@
+# Copyright 2023 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+[global]
+project_id = 'kalschi-csm-5'
+location = "us-central1"
+datastore_location = "global"
+serving_config_id = "default_config"
+images_bucket_name = 'kalschi-csm-5.appspot.com'
+project_number = '658069682209'
+
+
+[website_search]
+# Vertex AI Search Datastore ID
+website_datastore_id = 'csm-search-datastore'
+# Pubsub topic for website search
+website_topic_id = 'website-search'
+
+
+[workspace]
+# Google Calendar
+calendar_id = 'csm-sa@kalschi-csm-5.iam.gserviceaccount.com'
+# Cloud Run only supports one secret per directory
+calendar_scopes = ["https://www.googleapis.com/auth/calendar"]
+calendar_secret_id = 'projects/658069682209/secrets/workspace-calendar-user/versions/1'
+
+
+[search-persona5]
+conversations_datastore_id = "p5-conversations-search-datastore"
+reviews_datastore_id = "p5-reviews-search-datastore"
+product_manuals_datastore_id = "p6-search-manuals-datastore"
+
+text_embeddings_model = "textembedding-gecko@003"
+
+conversations_index_endpoint_id = '1250580127385911296'
+conversations_deployed_index_id = 'p5_conversations_index'
+conversations_vector_api_endpoint = '420826975.us-central1-658069682209.vdb.vertexai.goog'
+
+reviews_index_endpoint_id = '4806172033194917888'
+reviews_deployed_index_id = 'p5_reviews_index'
+reviews_vector_api_endpoint = '713086188.us-central1-658069682209.vdb.vertexai.goog'
+
+firestore_customers = "p5-customers"
+firestore_reviews = "p5-reviews"
+firestore_conversations = "p5-conversations"
+
+# Prompts for SINGLE conversation
+prompt_summary_conversation = """The following text is a conversation between a call center agent and a customer of an online furniture store.
+Create a concise and clear summary of the conversation below.
+conversation: {}
+
+output:"""
+
+prompt_insights_conversation = """The following text is a conversation between a call center agent and a customer of an online furniture store.
+From this conversation, provide some insights on what went well and what can be done to improve the user experience.
+conversation: {}
+
+output:"""
+
+prompt_pending_tasks_conversation = """The following text is a conversation between a call center agent and a customer of an online furniture store.
+Indicate if there are pending tasks from the customer and agent perspective.
+conversation: {}
+
+output:"""
+
+prompt_nbs_conversation = """The following text is a conversation between a call center agent and a customer of an online furniture store.
+Based on this conversation, select one or more of the next best actions listed below for the call center analyst. Explain why you chose that next best action.
+The main goal of the furniture store is to increase the hability of the customers to find information and resolve the issues by themselves and reduce the need to get in touch with the Call Center.. 
+Currently most of the users are following these steps before getting in touch with the Call Center and Product Specialist:
+User Steps: (1) Home Page (2) Product Page (3) Product FAQ (4) Product Manual (5) Search (6) Chatbot (7) Call Center (8) Product Specialist.
+
+conversation: {}
+
+Suggested list of next best actions:
+ - Personalize content and recommendations: Suggest relevant products, articles, or features based on user preferences and behavior.
+ - Provide loyalty programs and rewards: Incentivize continued engagement and encourage positive brand sentiment.
+ - Host webinars, workshops, or live events: Offer valuable learning opportunities and foster a sense of community.
+ - Run social media contests or giveaways: Generate buzz, increase brand awareness, and encourage user-generated content.
+ - Publish engaging blog posts or articles: Share valuable insights, tips, and success stories to educate and inspire users.
+ - Respond to user reviews and social media comments: Show you care about their feedback and address concerns promptly.
+ - Collect feedback on recent interactions or purchases: Get insights into their satisfaction and identify areas for improvement.
+ - Offer personalized support and guidance: Provide resources and assistance to help them maximize their experience.
+ - Run satisfaction surveys and NPS scores: Measure user loyalty and identify areas for improvement in the long term.
+ - Send re-engagement campaigns or targeted offers: Encourage repeat purchases or remind them of features they haven't used yet.
+ - Build a community forum or user group: Foster peer-to-peer support and knowledge sharing among users.
+ - Create personalized welcome messages or tutorials: Help users understand the value proposition and navigate the platform smoothly.
+ - Offer interactive onboarding experiences: Gamify the process or provide step-by-step guidance with rewards for completion.
+ - Send targeted email campaigns or in-app notifications: Guide users through key features and functionalities based on their usage patterns.
+ - Run user feedback surveys or polls: Gather real-time insights and act on them promptly to improve first impressions.
+ - Improve product documentation, FAQ page or product page.
+
+output:"""
+
+# Prompts for MULTIPLE conversations
+prompt_summary_multi_conversations = """The following text has multiple conversations between call center agents and customers of an online furniture store. 
+Create a concise and clear summary of the conversations below.
+conversations: {}
+
+output:"""
+
+prompt_insights_multi_conversations = """The following text has multiple conversations between call center agents and customers of an online furniture store. 
+From this conversations, provide some insights on what went well and what can be done to improve the user experience.
+conversations: {}
+
+output:"""
+
+prompt_pending_tasks_multi_conversations = """The following text has multiple conversations between call center agents and customers of an online furniture store.
+Indicate if there are pending tasks from the customers and agents perspective.
+conversation: {}
+
+output:"""
+
+prompt_nbs_multi_conversations = """The following text has multiple conversations between call center agents and customers of an online furniture store.
+Based on these conversations, select one or more of the next best actions listed below for the call center analyst. Explain why you chose that next best action.
+The main goal of the furniture store is to increase the hability of the customers to find information and resolve the issues by themselves and reduce the need to get in touch with the Call Center.. 
+Currently most of the users are following these steps before getting in touch with the Call Center and Product Specialist:
+User Steps: (1) Home Page (2) Product Page (3) Product FAQ (4) Product Manual (5) Search (6) Chatbot (7) Call Center (8) Product Specialist.
+conversations: {}
+
+Suggested list of next best actions:
+ - Personalize content and recommendations: Suggest relevant products, articles, or features based on user preferences and behavior.
+ - Provide loyalty programs and rewards: Incentivize continued engagement and encourage positive brand sentiment.
+ - Host webinars, workshops, or live events: Offer valuable learning opportunities and foster a sense of community.
+ - Run social media contests or giveaways: Generate buzz, increase brand awareness, and encourage user-generated content.
+ - Publish engaging blog posts or articles: Share valuable insights, tips, and success stories to educate and inspire users.
+ - Respond to user reviews and social media comments: Show you care about their feedback and address concerns promptly.
+ - Collect feedback on recent interactions or purchases: Get insights into their satisfaction and identify areas for improvement.
+ - Offer personalized support and guidance: Provide resources and assistance to help them maximize their experience.
+ - Run satisfaction surveys and NPS scores: Measure user loyalty and identify areas for improvement in the long term.
+ - Send re-engagement campaigns or targeted offers: Encourage repeat purchases or remind them of features they haven't used yet.
+ - Build a community forum or user group: Foster peer-to-peer support and knowledge sharing among users.
+ - Create personalized welcome messages or tutorials: Help users understand the value proposition and navigate the platform smoothly.
+ - Offer interactive onboarding experiences: Gamify the process or provide step-by-step guidance with rewards for completion.
+ - Send targeted email campaigns or in-app notifications: Guide users through key features and functionalities based on their usage patterns.
+ - Run user feedback surveys or polls: Gather real-time insights and act on them promptly to improve first impressions.
+ - Improve product documentation, FAQ page or product page.
+
+output:"""
+
+# Prompts for reviews
+prompt_summary_reviews = """The following text represents product reviews written by customers from an online furniture store.
+Create a concise and clear summary of the reviews below.
+reviews: {}
+
+output:"""
+
+prompt_insights_reviews = """The following text represents product reviews written by customers from an online furniture store.
+From this reviews, provide some insights on what went well and what can be done to improve the user experience.
+conversations: {}
+
+output:"""
+
+prompt_pending_tasks_reviews = """The following text represents product reviews written by customers from an online furniture store.
+Indicate if there are pending tasks described in one of the reviews.
+conversation: {}
+
+output:"""
+
+prompt_nbs_reviews = """The following text represents product reviews written by customers from an online furniture store.
+Based on these conversations, select one of the next best actions the customer analyst should take. Explain why you chose that next best action.
+conversations: {}
+
+Suggested list of next best actions:
+ - Personalize content and recommendations: Suggest relevant products, articles, or features based on user preferences and behavior.
+ - Provide loyalty programs and rewards: Incentivize continued engagement and encourage positive brand sentiment.
+ - Host webinars, workshops, or live events: Offer valuable learning opportunities and foster a sense of community.
+ - Run social media contests or giveaways: Generate buzz, increase brand awareness, and encourage user-generated content.
+ - Publish engaging blog posts or articles: Share valuable insights, tips, and success stories to educate and inspire users.
+ - Respond to user reviews and social media comments: Show you care about their feedback and address concerns promptly.
+ - Collect feedback on recent interactions or purchases: Get insights into their satisfaction and identify areas for improvement.
+ - Offer personalized support and guidance: Provide resources and assistance to help them maximize their experience.
+ - Run satisfaction surveys and NPS scores: Measure user loyalty and identify areas for improvement in the long term.
+ - Send re-engagement campaigns or targeted offers: Encourage repeat purchases or remind them of features they haven't used yet.
+ - Build a community forum or user group: Foster peer-to-peer support and knowledge sharing among users.
+ - Create personalized welcome messages or tutorials: Help users understand the value proposition and navigate the platform smoothly.
+ - Offer interactive onboarding experiences: Gamify the process or provide step-by-step guidance with rewards for completion.
+ - Send targeted email campaigns or in-app notifications: Guide users through key features and functionalities based on their usage patterns.
+ - Run user feedback surveys or polls: Gather real-time insights and act on them promptly to improve first impressions.
+
+output:"""
+
+
+[search]
+# Vertex AI Search Datastore ID
+p4_support_datastore_id = "p5-conversations-search-datastore"
+p4_salesforce_datastore_id = "p6-search-manuals-datastore"
+
+datastore_location = "global"
+serving_config = "default_config"
+datastore_parent = "projects/{}/locations/global/dataStores/{}"
+
+[salesforce]
+# Vertex AI Search for email support
+user_secret_name = 'projects/658069682209/secrets/workspace-calendar-user/versions/1'
+sa_secret_name = 'projects/658069682209/secrets/workspace-calendar-sa/versions/1'
+user_id = 'kalschi@google.com'
+
+username = ""
+password = ""
+security_token = ""
+
+website_uri = "https://kalschi-csm-5.web.app/customer/home?productId="
+
+# Scope for the Workspace API - don't change
+email_scopes = [
+    'https://www.googleapis.com/auth/gmail.modify',
+    'https://www.googleapis.com/auth/documents',
+    'https://www.googleapis.com/auth/script.projects',
+]
+workspace_scopes = [
+    'https://www.googleapis.com/auth/drive.file',
+    'https://www.googleapis.com/auth/drive',
+    'https://www.googleapis.com/auth/drive.resource',
+    'https://www.googleapis.com/auth/documents',
+]
+
+prompt_email_support = """Extract any questions, inquiries, instances of questioning, or orders from the input text below.
+Provide the output in the JSON format below.
+JSON format:
+{{
+    "questions_inquiries_orders": [
+        "Question, inquiry or order",
+        "Question, inquiry or order",
+        "Question, inquiry or order"
+    ]
+}}
+text: {}
+output:"""
+
+exception_email_response = """Dear customer {},
+Thank you for contacting the Cymbal support.
+An agent will analyze your request and get in touch soon to address your questions.
+Best regards,
+Cymbal support
+"""
+
+prompt_generate_reply = """The text below represents the description of two items. Provide a summary of both items in one sentence.
+Items:
+{references}
+output:"""
+
+prompt_talk_to_human = """<instructions>
+The text below is an email from a customer to a support center. Is the customer explicitly asking to talk to a human agent?
+Respond with True or False.
+</instructions>
+<conversation>
+{}
+</conversation>
+<output>
+"""
+
+# Vertex LLM Prompts
+rephrase_prompt_template = """You are a customer service agent that help customers from different countries,
+you rephrase the given paragraph in a professional and empathic manner in less than 50 words.
+
+paragraph:{}"""
+
+sf_summarize_prompt_template = """You are an expert customer service analyst. Given below are a list of historical cases with the reason why they were raised and the subject of the case.
+Based on the list of cases - analyse the products that the customer uses and what problems they have faced before so that we can learn more about the customer. Keep your response short, concise and precise and give valuable insights
+
+Historical cases raised:
+{}
+
+Unique Customer Attributes:"""
+
+chat_summarize_prompt_template = """The following text is a conversation between a call center agent and a customer of an online furniture store.
+Create a concise and clear summary of the conversation below.
+From this conversation, provide some insights on what went well and what can be done to improve the user experience.
+Indicate if there are pending tasks from the customer and agent perspective.
+conversation: {}
+
+output:"""
+
+chat_title_prompt_template = """The following text is a conversation between a call center agent and a customer of an online furniture store.
+Create a concise and clear title of the conversation below.
+conversation: {}
+
+output:"""
+
+auto_suggest_prompt_template = """The following text is a conversation between a call center agent and a customer of an online furniture store.
+Create a concise and clear query which can be asked to a product knowledge base based on Vertex Search.
+conversation: {}
+
+output:"""
+
+translate_text_prompt_template = """You are an language expert.
+You translate the input text to target language: {}
+
+input text: {}
+your translation:"""
+
+apps_script_code = "function sendId() {\n  var id = DocumentApp.getActiveDocument().getId();\n  var data = {\n  'docs_id': id\n  }\n\n  var options = {\n    'method' : 'post',\n    'contentType': 'application/json',\n    // Convert the JavaScript object to a JSON string.\n    'payload' : JSON.stringify(data)\n  };\n  UrlFetchApp.fetch('https://csm-demo-vhjulnw3ra-uc.a.run.app/p1/send-email-from-docs', options);\n}\n\nfunction onOpen() {\n  var ui = DocumentApp.getUi();\n  // Or DocumentApp or FormApp.\n  ui.createMenu('Send Email')\n      .addItem('Send email to Salesforce case', 'sendId')\n      .addToUi();\n}\n"
+
+# ID of the templates
+# Change this variables according to your Google Workspace settings
+drive_folder_id = 'null'  # example: "1MYB0Ybyo9XZERgIcjsdfeqO0SKqhrkvqMx"
+docs_template_id = 'null'
+
+
+[recommendations]
+# Vertex AI Recommendations
+rec_vertex_datastore_id = ""
+rec_app_id = ""
+media_rec_datastore_id = "csm-media-rec-datastore"
+media_rec_app_id.recommended-for-you = "csm-media-rec-for-you"
+media_rec_app_id.others-you-may-like = "csm-media-others-you-maylike"
+media_rec_app_id.more-like-this = "csm-media-more-like-this"
+media_rec_app_id.most-popular-items = "csm-media-most-popular"
+# Pubsub topic for Recommendations
+recommendations_topic_id = "website-recommendations"
+email_recommendation_topic_id = "email-recommendation"
+email_template = """<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Cymbal Email Template</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Google+Symbols:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+
+<body>
+    <div style="background: white">
+        <div class="d-flex justify-content-center align-items-center col-10 mx-auto" style="text-align: center;margin-bottom:20px">
+            <img src="https://storage.googleapis.com/csm-dataset/cymbal_logo.png" class="img-fluid rounded-start"
+                alt="..." style="width: 260px;height: 90px;">
+        </div>
+        <div style="text-align: center;font-family: Roboto;font-size: 24px;font-style: normal;font-weight: 700;line-height: 60px;letter-spacing: 0.5px;">
+            Thank you for ordering from Cymbal!
+            </div>
+        <div style="background: #D2BEDF; height:59px; color:#FFF ; text-align: center; color: #FFF;font-family: Roboto;font-size:24px;
+font-style: normal;font-weight: 700;line-height: 60px;letter-spacing: 0.5px;">
+UP TO 40% OFF - Recommended For You
+        </div>
+        
+        <div class="d-flex flex-column  justify-content-center align-items-center col-10 mx-auto"
+            style="margin-top:50px">
+            <table style="width: 100%;  margin:20px">
+        <tbody>
+            <tr>
+                <td> <img class="card-img-right flex-auto d-none d-md-block col-4"
+                        style="margin:0px 20px;border-radius: 10px;width: 389px;height: 371px; text-align:left; float:left"
+                        src="{PRODUCT_IMG_1}"
+                        alt="Card image cap">
+                </td>
+                <td>
+                    <div class="card-body d-flex flex-column align-items-start col-8" style=" margin:0px 20px">
+                        <p class="title" style="margin-top:0px ; font-family: 'Google Sans';font-size: 16px; font-style: normal;font-weight: 500; line-height: 24px;
+                    letter-spacing: 0.5px;">{PRODUCT_TITLE_1}</p>
+                        <p class="category"
+                            style="color: gray;font-family: 'Google Sans';font-size: 16px;font-style: normal;font-weight: 300;line-height: 24px;letter-spacing: 0.5px;">
+                        {PRODUCT_CATEGORY_1}</p>
+
+                        <!-- <p class="price"
+                        style="color: #000;font-family: 'Google Sans';font-size: 16px;font-style: normal;font-weight: 500;line-height: 24px;letter-spacing: 0.5px;margin-top: 11px;">
+                        $1999.0</p> -->
+                        <span class="description"
+                            style="color: #000;font-family: 'Google Sans';font-size: 18px;font-style: normal;font-weight: 300;line-height: 24px;letter-spacing: 0.5px;">
+                            {PRODUCT_DESC_1}
+
+                        </span>
+                        <button class="seeFullTourBtn" style="border-radius: 100px;background: var(--M3-sys-dark-primary, #D0BCFF);
+                color: var(--M3-sys-dark-on-primary, #381E72); text-align: center;font-family: 'Google Sans';font-size: 14px;font-style: normal;font-weight: 500;line-height: 20px;letter-spacing: 0.1px;border: none;height : 40px ; margin-top:20px ;
+    display: flex;padding: 10px 24px;margin-left: 10px;
+">see the full tour</button>
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <div style="margin:0px 20px">
+                        <p class="title" style="margin-top:0px ; font-family: 'Google Sans';font-size: 16px; font-style: normal;font-weight: 500; line-height: 24px;
+                letter-spacing: 0.5px;">{PRODUCT_TITLE_2}</p>
+                        <p class="category"
+                            style="color: gray;font-family: 'Google Sans';font-size: 16px;font-style: normal;font-weight: 300;line-height: 24px;letter-spacing: 0.5px;">
+                            {PRODUCT_CATEGORY_2}</p>
+
+                        <!-- <p class="price"
+                    style="color: #000;font-family: 'Google Sans';font-size: 16px;font-style: normal;font-weight: 500;line-height: 24px;letter-spacing: 0.5px;margin-top: 11px;">
+                    $1999.0</p> -->
+                        <span class="description"
+                            style="color: #000;font-family: 'Google Sans';font-size: 18px;font-style: normal;font-weight: 300;line-height: 24px;letter-spacing: 0.5px;">
+                            {PRODUCT_DESC_2}
+                        </span>
+                        <button class="seeFullTourBtn" style="border-radius: 100px;background: var(--M3-sys-dark-primary, #D0BCFF);
+            color: var(--M3-sys-dark-on-primary, #381E72); text-align: center;font-family: 'Google Sans';font-size: 14px;font-style: normal;font-weight: 500;line-height: 20px;letter-spacing: 0.1px;border: none;height : 40px ; margin-top:20px ;
+display: flex;padding: 10px 24px;margin-left: 10px;
+">see the full tour</button>
+                    </div>
+                </td>
+                <td><img style="margin:0px 20px;border-radius: 10px;width: 389px;height: 371px; text-align:left; float:left"
+                        src="{PRODUCT_IMG_2}"
+                        alt="Card image cap">
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <img class="card-img-right flex-auto d-none d-md-block col-4"
+                        style="margin:0px 20px;border-radius: 10px;width: 389px;height: 371px; text-align:left; float:left"
+                        src="{PRODUCT_IMG_3}"
+                        alt="Card image cap">
+                </td>
+                <td>
+                    <div style="margin:0px 20px">
+                        <p class="title" style="margin-top:0px ; font-family: 'Google Sans';font-size: 16px; font-style: normal;font-weight: 500; line-height: 24px;
+                letter-spacing: 0.5px;">{PRODUCT_TITLE_3}</p>
+                        <p class="category"
+                            style="color: gray;font-family: 'Google Sans';font-size: 16px;font-style: normal;font-weight: 300;line-height: 24px;letter-spacing: 0.5px;">
+                            {PRODUCT_CATEGORY_3}</p>
+
+                        <!-- <p class="price"
+                    style="color: #000;font-family: 'Google Sans';font-size: 16px;font-style: normal;font-weight: 500;line-height: 24px;letter-spacing: 0.5px;margin-top: 11px;">
+                    $1999.0</p> -->
+                        <span class="description"
+                            style="color: #000;font-family: 'Google Sans';font-size: 18px;font-style: normal;font-weight: 300;line-height: 24px;letter-spacing: 0.5px;">
+                            {PRODUCT_DESC_3}
+                            </span>
+                        <button class="seeFullTourBtn" style="border-radius: 100px;background: var(--M3-sys-dark-primary, #D0BCFF);
+            color: var(--M3-sys-dark-on-primary, #381E72); text-align: center;font-family: 'Google Sans';font-size: 14px;font-style: normal;font-weight: 500;line-height: 20px;letter-spacing: 0.1px;border: none;height : 40px ; margin-top:20px ;
+display: flex;padding: 10px 24px;margin-left: 10px;
+">see the full tour</button>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+            
+            <div class="text-center d-flex flex-column justify-content-center" style="text-align: center;">
+                <div>
+                    <svg width="170" height="24" viewBox="0 0 170 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M21 5C20.298 5.4051 18.8895 5.95719 18.0615 6.11643C18.0372 6.12255 18.0174 6.13043 17.994 6.13655C17.2623 5.43485 16.2597 5 15.15 5C12.9135 5 11.1 6.76301 11.1 8.93725C11.1 9.05187 11.0901 9.26273 11.1 9.37473C8.0823 9.37473 5.7855 7.83832 4.1385 5.87495C3.9594 6.31242 3.8811 7.00362 3.8811 7.65283C3.8811 8.87863 4.8666 10.0826 6.4011 10.8289C6.1185 10.8998 5.8071 10.9505 5.4831 10.9505C4.9602 10.9505 4.4067 10.8166 3.9 10.4107C3.9 10.4255 3.9 10.4395 3.9 10.4553C3.9 12.1684 5.7702 13.3347 7.4334 13.6593C7.0959 13.8527 6.4155 13.8719 6.0834 13.8719C5.8494 13.8719 5.0214 13.7678 4.8 13.7276C5.2626 15.1319 6.9312 15.9211 8.5215 15.9491C7.2777 16.8975 6.4146 17.2492 3.8676 17.2492H3C4.6092 18.2519 6.6585 19 8.7123 19C15.3993 19 19.2 14.0452 19.2 9.37473C19.2 9.29948 19.1982 9.14199 19.1955 8.98363C19.1955 8.96788 19.2 8.953 19.2 8.93725C19.2 8.91363 19.1928 8.89088 19.1928 8.86726C19.1901 8.74827 19.1874 8.63715 19.1847 8.5794C19.8957 8.08068 20.5122 7.4586 21 6.74989C20.3475 7.03162 19.6473 7.22061 18.912 7.30636C19.6626 6.86888 20.7291 5.82595 21 5Z"
+                            fill="black" />
+                        <path fill-rule="evenodd" clip-rule="evenodd"
+                            d="M53 8C53 5.239 55.239 3 58 3H66C68.761 3 71 5.239 71 8V16C71 18.761 68.761 21 66 21H58C55.239 21 53 18.761 53 16V8ZM69 6C69 5.448 68.552 5 68 5C67.448 5 67 5.448 67 6C67 6.552 67.448 7 68 7C68.552 7 69 6.552 69 6ZM62 7C64.761 7 67 9.239 67 12C67 14.761 64.761 17 62 17C59.239 17 57 14.761 57 12C57 9.239 59.239 7 62 7ZM59 12C59 10.3431 60.3431 9 62 9C63.6569 9 65 10.3431 65 12C65 13.6569 63.6569 15 62 15C60.3431 15 59 13.6569 59 12Z"
+                            fill="black" />
+                        <path
+                            d="M116.16 4.50998C112.068 3.83001 107.892 3.83001 103.8 4.50998C101.46 4.99998 100 6.50998 100 8.47998V15.48C100 17.48 101.46 18.97 103.84 19.48C105.876 19.8227 107.936 19.9966 110 20C112.07 19.9995 114.137 19.8289 116.18 19.49C118.5 19.05 120 17.49 120 15.49V8.48998C120 6.49998 118.5 4.93998 116.16 4.50998ZM113.26 12.45L108.26 15.45C108.182 15.4976 108.092 15.5219 108 15.52C107.913 15.5193 107.828 15.4988 107.75 15.46C107.671 15.4123 107.607 15.3445 107.563 15.2637C107.519 15.1829 107.497 15.0919 107.5 15V8.99998C107.501 8.91142 107.524 8.82452 107.568 8.74752C107.612 8.67051 107.674 8.60596 107.75 8.55998C107.828 8.51796 107.916 8.49598 108.005 8.49598C108.094 8.49598 108.182 8.51796 108.26 8.55998L113.26 11.56C113.332 11.6061 113.392 11.6696 113.433 11.7448C113.474 11.8199 113.496 11.9043 113.496 11.99C113.496 12.0757 113.474 12.16 113.433 12.2352C113.392 12.3103 113.332 12.3739 113.26 12.42V12.45Z"
+                            fill="black" />
+                        <path fill-rule="evenodd" clip-rule="evenodd"
+                            d="M151 3H165C166.105 3 167 3.895 167 5V19C167 20.105 166.105 21 165 21H151C149.895 21 149 20.105 149 19V5C149 3.895 149.895 3 151 3ZM152.477 17H155V10H152.477V17ZM153.694 8.71738C152.923 8.71738 152.408 8.20338 152.408 7.51738C152.408 6.83138 152.922 6.31738 153.779 6.31738C154.55 6.31738 155.065 6.83138 155.065 7.51738C155.065 8.20338 154.551 8.71738 153.694 8.71738ZM161.558 17H164V13.174C164 10.977 163.023 10 161.802 10C160.581 10 159.93 10.407 159.605 10.977V10H157.082V17H159.605V13.174C159.605 12.035 160.419 11.872 160.663 11.872C160.907 11.872 161.558 12.116 161.558 13.174V17Z"
+                            fill="black" />
+                    </svg>
+                </div>
+                <div class="PreferencesUnsubscribe"
+                    style="margin-top:40px;margin-bottom: 40px;color: black; font-size: 16px; font-family: 'Google Sans'; font-weight: 400; line-height: 24px; letter-spacing: 0.50px; word-wrap: break-word">
+                    Preferences | Unsubscribe</div>
+
+                <div class="d-flex justify-content-center align-items-center">
+                    <img src="https://storage.googleapis.com/csm-dataset/cymbal_logo.png"
+                        class="img-fluid rounded-start" alt="..." style="width: 175px;height: 60px;">
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
+
+"""
+
+
+[multimodal]
+multimodal_model = "multimodalembedding"
+index_endpoint_id = "7591806732397969408"
+deployed_index_id = "csm_deployed_index"
+vector_api_endpoint = "1212002304.us-central1-244831775715.vdb.vertexai.goog"
+prompt_with_query = """
+<Instructions>
+Answer the question below citing the index of the reference where you found the information.
+If you found the information in more than one reference, you can cite more than one index.
+</Instructions>
+<ConversationHistory>
+{history}
+</ConversationHistory>
+<Reference>
+{results}
+</Reference>
+<SampleOutputFormat>
+Some gaming chairs have 90° to 155° reclining positions and adjustable backrests to ensure comfort while gaming [1].
+Some also have Bluetooth speakers and a 2.4-inch height-adjustable backrest [3, 4].
+</SampleOutputFormat>
+<Question>
+{question}
+</Question>
+"""
+prompt_without_query = """
+<Instructions>
+Make a summary of the references below citing the index of the reference where you found the information.
+If you found the information in more than one reference, you can cite more than one index.
+</Instructions>
+<ConversationHistory>
+{history}
+</ConversationHistory>
+<Reference>
+{results}
+</Reference>
+<SampleOutputFormat>
+Some gaming chairs have 90° to 155° reclining positions and adjustable backrests to ensure comfort while gaming [1].
+Some also have Bluetooth speakers and a 2.4-inch height-adjustable backrest [3, 4].
+</SampleOutputFormat>
+"""
+
+[compare]
+prompt_compare = """Compare the products below. Output as a ✅ or ⛔️ table.
+Format the output as a HTML table, like the sample below.
+<Product1>
+{product_title_1}
+{product_description_1}
+</Product1>
+<Product2>
+{product_title_2}
+{product_description_2}
+</Product2>
+<SampleHTMLOutput>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Title of Product 1</th>
+<th>Title of Product 2</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Feature 1</td>
+<td>✅</td>
+<td>⛔️</td>
+</tr>
+</tbody>
+</table>
+</SampleHTMLOutput>
+<Output>"""
+
+[summary]
+prompt_product = """
+Make a summary of the text below:
+
+{product}
+"""
+
+prompt_reviews = """
+Make a summary of the reviews below:
+
+{reviews}
+"""
+
+
+[content_creation]
+prompt_features = """<instructions>
+Extract features of the product description below. Provide the output in JSON format.
+</instructions>
+<productDescription>
+{}
+</productDescription>
+<jsonOutputFormat>
+{{
+    "product_features": [
+        "feature 1", "feature 2", "feature 3"
+    ]
+}}
+</jsonOutputFormat>
+<output>"""
+
+prompt_categories = """<instructions>
+Extract all the categories of the product description below. Provide the output in the JSON format below.
+</instructions>
+<productDescription>
+{}
+</productDescription>
+<jsonOutputFormat>
+{{
+    "product_categories": [
+        "category 1", "category 2", "category 3"
+    ]
+}}
+</jsonOutputFormat>
+<output>"""
+
+prompt_title_description = """<instructions>
+Using the information from the product description below, generate a creative title and a long description for a product. The output must be in the JSON format below.
+This title and description will be used in a product page.
+</instructions>
+<productDescription>
+Product categories:
+{}
+Additional context:
+{}
+</productDescription>
+<jsonOutputFormat>
+{{
+    "title": "Title for the product, including as many details as possible",
+    "description": "Long and verbose description of the product with all the details and more"
+}}
+</jsonOutputFormat>
+<output>"""
+
+prompt_price = """<instructions>
+I am a retailer and I am selling a {}. What price range would you suggest for this product?
+Respond using the JSON format below.
+</instructions>
+<jsonOutputFormat>
+{{
+    "min": "minimum price for the product",
+    "max": "maximum price for the product"
+}}
+</jsonOutputFormat>
+<output>
+"""
+
+[field_service_agent]
+prompt_agent_activity = """
+<instructions>
+Using the information from the conversation below, generate a creative title and a long description for the field agent task. The output must be in the JSON format below.
+This title and description will be used to instruct the field agent.
+</instructions>
+<conversation>
+{}
+</conversation>
+<jsonOutputFormat>
+{{
+    "title": "Title for the field agent activity, including as many details as possible",
+    "description": "Long and verbose description of the field agent activity with all the details and more"
+}}
+</jsonOutputFormat>
+<output>
+"""
+
+[sql]
+db_user = '658069682209-compute'
+db_name = "csm"
+project = 'kalschi-csm-5'
+region = "us-central1"
+instance_name = 'csm-instance'

@@ -40,6 +40,7 @@ from app.models.p5_model import (
 )
 from app.utils import (
     utils_cloud_nlp,
+    utils_gemini,
     utils_palm,
     utils_search,
     utils_vertex_vector,
@@ -174,16 +175,16 @@ def generate_insights_conversations(
     input_text = json.dumps({"conversations": data.conversations})
 
     try:
-        summary = utils_palm.text_generation(
+        summary = utils_gemini.generate_gemini_pro_text(
             prompt=prompt_summary.format(input_text)
         )
-        insights = utils_palm.text_generation(
+        insights = utils_gemini.generate_gemini_pro_text(
             prompt=prompt_insights.format(input_text)
         )
-        pending_tasks = utils_palm.text_generation(
+        pending_tasks = utils_gemini.generate_gemini_pro_text(
             prompt=prompt_tasks.format(input_text)
         )
-        next_best_action = utils_palm.text_generation(
+        next_best_action = utils_gemini.generate_gemini_pro_text(
             prompt=prompt_nbs.format(input_text)
         )
     except GoogleAPICallError as e:
@@ -248,16 +249,16 @@ def generate_insights_reviews(
 
     input_text = json.dumps({"reviews": data.reviews})
     try:
-        summary = utils_palm.text_generation(
+        summary = utils_gemini.generate_gemini_pro_text(
             prompt=prompt_summary.format(input_text)
         )
-        insights = utils_palm.text_generation(
+        insights = utils_gemini.generate_gemini_pro_text(
             prompt=prompt_insights.format(input_text)
         )
-        pending_tasks = utils_palm.text_generation(
+        pending_tasks = utils_gemini.generate_gemini_pro_text(
             prompt=prompt_tasks.format(input_text)
         )
-        next_best_action = utils_palm.text_generation(
+        next_best_action = utils_gemini.generate_gemini_pro_text(
             prompt=prompt_nbs.format(input_text)
         )
     except GoogleAPICallError as e:

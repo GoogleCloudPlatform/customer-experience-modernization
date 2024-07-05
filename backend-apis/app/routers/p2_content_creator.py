@@ -37,7 +37,7 @@ from app.models.p2_model import (
     Product,
     Service,
 )
-from app.utils import utils_imagen, utils_palm, utils_vertex_vector
+from app.utils import utils_gemini, utils_palm, utils_imagen, utils_vertex_vector
 
 # ----------------------------------------------------------------------------#
 # Load configuration file (config.toml) and global configs
@@ -297,7 +297,7 @@ def detect_product_categories(
 
     try:
         images_feat_cat = asyncio.run(
-            utils_palm.run_predict_text_llm(
+            utils_gemini.run_predict_text_llm(
                 prompts=[
                     config["content_creation"]["prompt_features"].format(
                         "\n".join(imagen_captions)
@@ -534,7 +534,7 @@ def generate_title_description(
 
     """
     try:
-        response = utils_palm.text_generation(
+        response = utils_gemini.generate_gemini_pro_text(
             prompt=config["content_creation"][
                 "prompt_title_description"
             ].format(data.product_categories, data.context),

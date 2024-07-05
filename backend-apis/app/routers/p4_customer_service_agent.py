@@ -45,7 +45,7 @@ from app.models.p4_model import (
 )
 from app.utils import (
     utils_cloud_translation,
-    utils_palm,
+    utils_gemini,
     utils_search,
     utils_workspace,
 )
@@ -138,7 +138,7 @@ def conversation_summary_and_title(
                 default=str,
             )
             summary, title = asyncio.run(
-                utils_palm.run_predict_text_llm(
+                utils_gemini.run_predict_text_llm(
                     prompts=[
                         chat_summarize_prompt_template.format(
                             conversation_str
@@ -301,7 +301,7 @@ def auto_suggest_query_text(
 
     """
     try:
-        llm_response = utils_palm.text_generation(
+        llm_response = utils_gemini.generate_gemini_pro_text(
             prompt=auto_suggest_prompt_template.format(data.input_text)
         )
     except:
@@ -326,7 +326,7 @@ def rephrase_text(
 
     """
 
-    llm_response = utils_palm.text_generation(
+    llm_response = utils_gemini.generate_gemini_pro_text(
         prompt=rephrase_prompt_template.format(data.rephrase_text_input)
     )
 
