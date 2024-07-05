@@ -214,15 +214,15 @@ website_uri = "https://HOSTING.web.app/customer/home?productId="
 
 # Scope for the Workspace API - don't change
 email_scopes = [
-	'https://www.googleapis.com/auth/gmail.modify',
-	'https://www.googleapis.com/auth/documents',
-	'https://www.googleapis.com/auth/script.projects',
+    'https://www.googleapis.com/auth/gmail.modify',
+    'https://www.googleapis.com/auth/documents',
+    'https://www.googleapis.com/auth/script.projects',
 ]
 workspace_scopes = [
-	'https://www.googleapis.com/auth/drive.file',
-	'https://www.googleapis.com/auth/drive',
-	'https://www.googleapis.com/auth/drive.resource',
-	'https://www.googleapis.com/auth/documents',
+    'https://www.googleapis.com/auth/drive.file',
+    'https://www.googleapis.com/auth/drive',
+    'https://www.googleapis.com/auth/drive.resource',
+    'https://www.googleapis.com/auth/documents',
 ]
 
 prompt_email_support = """Extract any questions, inquiries, instances of questioning, or orders from the input text below.
@@ -480,9 +480,9 @@ display: flex;padding: 10px 24px;margin-left: 10px;
 
 [multimodal]
 multimodal_model = "multimodalembedding"
-index_endpoint_id = "7591806732397969408"
-deployed_index_id = "csm_deployed_index"
-vector_api_endpoint = "1212002304.us-central1-244831775715.vdb.vertexai.goog"
+index_endpoint_id = ""
+deployed_index_id = "csm_multimodal_vector_search"
+vector_api_endpoint = ""
 prompt_with_query = """
 <Instructions>
 Answer the question below citing the index of the reference where you found the information.

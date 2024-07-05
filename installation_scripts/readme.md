@@ -178,3 +178,25 @@ service cloud.firestore {
 ```sql
 grant select on csm.products to "<<PROJECT_NUMBER>>-compute";
 ```
+
+* Create Firebase Storage
+
+1. Go To Firebase console, Storage.
+2. Create a Storage in `Production` mode with the following rule.
+```
+rules_version = '2';
+
+// Craft rules based on data in your Firestore database
+// allow write: if firestore.get(
+//    /databases/(default)/documents/users/$(request.auth.uid)).data.isAdmin;
+service firebase.storage {
+  match /b/{bucket}/o {
+    match /{allPaths=**} {
+      allow read, write: if true;
+    }
+  }
+}
+```
+3. Add folder
+  - images
+  - p7

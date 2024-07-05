@@ -111,6 +111,7 @@ env.bak/
 venv.bak/
 csm_automation_venv/
 installation_scripts/customer-services-modernization/
+bak.customer-services-modernization/
 
 # Spyder project settings
 .spyderproject
@@ -148,3 +149,11 @@ terraform.tfstate.*
 
 # Generated files
 full_media_events.jsonl
+
+# Dev Env
+config_argolis.toml
+config_bkp.toml
+config_dev.toml
+config-empty.toml
+config-llm-migration.toml
+config-kalschi-csm-5.toml
