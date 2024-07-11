@@ -33,7 +33,7 @@ website_topic_id = 'website-search'
 calendar_id = 'csm-sa@kalschi-csm-5.iam.gserviceaccount.com'
 # Cloud Run only supports one secret per directory
 calendar_scopes = ["https://www.googleapis.com/auth/calendar"]
-calendar_secret_id = 'projects/658069682209/secrets/workspace-calendar-user/versions/1'
+calendar_secret_id = 'projects/658069682209/secrets/workspace-calendar-user/versions/2'
 
 
 [search-persona5]
@@ -58,18 +58,21 @@ firestore_conversations = "p5-conversations"
 # Prompts for SINGLE conversation
 prompt_summary_conversation = """The following text is a conversation between a call center agent and a customer of an online furniture store.
 Create a concise and clear summary of the conversation below.
+In your output, use ** for title and captioning. use <br/> to separate each paragraph.
 conversation: {}
 
 output:"""
 
 prompt_insights_conversation = """The following text is a conversation between a call center agent and a customer of an online furniture store.
 From this conversation, provide some insights on what went well and what can be done to improve the user experience.
+In your output, use ** for title and captioning. use <br/> to separate each paragraph.
 conversation: {}
 
 output:"""
 
 prompt_pending_tasks_conversation = """The following text is a conversation between a call center agent and a customer of an online furniture store.
 Indicate if there are pending tasks from the customer and agent perspective.
+In your output, use ** for title and captioning. use <br/> to separate each paragraph.
 conversation: {}
 
 output:"""
@@ -100,23 +103,28 @@ Suggested list of next best actions:
  - Run user feedback surveys or polls: Gather real-time insights and act on them promptly to improve first impressions.
  - Improve product documentation, FAQ page or product page.
 
+In your output, use ** for title and captioning. use <br/> to separate each paragraph.
+
 output:"""
 
 # Prompts for MULTIPLE conversations
 prompt_summary_multi_conversations = """The following text has multiple conversations between call center agents and customers of an online furniture store. 
 Create a concise and clear summary of the conversations below.
+In your output, use ** for title and captioning. use <br/> to separate each paragraph.
 conversations: {}
 
 output:"""
 
 prompt_insights_multi_conversations = """The following text has multiple conversations between call center agents and customers of an online furniture store. 
 From this conversations, provide some insights on what went well and what can be done to improve the user experience.
+In your output, use ** for title and captioning. use <br/> to separate each paragraph.
 conversations: {}
 
 output:"""
 
 prompt_pending_tasks_multi_conversations = """The following text has multiple conversations between call center agents and customers of an online furniture store.
 Indicate if there are pending tasks from the customers and agents perspective.
+In your output, use ** for title and captioning. use <br/> to separate each paragraph.
 conversation: {}
 
 output:"""
@@ -126,6 +134,7 @@ Based on these conversations, select one or more of the next best actions listed
 The main goal of the furniture store is to increase the hability of the customers to find information and resolve the issues by themselves and reduce the need to get in touch with the Call Center.. 
 Currently most of the users are following these steps before getting in touch with the Call Center and Product Specialist:
 User Steps: (1) Home Page (2) Product Page (3) Product FAQ (4) Product Manual (5) Search (6) Chatbot (7) Call Center (8) Product Specialist.
+In your output, use ** for title and captioning. use <br/> to separate each paragraph.
 conversations: {}
 
 Suggested list of next best actions:
@@ -146,29 +155,35 @@ Suggested list of next best actions:
  - Run user feedback surveys or polls: Gather real-time insights and act on them promptly to improve first impressions.
  - Improve product documentation, FAQ page or product page.
 
+In your output, use ** for title and captioning. use <br/> to separate each paragraph.
+
 output:"""
 
 # Prompts for reviews
 prompt_summary_reviews = """The following text represents product reviews written by customers from an online furniture store.
 Create a concise and clear summary of the reviews below.
+In your output, use ** for title and captioning. use <br/> to separate each paragraph.
 reviews: {}
 
 output:"""
 
 prompt_insights_reviews = """The following text represents product reviews written by customers from an online furniture store.
 From this reviews, provide some insights on what went well and what can be done to improve the user experience.
+In your output, use ** for title and captioning. use <br/> to separate each paragraph.
 conversations: {}
 
 output:"""
 
 prompt_pending_tasks_reviews = """The following text represents product reviews written by customers from an online furniture store.
 Indicate if there are pending tasks described in one of the reviews.
+In your output, use ** for title and captioning. use <br/> to separate each paragraph.
 conversation: {}
 
 output:"""
 
 prompt_nbs_reviews = """The following text represents product reviews written by customers from an online furniture store.
 Based on these conversations, select one of the next best actions the customer analyst should take. Explain why you chose that next best action.
+In your output, use ** for title and captioning. use <br/> to separate each paragraph.
 conversations: {}
 
 Suggested list of next best actions:
@@ -188,6 +203,8 @@ Suggested list of next best actions:
  - Send targeted email campaigns or in-app notifications: Guide users through key features and functionalities based on their usage patterns.
  - Run user feedback surveys or polls: Gather real-time insights and act on them promptly to improve first impressions.
 
+In your output, use ** for title and captioning. use <br/> to separate each paragraph.
+
 output:"""
 
 
@@ -202,8 +219,8 @@ datastore_parent = "projects/{}/locations/global/dataStores/{}"
 
 [salesforce]
 # Vertex AI Search for email support
-user_secret_name = 'projects/658069682209/secrets/workspace-calendar-user/versions/1'
-sa_secret_name = 'projects/658069682209/secrets/workspace-calendar-sa/versions/1'
+user_secret_name = 'projects/658069682209/secrets/workspace-calendar-user/versions/2'
+sa_secret_name = 'projects/658069682209/secrets/workspace-calendar-sa/versions/2'
 user_id = 'kalschi@google.com'
 
 username = ""
@@ -278,6 +295,8 @@ chat_summarize_prompt_template = """The following text is a conversation between
 Create a concise and clear summary of the conversation below.
 From this conversation, provide some insights on what went well and what can be done to improve the user experience.
 Indicate if there are pending tasks from the customer and agent perspective.
+
+In your output, use ** for title and captioning. use <br/> to separate each paragraph.
 conversation: {}
 
 output:"""

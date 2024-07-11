@@ -264,7 +264,7 @@ def generate_insights_reviews(
     except GoogleAPICallError as e:
         raise HTTPException(
             status_code=400,
-            detail=f"Error calling Vertex AI PaLM API. " f"{str(e)}",
+            detail=f"Error calling Vertex AI Gemini API. " f"{str(e)}",
         ) from e
 
     try:

@@ -70,6 +70,8 @@ CONVERSATION_SUMMARY_AND_TITLE_MESSAGES = [
 chat_summarize_prompt_template = config["salesforce"][
     "chat_summarize_prompt_template"
 ]
+
+
 chat_title_prompt_template = config["salesforce"]["chat_title_prompt_template"]
 
 
@@ -102,6 +104,7 @@ class Test_P4(unittest.TestCase):
                 {"messages": CONVERSATION_SUMMARY_AND_TITLE_MESSAGES},
                 default=str,
             )
+
         summary, title = asyncio.run(
                 run_predict_text_llm(
                     prompts=[
@@ -117,6 +120,11 @@ class Test_P4(unittest.TestCase):
             summary = "Closed case"
         if not title:
             title = "Closed case"
+        print(f"""
+=====> chat_summarize <======
+{summary}
+=============================
+               """)
         result = rate(old_paragraph=PALM_RESULT_CONVERSATION_SUMMARY_AND_TITLE["summary"],
              new_paragraph=summary)
         self.assertTrue(float(result['rating']) >= 7)

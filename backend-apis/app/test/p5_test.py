@@ -244,7 +244,11 @@ class Test_P5(unittest.TestCase):
         )
         result = rate(old_paragraph=f"{PALM_RESULT_INSIGHT_MULTI_TURNS}",
              new_paragraph=insights)
-
+        print(f"""
+===insights multi===
+{insights}
+===insights===
+              """)
         self.assertTrue(float(result['rating']) >= 7)
         
     def test_generate_insights_conversations_greater_than_1_summary(self):
@@ -261,6 +265,11 @@ class Test_P5(unittest.TestCase):
         summary = generate_gemini_pro_text(
             prompt=prompt_summary.format(input_text)
         )
+        print(f"""
+===summary multi===
+{summary}
+===insights===
+              """)
         result = rate(old_paragraph=f"{PALM_RESULT_SUMMARY_MULTI_TURNS}",
              new_paragraph=summary)
 
@@ -280,6 +289,11 @@ class Test_P5(unittest.TestCase):
         tasks = generate_gemini_pro_text(
             prompt=prompt_tasks.format(input_text)
         )
+        print(f"""
+===tasks multi===
+{tasks}
+===insights===
+              """)
         result = rate(old_paragraph=f"{PALM_RESULT_TASKS_MULTI_TURNS}",
              new_paragraph=tasks)
 
@@ -300,6 +314,11 @@ class Test_P5(unittest.TestCase):
         nbs = generate_gemini_pro_text(
             prompt=prompt_nbs.format(input_text)
         )
+        print(f"""
+===nbs multi===
+{nbs}
+===insights===
+              """)
         result = rate(old_paragraph=f"{PALM_RESULT_NBS_MULTI_TURNS}",
              new_paragraph=nbs)
 
