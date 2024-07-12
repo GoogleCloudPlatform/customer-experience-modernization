@@ -203,3 +203,5 @@ service firebase.storage {
 3. Add folder
   - images
   - p7
+
+* Enable Dialogflow Messenger Unauthorized Integration
