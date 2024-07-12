@@ -1,0 +1,29 @@
+{
+  "name": "9f5d514f-dab4-4c47-b133-efe4350708ba",
+  "displayName": "prebuilt_components_arrange_appointment:get_account",
+  "genericWebService": {
+    "uri": "https://www.example.com",
+    "webhookType": "FLEXIBLE",
+    "httpMethod": "POST",
+    "requestBody": "{\n  \"phone_number\": \"$session.params.phone_number\",\n  \"fulfillmentInfo\": {\n    \"tag\": \"getAccount\"\n  }\n}",
+    "parameterMapping": [ {
+      "key": "$flow.branch_code",
+      "value": "branch_code"
+    }, {
+      "key": "$flow.cards_count",
+      "value": "cards_count"
+    }, {
+      "key": "$flow.loans_count",
+      "value": "loans_count"
+    }, {
+      "key": "$flow.mortgage_count",
+      "value": "mortgage_count"
+    }, {
+      "key": "account_count",
+      "value": "account_count"
+    } ]
+  },
+  "timeout": {
+    "seconds": 5
+  }
+}

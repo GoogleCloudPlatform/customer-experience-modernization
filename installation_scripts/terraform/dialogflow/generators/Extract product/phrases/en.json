@@ -1,0 +1,6 @@
+{
+  "promptTexts": [ {
+    "text": "The customer needs help with a product. Extract the product name and ask for confirmation. \n\n$last-user-utterance",
+    "languageCode": "en"
+  } ]
+}

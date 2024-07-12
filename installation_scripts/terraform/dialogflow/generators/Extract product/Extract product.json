@@ -1,0 +1,13 @@
+{
+  "name": "1146395c-321f-42c4-b9fd-ef160cca63b7",
+  "displayName": "Extract product",
+  "modelParameter": {
+    "temperature": 0.5,
+    "maxDecodeSteps": 128,
+    "topP": 0.94999999,
+    "topK": 40
+  },
+  "llmModelSettings": {
+    "model": "text-bison"
+  }
+}

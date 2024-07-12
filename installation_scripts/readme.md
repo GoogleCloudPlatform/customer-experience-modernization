@@ -9,9 +9,12 @@
 ```shell
 # export WEB_HOST=localhost
 export GOOGLE_CLOUD_PROJECT=<YOUR PROJECT ID>
+
 # export PATH=$PATH:$(dirname $(which npm))
 
 gcloud config set project $GOOGLE_CLOUD_PROJECT
+gcloud auth application-default set-quota-project $GOOGLE_CLOUD_PROJECT
+export GOOGLE_APPLICATION_CREDENTIALS="~/.config/gcloud/application_default_credentials.json"
 
 gcloud services enable \
   cloudapis.googleapis.com \

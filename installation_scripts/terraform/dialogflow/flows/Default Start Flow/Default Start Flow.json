@@ -1,0 +1,170 @@
+{
+  "name": "00000000-0000-0000-0000-000000000000",
+  "displayName": "Default Start Flow",
+  "description": "A start flow created along with the agent",
+  "transitionRoutes": [
+    {
+      "intent": "Default Welcome Intent",
+      "triggerFulfillment": {
+        "messages": [
+          {
+            "text": {
+              "text": [
+                "Hi! How are you doing?",
+                "Hello! How can I help you?",
+                "Good day! What can I do for you today?",
+                "Greetings! How can I assist?"
+              ]
+            },
+            "languageCode": "en"
+          }
+        ]
+      },
+      "name": "8115ac8d-d102-442c-a32c-bcaaebdfabcb"
+    },
+    {
+      "intent": "Talk to human agent",
+      "triggerFulfillment": {
+        "messages": [
+          {
+            "payload": {
+              "richContent": [
+                [
+                  {
+                    "anchor": {
+                      "href": "/customer-service-agent/home"
+                    },
+                    "event": {
+                      "event": ""
+                    },
+                    "icon": {
+                      "color": "#FF9800",
+                      "type": "chevron_right"
+                    },
+                    "mode": "blocking",
+                    "text": "Talk to human",
+                    "type": "button"
+                  }
+                ]
+              ]
+            },
+            "languageCode": "en"
+          }
+        ]
+      },
+      "name": "3c4ad233-5ecd-43e0-8dd0-255f27211249"
+    },
+    {
+      "intent": "I need help to install my product",
+      "triggerFulfillment": {
+        "messages": [
+          {
+            "text": {
+              "text": [
+                "$sys.func.TO_TEXT($request.generative.product)"
+              ]
+            },
+            "languageCode": "en"
+          }
+        ],
+        "generators": [
+          {
+            "generator": "projects/rl-llm-dev/locations/global/agents/6a25f4be-09b2-4e88-a755-4715bd7b0957/generators/1146395c-321f-42c4-b9fd-ef160cca63b7",
+            "outputParameter": "$request.generative.product"
+          }
+        ]
+      },
+      "targetPage": "Product Confirmation",
+      "name": "27319389-e29f-4a86-9326-105f88d04394"
+    }
+  ],
+  "eventHandlers": [
+    {
+      "event": "sys.no-match-default",
+      "triggerFulfillment": {
+        "messages": [
+          {
+            "text": {
+              "text": [
+                "I didn't get that. Can you say it again?",
+                "I missed what you said. What was that?",
+                "Sorry, could you say that again?",
+                "Sorry, can you say that again?",
+                "Can you say that again?",
+                "Sorry, I didn't get that. Can you rephrase?",
+                "Sorry, what was that?",
+                "One more time?",
+                "What was that?",
+                "Say that one more time?",
+                "I didn't get that. Can you repeat?",
+                "I missed that, say that again?"
+              ]
+            },
+            "languageCode": "en"
+          }
+        ],
+        "enableGenerativeFallback": true
+      },
+      "name": "8abc3422-65c3-4f25-8b6a-fe5109b845f3"
+    },
+    {
+      "event": "sys.no-input-default",
+      "triggerFulfillment": {
+        "messages": [
+          {
+            "text": {
+              "text": [
+                "I didn't get that. Can you say it again?",
+                "I missed what you said. What was that?",
+                "Sorry, could you say that again?",
+                "Sorry, can you say that again?",
+                "Can you say that again?",
+                "Sorry, I didn't get that. Can you rephrase?",
+                "Sorry, what was that?",
+                "One more time?",
+                "What was that?",
+                "Say that one more time?",
+                "I didn't get that. Can you repeat?",
+                "I missed that, say that again?"
+              ]
+            },
+            "languageCode": "en"
+          }
+        ]
+      },
+      "name": "fa2e8e9a-b04f-432c-8e62-486171a3855e"
+    }
+  ],
+  "nluSettings": {
+    "modelType": "MODEL_TYPE_STANDARD",
+    "classificationThreshold": 0.69999999
+  },
+  "knowledgeConnectorSettings": {
+    "enabled": true,
+    "triggerFulfillment": {
+      "messages": [
+        {
+          "text": {
+            "text": [
+              "$request.knowledge.answers[0]"
+            ]
+          },
+          "languageCode": "en"
+        },
+        {
+          "languageCode": "en",
+          "knowledgeInfoCard": {
+            "maximumSnippets": 5
+          }
+        }
+      ]
+    },
+    "dataStoreConnections": [
+      {
+        "dataStoreType": "UNSTRUCTURED",
+        "dataStore": "projects/{PROJECT_NUMBER}/locations/global/collections/default_collection/dataStores/projects/{PROJECT_ID}/locations/global/collections/default_collection/dataStores/{DATASTORE_ID}",
+        "languageCode": "en"
+      }
+    ]
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "promptTexts": [ {
+    "text": "Look at the user text and return \"True\" if the customer confirmed.\n\nHuman: $last-user-utterance",
+    "languageCode": "en"
+  } ]
+}

@@ -74,8 +74,9 @@ python3 vertex_search.py --project_id="${PROJECT_ID}" --location="${LOCATION}" -
 python3 vertex_search.py --project_id="${PROJECT_ID}" --location="${LOCATION}" --data_store_id="p5-reviews-search-datastore" --engine_id="p5-reviews-search" --gcs_uri="gs://csm-solution-dataset/persona5/reviews_search_dataset.jsonl"
 
 #### Vertex AI Conversation
-python3 vertex_conversation.py --project="${PROJECT_ID}" --location="${LOCATION}" --app-name="p6-manuals-infobot" --company-name="CSM" --uris="" --datastore-storage-folder="gs://csm-solution-dataset/persona6/argolis_vertexai_search_products_manuals.jsonl"
-
+# python3 vertex_conversation.py --project="${PROJECT_ID}" --location="${LOCATION}" --app-name="p6-manuals-infobot" --company-name="CSM" --uris="" --datastore-storage-folder="gs://csm-solution-dataset/persona6/argolis_vertexai_search_products_manuals.jsonl"
+python3 vertex_df_agent.py --project_number="${PROJECT_NUMBER}" --project="${PROJECT_ID}" --location="${LOCATION}" --app-name="p6-manuals-infobot" --company-name="CSM" --uris="" --datastore-storage-folder="gs://csm-solution-dataset/persona6/argolis_vertexai_search_products_manuals.jsonl"
+# python3 vertex_df_agent.py --project_number=658069682209 --project=kalschi-csm-5 --location=global --app-name="p6-manuals-infobot" --company-name="CSM" --uris="" --datastore-storage-folder="gs://csm-solution-dataset/persona6/argolis_vertexai_search_products_manuals.jsonl"
 
 ### persona 6
 

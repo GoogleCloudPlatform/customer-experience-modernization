@@ -1,0 +1,13 @@
+{
+  "name": "3115b4f4-447a-4c01-9e22-d9f8ce4df25b",
+  "displayName": "Yes or no",
+  "modelParameter": {
+    "temperature": 0.5,
+    "maxDecodeSteps": 128,
+    "topP": 0.94999999,
+    "topK": 40
+  },
+  "llmModelSettings": {
+    "model": "text-bison"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "name": "96200229-37c5-40e9-8420-bd9987e544d8",
+  "displayName": "Date",
+  "form": {
+  
+  },
+  "transitionRoutes": [ {
+    "intent": "Scheduled Date",
+    "triggerFulfillment": {
+      "messages": [ {
+        "text": {
+          "text": [ "So, $session.params.date-time, correct?" ]
+        },
+        "languageCode": "en"
+      } ]
+    },
+    "targetPage": "Date Confirmation",
+    "name": "247b65d6-25ce-476e-9588-ea581aabbb5d"
+  } ]
+}

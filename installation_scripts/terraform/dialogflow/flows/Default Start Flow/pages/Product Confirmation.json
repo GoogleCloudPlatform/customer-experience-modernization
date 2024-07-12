@@ -1,0 +1,53 @@
+{
+  "name": "b3f5633b-4b53-4194-b7ba-2811218ccf08",
+  "displayName": "Product Confirmation",
+  "form": {},
+  "transitionRoutes": [
+    {
+      "intent": "Yes",
+      "triggerFulfillment": {
+        "generators": [
+          {
+            "generator": "projects/rl-llm-dev/locations/global/agents/6a25f4be-09b2-4e88-a755-4715bd7b0957/generators/3115b4f4-447a-4c01-9e22-d9f8ce4df25b",
+            "outputParameter": "$request.generative.yes"
+          }
+        ]
+      },
+      "targetPage": "Check confirmation",
+      "name": "08ac8647-b09e-4bf5-b55c-bc6f2cd76f36"
+    }
+  ],
+  "eventHandlers": [
+    {
+      "targetPage": "Check confirmation",
+      "event": "sys.no-match-default",
+      "triggerFulfillment": {
+        "generators": [
+          {
+            "generator": "projects/rl-llm-dev/locations/global/agents/6a25f4be-09b2-4e88-a755-4715bd7b0957/generators/3115b4f4-447a-4c01-9e22-d9f8ce4df25b",
+            "outputParameter": "$request.generative.yes"
+          }
+        ]
+      },
+      "name": "38cd88ce-b69c-410a-b675-9cf53ecb09c4"
+    }
+  ],
+  "knowledgeConnectorSettings": {
+    "triggerFulfillment": {
+      "generators": [
+        {
+          "generator": "projects/rl-llm-dev/locations/global/agents/6a25f4be-09b2-4e88-a755-4715bd7b0957/generators/3115b4f4-447a-4c01-9e22-d9f8ce4df25b",
+          "outputParameter": "$request.generative.yes"
+        }
+      ]
+    },
+    "targetPage": "Check confirmation",
+    "dataStoreConnections": [
+      {
+        "dataStoreType": "UNSTRUCTURED",
+        "dataStore": "projects/{PROJECT_NUMBER}/locations/global/collections/default_collection/dataStores/projects/{PROJECT_ID}/locations/global/collections/default_collection/dataStores/{DATASTORE_ID}",
+        "languageCode": "en"
+      }
+    ]
+  }
+}

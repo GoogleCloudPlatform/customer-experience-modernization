@@ -1,0 +1,17 @@
+{
+  "name": "63d7d2dd-b71d-48d8-b272-19a69daca77e",
+  "displayName": "prebuilt_components_arrange_appointment:submit_appointment",
+  "genericWebService": {
+    "uri": "https://www.example.com",
+    "webhookType": "FLEXIBLE",
+    "httpMethod": "POST",
+    "requestBody": "{\n  \"phone_number\": \"$session.params.phone_number\",\n  \"preferred_date\": \"$flow.preferred_date\",\n  \"preferred_slot\": \"$flow.preferred_slot\",\n  \"branch_code\": \"$flow.branch_code\",\n  \"appointment_type\": \"$flow.appointment_type\",\n  \"appointment_reason\": \"$flow.appointment_reason\",\n  \"fulfillmentInfo\": {\n    \"tag\": \"submitAppointment\"\n  }\n}",
+    "parameterMapping": [ {
+      "key": "$flow.request_number",
+      "value": "request_number"
+    } ]
+  },
+  "timeout": {
+    "seconds": 5
+  }
+}
