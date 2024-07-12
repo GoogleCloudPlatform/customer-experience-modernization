@@ -310,6 +310,7 @@ def create_chat_app():
     os.putenv("SEARCH_DATASTORE_IDS", ",".join([
               f"{parent_collection}/dataStores/{ds['id']}" for ds in datastores]))
     os.putenv("SEARCH_ENGINE", f"{parent_collection}/engines/{engine_id}")
+    print(f"*** Engine:{parent_collection}/engines/{engine_id}")
     os.putenv("AGENT_ENGINE", agent.name)
 
     with open("marketingEnvValue.json", "r") as jsonFile:
@@ -328,9 +329,7 @@ def create_chat_app():
 
     return agent, dcx_client
 
-
-def update_datastore_id_and_upload(project_number:str, datastore_id:str) -> str:
-    FLOW_FILE_PATH = "terraform/dialogflow/flows/Default Start Flow/Default Start Flow.json"
+def update_flow_defination(FLOW_FILE_PATH:str, project_number:str, datastore_id:str, project_id:str) -> None:
     text = ""
     with open(FLOW_FILE_PATH, "r", encoding="utf-8") as f:
         text = f.read()
@@ -338,15 +337,16 @@ def update_datastore_id_and_upload(project_number:str, datastore_id:str) -> str:
     if text != "":
         with open(FLOW_FILE_PATH, "w", encoding="utf-8") as f:
             f.write(text)
+ 
+def update_datastore_id_and_upload(project_number:str, datastore_id:str) -> str:
+    FLOW_FILE_PATH = "terraform/dialogflow/flows/Default Start Flow/Default Start Flow.json"
+    update_flow_defination(FLOW_FILE_PATH=FLOW_FILE_PATH, project_number=project_number, datastore_id=datastore_id, project_id=project_id)
     
     FLOW_FILE_PATH = "terraform/dialogflow/flows/Default Start Flow/pages/Product Confirmation.json"
+    update_flow_defination(FLOW_FILE_PATH=FLOW_FILE_PATH, project_number=project_number, datastore_id=datastore_id, project_id=project_id)
 
-    with open(FLOW_FILE_PATH, "r", encoding="utf-8") as f:
-        text = f.read()
-        text = text.replace("{PROJECT_NUMBER}", project_number).replace("{DATASTORE_ID}", datastore_id).replace("{PROJECT_ID}", project_id)
-    if text != "":
-        with open(FLOW_FILE_PATH, "w", encoding="utf-8") as f:
-            f.write(text)
+    FLOW_FILE_PATH = "terraform/dialogflow/agent.json"
+    update_flow_defination(FLOW_FILE_PATH=FLOW_FILE_PATH, project_number=project_number, datastore_id=datastore_id, project_id=project_id)
 
     subprocess.run(args=["zip", "-r", "agent.zip", "./"], cwd="terraform/dialogflow")
     subprocess.run(args=["gsutil", "mb", f"gs://{project_id}_cloudbuild"], cwd="terraform/dialogflow") 
