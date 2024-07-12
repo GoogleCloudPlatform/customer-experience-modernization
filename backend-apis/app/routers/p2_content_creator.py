@@ -344,11 +344,12 @@ def detect_product_categories(
             feature_vector=image_embedding,
             neighbor_count=2,
         )
-
-        similar_products = [
-            i.datapoint.datapoint_id
-            for i in neighbors.nearest_neighbors[0].neighbors
-        ]
+        similar_products = []
+        if neighbors.nearest_neighbors is not None and len(neighbors.nearest_neighbors) > 0:
+            similar_products = [
+                i.datapoint.datapoint_id
+                for i in neighbors.nearest_neighbors[0].neighbors
+            ]
     except Exception as e:
         raise HTTPException(
             status_code=400, detail="Error getting similar products" + str(e)

@@ -13,43 +13,43 @@
 # limitations under the License.
 
 [global]
-project_id = ""
+project_id = 'kalschi-csm-5'
 location = "us-central1"
 datastore_location = "global"
 serving_config_id = "default_config"
-images_bucket_name = ""
-project_number = ""
+images_bucket_name = 'kalschi-csm-5.appspot.com'
+project_number = '658069682209'
 
 
 [website_search]
 # Vertex AI Search Datastore ID
-website_datastore_id = ""
+website_datastore_id = 'csm-search-datastore'
 # Pubsub topic for website search
-website_topic_id = "website-search"
+website_topic_id = 'website-search'
 
 
 [workspace]
 # Google Calendar
-calendar_id = ""
+calendar_id = 'csm-sa@kalschi-csm-5.iam.gserviceaccount.com'
 # Cloud Run only supports one secret per directory
 calendar_scopes = ["https://www.googleapis.com/auth/calendar"]
-calendar_secret_id = ""
+calendar_secret_id = 'projects/658069682209/secrets/workspace-calendar-user/versions/2'
 
 
 [search-persona5]
-conversations_datastore_id = ""
-reviews_datastore_id = ""
-product_manuals_datastore_id = ""
+conversations_datastore_id = "p5-conversations-search-datastore"
+reviews_datastore_id = "p5-reviews-search-datastore"
+product_manuals_datastore_id = "p6-search-manuals-datastore"
 
 text_embeddings_model = "textembedding-gecko@003"
 
-conversations_index_endpoint_id = ""
-conversations_deployed_index_id = ""
-conversations_vector_api_endpoint = ""
+conversations_index_endpoint_id = '1250580127385911296'
+conversations_deployed_index_id = 'p5_conversations_index'
+conversations_vector_api_endpoint = '420826975.us-central1-658069682209.vdb.vertexai.goog'
 
-reviews_index_endpoint_id = ""
-reviews_deployed_index_id = ""
-reviews_vector_api_endpoint = ""
+reviews_index_endpoint_id = '4806172033194917888'
+reviews_deployed_index_id = 'p5_reviews_index'
+reviews_vector_api_endpoint = '713086188.us-central1-658069682209.vdb.vertexai.goog'
 
 firestore_customers = "p5-customers"
 firestore_reviews = "p5-reviews"
@@ -210,8 +210,8 @@ output:"""
 
 [search]
 # Vertex AI Search Datastore ID
-p4_support_datastore_id = ""
-p4_salesforce_datastore_id = ""
+p4_support_datastore_id = "p5-conversations-search-datastore"
+p4_salesforce_datastore_id = "p6-search-manuals-datastore"
 
 datastore_location = "global"
 serving_config = "default_config"
@@ -219,15 +219,15 @@ datastore_parent = "projects/{}/locations/global/dataStores/{}"
 
 [salesforce]
 # Vertex AI Search for email support
-user_secret_name = ""
-sa_secret_name = ""
-user_id = ""
+user_secret_name = 'projects/658069682209/secrets/workspace-calendar-user/versions/2'
+sa_secret_name = 'projects/658069682209/secrets/workspace-calendar-sa/versions/2'
+user_id = 'kalschi@google.com'
 
 username = ""
 password = ""
 security_token = ""
 
-website_uri = "https://HOSTING.web.app/customer/home?productId="
+website_uri = "https://kalschi-csm-5.web.app/customer/home?productId="
 
 # Scope for the Workspace API - don't change
 email_scopes = [
@@ -319,23 +319,23 @@ You translate the input text to target language: {}
 input text: {}
 your translation:"""
 
-apps_script_code = "function sendId() {\n  var id = DocumentApp.getActiveDocument().getId();\n  var data = {\n  'docs_id': id\n  }\n\n  var options = {\n    'method' : 'post',\n    'contentType': 'application/json',\n    // Convert the JavaScript object to a JSON string.\n    'payload' : JSON.stringify(data)\n  };\n  UrlFetchApp.fetch('https://APIURL/p1/send-email-from-docs', options);\n}\n\nfunction onOpen() {\n  var ui = DocumentApp.getUi();\n  // Or DocumentApp or FormApp.\n  ui.createMenu('Send Email')\n      .addItem('Send email to Salesforce case', 'sendId')\n      .addToUi();\n}\n"
+apps_script_code = "function sendId() {\n  var id = DocumentApp.getActiveDocument().getId();\n  var data = {\n  'docs_id': id\n  }\n\n  var options = {\n    'method' : 'post',\n    'contentType': 'application/json',\n    // Convert the JavaScript object to a JSON string.\n    'payload' : JSON.stringify(data)\n  };\n  UrlFetchApp.fetch('https://csm-demo-vhjulnw3ra-uc.a.run.app/p1/send-email-from-docs', options);\n}\n\nfunction onOpen() {\n  var ui = DocumentApp.getUi();\n  // Or DocumentApp or FormApp.\n  ui.createMenu('Send Email')\n      .addItem('Send email to Salesforce case', 'sendId')\n      .addToUi();\n}\n"
 
 # ID of the templates
 # Change this variables according to your Google Workspace settings
-drive_folder_id = ""  # example: "1MYB0Ybyo9XZERgIcjsdfeqO0SKqhrkvqMx"
-docs_template_id = ""
+drive_folder_id = 'null'  # example: "1MYB0Ybyo9XZERgIcjsdfeqO0SKqhrkvqMx"
+docs_template_id = 'null'
 
 
 [recommendations]
 # Vertex AI Recommendations
 rec_vertex_datastore_id = ""
 rec_app_id = ""
-media_rec_datastore_id = ""
-media_rec_app_id.recommended-for-you = ""
-media_rec_app_id.others-you-may-like = ""
-media_rec_app_id.more-like-this = ""
-media_rec_app_id.most-popular-items = ""
+media_rec_datastore_id = "csm-media-rec-datastore"
+media_rec_app_id.recommended-for-you = "csm-media-rec-for-you"
+media_rec_app_id.others-you-may-like = "csm-media-others-you-maylike"
+media_rec_app_id.more-like-this = "csm-media-more-like-this"
+media_rec_app_id.most-popular-items = "csm-media-most-popular"
 # Pubsub topic for Recommendations
 recommendations_topic_id = "website-recommendations"
 email_recommendation_topic_id = "email-recommendation"
@@ -499,9 +499,9 @@ display: flex;padding: 10px 24px;margin-left: 10px;
 
 [multimodal]
 multimodal_model = "multimodalembedding"
-index_endpoint_id = ""
-deployed_index_id = "csm_deployed_index"
-vector_api_endpoint = ""
+index_endpoint_id = "7591806732397969408"
+deployed_index_id = "csm_multimodal_vector_search"
+vector_api_endpoint = "2044078380.us-central1-658069682209.vdb.vertexai.goog"
 prompt_with_query = """
 <Instructions>
 Answer the question below citing the index of the reference where you found the information.
@@ -664,8 +664,8 @@ This title and description will be used to instruct the field agent.
 """
 
 [sql]
-db_user = ""
+db_user = '658069682209-compute'
 db_name = "csm"
-project = ""
+project = 'kalschi-csm-5'
 region = "us-central1"
-instance_name = "csm-database"
+instance_name = 'csm-instance'
