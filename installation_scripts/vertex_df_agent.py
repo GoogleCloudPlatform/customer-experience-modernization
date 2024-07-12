@@ -78,7 +78,7 @@ def get_datastore_id():
                 name=f"{parent_collection}/dataStores/{ds['id']}",
             ))
             print(f"Datastore already exist: {datastore}")
-            return f"{parent_collection}/dataStores/{ds['id']}"
+            return ds['id']
         except:
             print("Datastore does not exist! Abort!")
             raise "Datastore does not exist! Abort!"

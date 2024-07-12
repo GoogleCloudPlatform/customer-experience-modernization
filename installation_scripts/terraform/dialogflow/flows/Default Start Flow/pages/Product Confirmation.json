@@ -45,7 +45,7 @@
     "dataStoreConnections": [
       {
         "dataStoreType": "UNSTRUCTURED",
-        "dataStore": "projects/{PROJECT_NUMBER}/locations/global/collections/default_collection/dataStores/projects/{PROJECT_ID}/locations/global/collections/default_collection/dataStores/{DATASTORE_ID}",
+        "dataStore": "dataStore": "projects/{PROJECT_NUMBER}/locations/global/collections/default_collection/dataStores/{DATASTORE_ID}",
         "languageCode": "en"
       }
     ]

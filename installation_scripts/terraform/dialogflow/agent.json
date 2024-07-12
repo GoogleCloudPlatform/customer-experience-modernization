@@ -23,7 +23,7 @@
   "speakerIdSettings": {},
   "textToSpeechSettings": {},
   "genAppBuilderSettings": {
-    "engine": "projects/{PROJECT_NUMBER}/locations/global/collections/default_collection/engines/{DATASTORE_ID}"
+    "engine": "projects/658069682209/locations/global/collections/default_collection/engines/p6-manuals-infobot_datastore"
   },
   "duplexSettings": {},
   "answerFeedbackSettings": {
