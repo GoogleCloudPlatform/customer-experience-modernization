@@ -255,21 +255,22 @@ def generate_conversation_history(  # pylint: disable=too-many-statements, too-m
                 feature_vector=reduced_vector,
             )
 
-            num_responses = len(neighbors.nearest_neighbors[0].neighbors)
             results = []
-            for i, n in enumerate(neighbors.nearest_neighbors[0].neighbors):
-                product = utils_cloud_sql.get_product(
-                    int(n.datapoint.datapoint_id)
-                )
-                snapshot = {}
+            if neighbors.nearest_neighbors is not None and len(neighbors.nearest_neighbors) > 0:
+                num_responses = len(neighbors.nearest_neighbors[0].neighbors)
+                for i, n in enumerate(neighbors.nearest_neighbors[0].neighbors):
+                    product = utils_cloud_sql.get_product(
+                        int(n.datapoint.datapoint_id)
+                    )
+                    snapshot = {}
 
-                if product:
-                    snapshot = utils_cloud_sql.convert_product_to_dict(product)
-                result = {"id": n.datapoint.datapoint_id, "snapshot": snapshot}
-                results.append(result)
+                    if product:
+                        snapshot = utils_cloud_sql.convert_product_to_dict(product)
+                    result = {"id": n.datapoint.datapoint_id, "snapshot": snapshot}
+                    results.append(result)
 
-                if i == 9 or (num_responses < 10 and i == num_responses - 1):
-                    break
+                    if i == 9 or (num_responses < 10 and i == num_responses - 1):
+                        break
 
             conversation_history = []
             if search_doc_dict:

@@ -17,6 +17,7 @@ gcloud auth application-default set-quota-project $GOOGLE_CLOUD_PROJECT
 export GOOGLE_APPLICATION_CREDENTIALS="~/.config/gcloud/application_default_credentials.json"
 
 gcloud services enable \
+  calendar-json.googleapis.com \
   cloudapis.googleapis.com \
   cloudbuild.googleapis.com \
   cloudresourcemanager.googleapis.com \
