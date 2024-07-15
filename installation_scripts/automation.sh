@@ -110,7 +110,7 @@ sed -i "s|website_datastore_id = \"\"|website_datastore_id = 'csm-search-datasto
 sed -i "s|website_topic_id = \"website-search\"|website_topic_id = 'website-search'|" customer-services-modernization/backend-apis/app/config.toml
 
 ## [workspace]
-sed -i "s|calendar_id = \"\"|calendar_id = '${SERVICE_ACCOUNT_EMAIL}'|" customer-services-modernization/backend-apis/app/config.toml
+sed -i "s|calendar_id = \"\"|calendar_id = '${USER_EMAIL}'|" customer-services-modernization/backend-apis/app/config.toml
 
 
 ## [search-persona5]

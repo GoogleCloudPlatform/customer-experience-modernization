@@ -206,3 +206,5 @@ service firebase.storage {
   - p7
 
 * Enable Dialogflow Messenger Unauthorized Integration
+
+* Go to Google Clendar, share your calendar to `csm-sa@{PROJECT_ID}.iam.gserviceaccount.com` and grant the service account `Make changes and manage sharing` permission.
