@@ -290,8 +290,10 @@ def generate_agent_activity(data: GenerateAgentActivityRequest) -> str:
                 "prompt_agent_activity"
             ].format(data.conversation)
         ).replace("</output>", "")
-        response_palm = response_palm.lstrip("```json").rstrip("```")
-        print(response_palm)
+
+        response_palm = response_palm.replace("```json", "").replace("```", "")
+        print(f"=>{response_palm}")
+
         response = json.loads(response_palm)
     except Exception as e:
         raise HTTPException(

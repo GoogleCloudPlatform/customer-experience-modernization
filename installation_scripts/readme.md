@@ -7,14 +7,12 @@
 ## Google Cloud Project
 * Create a new GCP project
 ```shell
-# export WEB_HOST=localhost
+# export WEB_HOST=localhost # Uncomment If not running automation.sh in CloudShell
 export GOOGLE_CLOUD_PROJECT=<YOUR PROJECT ID>
 
 # export PATH=$PATH:$(dirname $(which npm))
 
 gcloud config set project $GOOGLE_CLOUD_PROJECT
-gcloud auth application-default set-quota-project $GOOGLE_CLOUD_PROJECT
-export GOOGLE_APPLICATION_CREDENTIALS="~/.config/gcloud/application_default_credentials.json"
 
 gcloud services enable \
   calendar-json.googleapis.com \
@@ -25,6 +23,7 @@ gcloud services enable \
   compute.googleapis.com \
   container.googleapis.com \
   containerregistry.googleapis.com \
+  gmail.googleapis.com \
   iam.googleapis.com \
   iamcredentials.googleapis.com \
   run.googleapis.com
@@ -157,8 +156,10 @@ gcloud firestore databases create --location=nam5 --type=firestore-native --proj
 ```
 
 * Run `automation.sh`
-```shell
 
+- When running `automation.sh` and prompted to login, please login with an Google account that has access to Google Workspace (Gmail and Calendar).
+
+```shell
 . automation.sh 2>&1 | tee run.log
 ```
 
@@ -207,4 +208,17 @@ service firebase.storage {
 
 * Enable Dialogflow Messenger Unauthorized Integration
 
-* Go to Google Clendar, share your calendar to `csm-sa@{PROJECT_ID}.iam.gserviceaccount.com` and grant the service account `Make changes and manage sharing` permission.
+* Google Workspace Setup
+  - The `automation.sh` uses the email you input during the setup to create a calendar event. If your organization restricts uses of Google Workspace, you may need to manually update the calendar_id setting in the generated `config.toml`, and update the setting.
+
+  ```ini
+  calendar_id = 'YOUR@GMAIL.COM'
+  ```
+
+  - The `automation.sh` uses the email you input during the setup to send emails. The email is configured in `config.toml`. If your organization restricts uses of Google Workspace, you may need to manually update the calendar_id setting in the generated `config.toml`, and update the setting.
+
+  ```ini
+  [salesforce]
+  # Vertex AI Search for email support
+  user_id = 'YOUR EMAIL'
+  ```
