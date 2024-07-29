@@ -154,6 +154,10 @@ python3 media_event_generation.py
 ```shell
 gcloud firestore databases create --location=nam5 --type=firestore-native --project=$GOOGLE_CLOUD_PROJECT
 ```
+* Update [Dockerfile](../backend-apis/Dockerfile)
+```dockerfile
+ARG PROJECT_ID=<YOUR GCP PROJECT ID>
+```
 
 * Run `automation.sh`
 
