@@ -1,7 +1,0 @@
-{
-  "name": "d079aa00-8efd-4c91-b7c0-1cae990ec47a",
-  "displayName": "Talk to human agent",
-  "priority": 500000,
-  "skipAutoAnnotation": true,
-  "numTrainingPhrases": 8
-}
