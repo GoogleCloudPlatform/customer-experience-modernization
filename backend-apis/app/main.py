@@ -56,8 +56,7 @@ app.include_router(router=p6_field_service_agent.router)
 app.include_router(router=p7_return_agent.router)
 
 origins = [
-    "*",
-    "https://kalschi-csm-5.web.app"
+    "*"
 ]
 
 
