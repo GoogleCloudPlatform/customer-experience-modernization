@@ -480,9 +480,9 @@ display: flex;padding: 10px 24px;margin-left: 10px;
 
 [multimodal]
 multimodal_model = "multimodalembedding"
-index_endpoint_id = "7591806732397969408"
+index_endpoint_id = ""
 deployed_index_id = "csm_deployed_index"
-vector_api_endpoint = "1212002304.us-central1-244831775715.vdb.vertexai.goog"
+vector_api_endpoint = ""
 prompt_with_query = """
 <Instructions>
 Answer the question below citing the index of the reference where you found the information.

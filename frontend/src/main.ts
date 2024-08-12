@@ -26,7 +26,7 @@ import { ContentCreatorAddProductComponent } from './app/content-creator/product
 import { ContentCreatorAddServiceComponent } from './app/content-creator/service/add-service/add-service.component';
 import { ContentCreatorEditProductComponent } from './app/content-creator/product/edit-product/edit-product.component';
 import { ContentCreatorEditServiceComponent } from './app/content-creator/service/edit-service/edit-service.component';
-import { importProvidersFrom } from '@angular/core';
+// import { importProvidersFrom } from '@angular/core';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { ScreenTrackingService, UserTrackingService, getAnalytics, provideAnalytics } from '@angular/fire/analytics'
@@ -81,13 +81,13 @@ bootstrapApplication(
     providers: [
       provideHttpClient(),
       provideRouter(routes),
-      importProvidersFrom([
+      // importProvidersFrom([
         provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
         provideFirestore(() => getFirestore()),
         provideAuth(() => getAuth()),
         provideAnalytics(() => getAnalytics()),
-        provideStorage(() => getStorage())
-      ]),
+        provideStorage(() => getStorage()),
+      // ]),
       provideAnimations(),
       ScreenTrackingService,
       UserTrackingService
