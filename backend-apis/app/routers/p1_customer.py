@@ -50,7 +50,6 @@ from app.models.p1_model import (
 from app.utils import (
     utils_cloud_sql,
     utils_gemini,
-    utils_palm,
     utils_recommendations,
     utils_salesforce,
     utils_search,
@@ -83,7 +82,9 @@ recommendations_topic_id = config["recommendations"][
 email_recommendation_topic_id = config["recommendations"][
     "email_recommendation_topic_id"
 ]
-email_template = config["recommendations"]["email_template"]
+email_template = config["recommendations"][
+    "email_template"
+]
 recommendations_topic_path = publisher.topic_path(
     project_id, recommendations_topic_id
 )
@@ -259,7 +260,7 @@ def get_reviews_summary(product_id: int) -> GetReviewsSummaryResponse:
             }
         )
         try:
-            summary = utils_palm.text_generation(
+            summary = utils_gemini.generate_gemini_pro_text(
                 prompt=config["summary"]["prompt_reviews"].format(
                     reviews=reviews_json
                 ),
@@ -318,7 +319,7 @@ def get_product_summary(product_id: int) -> GetProductSummaryResponse:
 
     try:
         product_json = json.dumps(product_dict)
-        summary = utils_palm.text_generation(
+        summary = utils_gemini.generate_gemini_pro_text(
             prompt=config["summary"]["prompt_product"].format(
                 product=product_json
             ),
@@ -426,11 +427,11 @@ def compare_products(data: CompareProductsRequest) -> HTMLResponse:
                 product_title_1=product_1["title"],
                 product_description_1=product_1["description"],
                 product_title_2=product_2["title"],
-                product_description_2=product_2["description"],
+                product_description_2=product_2["description"]
             ),
             temperature=0.2,
             top_k=40,
-            top_p=0.8,
+            top_p=0.8
         )
         return HTMLResponse(content=comparison)
     except GoogleAPICallError as e:
@@ -964,7 +965,6 @@ def trigger_unstructured_search(
 
     return "ok"
 
-
 # ---------------------------------POST---------------------------------------#
 @router.post(path="/add-order")
 def add_order(order: OrderRequest) -> str:
@@ -987,7 +987,7 @@ def add_order(order: OrderRequest) -> str:
     - user email
 
     **total_amount**: *float*
-    - Amount of order
+    - Amount of order 
 
     **is_delivery**: *boolean*
     - Home delivery
@@ -1018,7 +1018,7 @@ def add_order(order: OrderRequest) -> str:
             {
                 "email": order.email,
                 "user_id": order.user_id,
-                "documents": order.order_items,
+                "documents": order.order_items
             }
         ).encode("utf-8")
         future = publisher.publish(email_recommendation_topic_path, payload)
@@ -1030,7 +1030,6 @@ def add_order(order: OrderRequest) -> str:
         ) from e
 
     return str(doc.id)
-
 
 @router.post(path="/trigger-recommendation-email")
 def trigger_recommendation_email(
@@ -1055,20 +1054,20 @@ def trigger_recommendation_email(
     try:
         message = base64.b64decode(data.message["data"]).decode("utf-8")
         message_dict = json.loads(message)
-
+        
     except Exception as e:
         raise HTTPException(
             status_code=400, detail="Could not load pubsub message. " + str(e)
         ) from e
 
     results = []
-
+    
     try:
         documents = utils_recommendations.get_recommendations(
             recommendations_type="others-you-may-like",
-            event_type="add-to-cart",
+            event_type='add-to-cart',
             user_pseudo_id=message_dict["user_id"],
-            documents=[str(message_dict["documents"][0]["id"])],
+            documents=[str(message_dict["documents"][0]['id'])]
         )
         documents_dict = Message.to_dict(documents).get("results")
 
@@ -1083,27 +1082,21 @@ def trigger_recommendation_email(
         )
     try:
         recommendation_email = email_template
-        i = 1
+        i=1
         for record in results:
             recommendation_email = recommendation_email.replace(
-                "{PRODUCT_TITLE_" + str(i) + "}", record["title"]
-            )
+                "{PRODUCT_TITLE_"+str(i)+"}",record['title'])
             recommendation_email = recommendation_email.replace(
-                "{PRODUCT_CATEGORY_" + str(i) + "}", record["categories"][0]
-            )
+                "{PRODUCT_CATEGORY_"+str(i)+"}",record['categories'][0])
             recommendation_email = recommendation_email.replace(
-                "{PRODUCT_DESC_" + str(i) + "}", record["description"]
-            )
+                "{PRODUCT_DESC_"+str(i)+"}",record['description'])
             recommendation_email = recommendation_email.replace(
-                "{PRODUCT_IMG_" + str(i) + "}", record["image"]
-            )
-            i += 1
-
+                "{PRODUCT_IMG_"+str(i)+"}",record['image'])
+            i+=1
+        
         utils_workspace.send_email_single_thread(
-            recommendation_email,
-            message_dict["email"],
-            "Thank you for ordering from Cymbal!",
-        )
+            recommendation_email,message_dict['email'],
+            "Thank you for ordering from Cymbal!")
 
     except Exception as e:
         raise HTTPException(

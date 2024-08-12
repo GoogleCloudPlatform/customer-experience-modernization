@@ -33,7 +33,6 @@ PROJECT_ID = sql_cfg["project"]
 REGION = sql_cfg["region"]
 INSTANCE_NAME = sql_cfg["instance_name"]
 INSTANCE_CONNECTION_NAME = f"{PROJECT_ID}:{REGION}:{INSTANCE_NAME}"
-
 DB_USER = sql_cfg["db_user"]
 DB_NAME = sql_cfg["db_name"]
 
