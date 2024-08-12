@@ -433,13 +433,6 @@ def compare_products(data: CompareProductsRequest) -> HTMLResponse:
             top_k=40,
             top_p=0.8
         )
-        # TODO: remove 
-        print(f"""
-        === {type(comparison)} ===
-        {comparison}
-        ==========================
-        """)
-        # End TODO
         return HTMLResponse(content=comparison)
     except GoogleAPICallError as e:
         raise HTTPException(
